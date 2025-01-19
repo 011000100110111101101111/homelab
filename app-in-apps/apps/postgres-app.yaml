@@ -9,7 +9,7 @@ spec:
   sources:
     - repoURL: https://charts.bitnami.com/bitnami/
       chart: postgresql
-      targetRevision: 16.3.5
+      targetRevision: 12.1.0
       helm:
         releaseName: my-postgresql
         valuesObject:
