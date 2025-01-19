@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: automatic1111
+  name: stable-diffusion
   namespace: ollama
   labels:
-    app: automatic1111
+    app: stable-diffusion
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: automatic1111
+      app: stable-diffusion
   template:
     metadata:
       labels:
-        app: automatic1111
+        app: stable-diffusion
     spec:
       containers:
         - name: automatic1111-container
