@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkwarden
+  namespace: linkwarden
+spec:
+  selector:
+    matchLabels:
+      app: linkwarden
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: linkwarden
+    spec:
+      containers:
+        - name: linkwarden
+          image: ghcr.io/linkwarden/linkwarden:latest
+          env:
+            # Consume the secret
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-info
+                  key: postgres_url
+                  optional: false
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-info
+                  key: nextauth_secret
+                  optional: false
+            - name: NEXTAUTH_URL
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-info
+                  key: nextauth_url
+                  optional: false
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+              name: linkwarden
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+          # Mount the volume from the PVC
+          volumeMounts:
+            - mountPath: /data/data
+              name: kubestorage
+      restartPolicy: Always
+      volumes:
+        # Use PVC for Longhorn
+        - name: kubestorage
+          persistentVolumeClaim:
+            claimName: linkwarden-data
