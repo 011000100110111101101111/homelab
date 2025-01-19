@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stable-diffusion
+  namespace: ollama
+  labels:
+    app: stable-diffusion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stable-diffusion
+  template:
+    metadata:
+      labels:
+        app: stable-diffusion
+    spec:
+      containers:
+        - name: stable-diffusion
+          image: amithkk/stable-diffusion:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7860
+              name: http
+          envFrom:
+            - configMapRef:
+                name: stable-diffusion-config
+          volumeMounts:
+            - name: models
+              mountPath: /models
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: stable-diffusion-model-store
+      nodeSelector:
+        nvidia.com/gpu.present: "true"

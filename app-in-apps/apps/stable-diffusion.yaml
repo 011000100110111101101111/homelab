@@ -1,33 +1,22 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: stablediffusion-app
+  name: stable-diffusion-app
   namespace: argocd
+  labels:
+    application-type: deployment
 spec:
+  destination:
+    namespace: ollama
+    server: https://kubernetes.default.svc
   project: default
   source:
-    chart: stable-diffusion
-    repoURL: https://amithkk.github.io/stable-diffusion-k8s
-    targetRevision: 1.0.6
-    helm:
-      releaseName: my-stablediffusion
-      valuesObject:
-        models: {}
-        ingress:
-          enabled: true
-          className: tailscale
-          hosts:
-            - host: imagegen.border-orfe.ts.net
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - secretName: stablediffusion-ingress-secret
-              hosts:
-                - imagegen.border-orfe.ts.net
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: ollama
+    path: app-in-apps/yaml/stablediffusion
+    repoURL: https://github.com/011000100110111101101111/homelab
+    targetRevision: main
+    directory:
+      recurse: true
   syncPolicy:
     automated:
       prune: true

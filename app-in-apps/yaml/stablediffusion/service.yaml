@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stable-diffusion-service
+  namespace: ollama
+  labels:
+    app: stable-diffusion
+spec:
+  type: ClusterIP
+  ports:
+    - name: ui
+      port: 80
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: stable-diffusion
