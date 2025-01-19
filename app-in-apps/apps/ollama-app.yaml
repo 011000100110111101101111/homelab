@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: ollama
+    repoURL: https://otwld.github.io/ollama-helm/
+    targetRevision: 1.4.0
+    helm:
+      releaseName: my-ollama
+      valuesObject:
+        ollama:
+          gpu:
+            enabled: true
+            type: nvidia
+            number: 1
+          models:
+            pull:
+              - llama2
+        ingress:
+          enabled: true
+          className: tailscale
+          annotations:
+            - kubernetes.io/ingress.class: tailscale
+          hosts:
+            - host: ollama.border-orfe.ts.net
+          tls:
+            - secretName: ollama-tls-secret
+              hosts:
+                - ollama.border-orfe.ts.net
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: ollama
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
