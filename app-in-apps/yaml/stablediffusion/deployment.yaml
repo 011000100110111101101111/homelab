@@ -25,6 +25,10 @@ spec:
               nvidia.com/gpu: 1
               memory: "32Gi"
               cpu: "4"
+            limits:
+              memory: "32Gi"
+              cpu: "4"
+              nvidia.com/gpu: 1
           env:
             - name: WEB_ENABLE_AUTH
               value: "false"
