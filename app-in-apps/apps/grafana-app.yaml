@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-monitoring-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 8.8.2
+    helm:
+      releaseName: my-grafana
+      valuesObject:
+        persistence:
+          enabled: true
+        dashboards:
+          default:
+            prometheus-stats:
+              gnetId: 315
+              revision: 3
+              datasource: Prometheus
+        grafana.ini:
+          server:
+            domain: grafana.border-orfe.ts.net
+            root_url: "%(protocol)s://%(domain)s/grafana"
+            serve_from_sub_path: true
+        ingress:
+          enabled: true
+          hosts:
+            - grafana.border-orfe.ts.net
+          path: /grafana
+          pathType: Prefix
+          ingressClassName: tailscale
+        service:
+          type: ClusterIP
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
