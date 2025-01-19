@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nocodb-ingress
+  namespace: nocodb
+  labels:
+    app: nocodb
+  annotations:
+    kubernetes.io/ingress.class: tailscale
+spec:
+  ingressClassName: tailscale
+  rules:
+    - host: nocodb.border-orfe.ts.net
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: nocodb-service
+                port:
+                  name: ui
+  tls:
+    - hosts:
+        - nocodb.border-orfe.ts.net
