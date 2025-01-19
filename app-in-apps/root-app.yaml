@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app
+  name: root-app-grabber
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: default
-    name: in-cluster
+    name: https://kubernetes.default.svc
   project: default
   source:
     path: app-in-apps/apps
