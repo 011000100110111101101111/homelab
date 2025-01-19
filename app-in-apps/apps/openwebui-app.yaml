@@ -1,25 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ollama-app
+  name: openwebui-app
   namespace: argocd
 spec:
   project: default
   source:
-    chart: ollama
-    repoURL: https://otwld.github.io/ollama-helm/
+    chart: open-webui
+    repoURL: https://open-webui.github.io/helm-charts
     targetRevision: 1.4.0
     helm:
-      releaseName: my-ollama
+      releaseName: my-openwebui
       valuesObject:
+        ingress:
+          enabled: true
+          class: tailscale
+          host: ai.border-orfe.ts.net
+          tls: true
         ollama:
-          gpu:
-            enabled: true
-            type: nvidia
-            number: 1
-          models:
-            pull:
-              - llama2
+          enabled: false
+        persistence:
+          size: 20Gi
+          storageClass: longhorn
   destination:
     server: "https://kubernetes.default.svc"
     namespace: ollama

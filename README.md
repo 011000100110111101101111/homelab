@@ -31,3 +31,7 @@ syncPolicy:
 ```
 
 Essentially, this app is responsible for grabbing any NEW apps and auto deploying them, instead of adding an app to the repo, then having to go manually sync it before it will deploy. For a simple example, once the root app is deployed it is watching anything that gets added to the `app-in-apps` folder. Technically, we could just put raw yaml in there and it would deploy it all, but it would look awful, and be a mess to manage. Instead, we can seperate out our definitions, whether they are yaml, helm, and even seperate repos. Then, we add an `Application` file to the apps folder. This application is pointing to whatever we want to deploy, for example an ngxin server in yaml/examplenginx/ and will auto sync anything in this if we commit to the repo. The only point of the root-app was to be able to deploy our new app (which handles further syncing) from a commit.
+
+## NVIDIA Operator
+
+Needed to manually download the drivers (make sure to update modinit thing)
