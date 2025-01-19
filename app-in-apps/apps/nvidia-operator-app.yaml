@@ -15,7 +15,7 @@ spec:
         driver:
           enabled: false
         toolkit:
-          enabled: false
+          enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: gpu-operator
