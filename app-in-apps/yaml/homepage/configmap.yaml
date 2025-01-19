@@ -1,0 +1,235 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+  namespace: homepage
+  labels:
+    app: homepage
+data:
+  kubernetes.yaml: |
+    mode: cluster
+  settings.yaml: |
+    cardBlur: md
+    useEqualHeights: true
+    headerStyle: boxed
+    layout:
+      Apps:
+        style: column
+        icon: shell-light
+        tab: Homelab
+      Admin:
+        style: column
+        icon: google-admin
+        tab: Homelab
+      Info:
+        style: column
+        icon: readthedocs-light
+        tab: Homelab
+      Entertainment:
+        style: row
+        columns: 6
+        iconsOnly: true
+        icon: beets
+        tab: Homelab
+      Developer:
+        style: row
+        tab: Homelab
+      Cluster Management:
+        initiallyCollapsed: true
+        style: row
+        tab: Homelab
+      Administration:
+        style: column
+        tab: Work
+      Applications:
+        style: column
+        tab: Work
+      Automation:
+        style: column
+        tab: Work
+    background: https://images.unsplash.com/photo-1672288072591-619afe830096?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+    backgroundOpacity: 0.5
+    theme: dark
+    color: slate
+
+  custom.css: ""
+  custom.js: ""
+  bookmarks.yaml: |
+    - Entertainment:
+        - Youtube:
+            - abbr: YT
+              icon: youtube
+              href: https://www.youtube.com
+        - Twitch:
+            - abbr: TW
+              icon: twitch
+              href: https://www.twitch.tv
+        - Apple TV:
+            - abbr: AT
+              icon: apple-tv-plus
+              href: https://tv.apple.com
+        - Max:
+            - abbr: MA
+              icon: max
+              href: https://play.max.com
+        - Crunchyroll:
+            - abbr: CR
+              icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/netbird.svg
+              href: https://www.crunchyroll.com
+        - Hulu:
+            - abbr: HU
+              icon: hulu
+              href: https://www.hulu.com/hub/home
+        - Disney+:
+            - abbr: DN
+              icon: disney-plus
+              href: https://www.disneyplus.com/home
+
+    - Developer:
+        - Github:
+            - abbr: GH
+              icon: github-light
+              href: https://github.com/
+        - Github:
+            - abbr: GH
+              icon: github-light
+              href: https://github.com/
+
+  services.yaml: |
+    - Apps:
+        - Linkwarden:
+            href: https://linkwarden.border-orfe.ts.net/dashboard
+            icon: linkwarden
+            description: Link Management
+        - Vikunja:
+            href: https://tasks.border-orfe.ts.net/
+            icon: vikunja
+            description: Task Management
+        - Mealie:
+            href: https://meals.border-orfe.ts.net/g/home
+            icon: mealie
+            description: Meal Planning
+
+    - Admin:
+        - Longhorn:
+            href: https://longhorn.border-orfe.ts.net/#/dashboard
+            icon: longhorn
+            description: K8s storage UI
+        - Tailscale:
+            href: https://login.tailscale.com/admin/machines
+            icon: tailscale-light
+            description: VPN Configuration
+    - Info:
+        - Minecraft Server:
+            href: 100.67.185.94:32535
+            icon: minecraft
+            description: Modded Minecraft - FTB
+        - Strava Tracking:
+            href: https://www.strava.com/athlete/training
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/miniboard.png
+            description: Excersise Logs
+        - ChatGPT:
+            href: https://chatgpt.com
+            icon: chatgpt
+            description: AI
+    - Administration:
+        - Microsoft 365 Admin:
+            href: https://admin.microsoft.com/#/homepage
+            icon: microsoft-365-admin-center
+            description: Microsoft 365 Admin Center
+        - Sharepoint Admin:
+            href: https://abodeem-admin.sharepoint.com/_layouts/15/online/AdminHome.aspx#/home
+            icon: microsoft-sharepoint
+            description: Sharepoint Admin Center
+        - Lastpass:
+            href: https://lastpass.com/company/#!/dashboard
+            icon: lastpass
+            description: Password Management
+    - Applications:
+        - Outlook:
+            href: https://outlook.office.com/mail/
+            icon: microsoft-outlook
+            description: Outlook Mail
+        - Calendar:
+            href: https://outlook.office.com/calendar/view/workweek
+            icon: microsoft-exchange
+            description: Outlook Calendar
+        - Teams:
+            href: https://teams.microsoft.com/v2/
+            icon: microsoft-teams
+            description: Outlook Calendar
+        - Workflow ToDo Tasks:
+            href: https://abodeem.sharepoint.com/sites/abodeit/Lists/Workflow%20Request%20Backlog/AllItems.aspx?viewid=54e04c79%2Da8c2%2D43e0%2Db4d7%2Da876bb18d46b&newTargetListUrl=%2Fsites%2Fabodeit%2FLists%2FWorkflow%20Request%20Backlog&viewpath=%2Fsites%2Fabodeit%2FLists%2FWorkflow%20Request%20Backlog%2FAllItems%2Easpx
+            icon: microsoft-sharepoint
+            description: Workflow ToDo Task Tracking
+    - Automation:
+        - Power Automate:
+            href: https://make.powerautomate.com/environments/Default-64d02b5c-ea71-4a74-87e2-572bd16e1914/flows
+            icon: microsoft-bing
+            description: Power Automate
+        - Zapier:
+            href: https://zapier.com/app/home
+            icon: owasp-zap
+            description: Zapier Automation
+        - IT Sharepoint:
+            href: https://abodeem.sharepoint.com/sites/AbodeIT-ScriptsandProcesses
+            icon: microsoft-sharepoint
+            description: IT Sharepoint
+        - Error Tracking:
+            href: https://abodeem.sharepoint.com/sites/AbodeIT-ScriptsandProcesses/Lists/Power%20Automate%20Error%20Tracking/AllItems.aspx?sortField=RunTime&isAscending=false&viewid=61916f81%2D59a4%2D47f0%2Da2db%2D761db6dcf9af
+            icon: microsoft-sharepoint
+            description: IT Sharepoint
+        - Salesforce:
+            href: https://0ttb0000000r0pw1123.lightning.force.com/lightning/n/IT_Homepage
+            icon: airvpn
+            description: CRM Solution
+        - JotForm:
+            href: https://abodeem.jotform.com/myforms/
+            icon: google-forms
+            description: Form Submissions
+
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          # Shows cluster-wide statistics
+          show: true
+          # Shows the aggregate CPU stats
+          cpu: true
+          # Shows the aggregate memory stats
+          memory: true
+          # Shows a custom label
+          showLabel: true
+          label: "cluster"
+        nodes:
+          # Shows node-specific statistics
+          show: true
+          # Shows the CPU for each node
+          cpu: true
+          # Shows the memory for each node
+          memory: true
+          # Shows the label, which is always the node name
+          showLabel: true
+    - search:
+        provider: google
+        target: _blank
+        showSearchSuggestions: true
+    - openmeteo:
+        label: Boston
+        latitude: 42.496691
+        longitude: -70.947365
+        timezone: US/Eastern
+        units: imperial
+        cache: 5
+        format:
+          maximumFractionDigits: 1
+    # - Calendar:
+    #     icon: mdi-calendar-blank
+    #     description: Calendar
+    #     widget:
+    #       type: calendar
+    #       view: monthly
+    #       maxEvents: 10
+    #       showTime: false
+    #       previousDays: 3
+  docker.yaml: ""
