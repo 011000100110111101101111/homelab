@@ -11,6 +11,11 @@ spec:
     targetRevision: 24.9.1
     helm:
       releaseName: my-nvidia
+      valuesObject:
+        driver:
+          enabled: false
+        toolkit:
+          enabled: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: gpu-operator
