@@ -19,8 +19,10 @@ spec:
             enabled: true
             hosts:
               - prometheus.border-orfe.ts.net
-            path: /
-            pathType: Prefix
+            tls:
+              - secretName: prometheus-server-tls
+                hosts:
+                  - prometheus.border-orfe.ts.net
             ingressClassName: tailscale
             service:
               type: ClusterIP

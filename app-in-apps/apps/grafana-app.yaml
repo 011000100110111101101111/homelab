@@ -20,18 +20,15 @@ spec:
               gnetId: 315
               revision: 3
               datasource: Prometheus
-        grafana.ini:
-          server:
-            domain: grafana.border-orfe.ts.net
-            root_url: "%(protocol)s://%(domain)s"
-            serve_from_sub_path: false
         ingress:
           enabled: true
+          ingressClassName: tailscale
           hosts:
             - grafana.border-orfe.ts.net
-          path: /
-          pathType: Prefix
-          ingressClassName: tailscale
+          tls:
+            - secretName: grafana-tls-secret
+              hosts:
+                - grafana.border-orfe.ts.net
         service:
           type: ClusterIP
   destination:
