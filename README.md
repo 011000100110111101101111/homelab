@@ -1,5 +1,11 @@
 # My Homelab
 
+## Pre-requisites
+
+- Argocd installed
+- CSI installed (If not longhorn adjust some apps/yaml)
+- Tailscale for Ingress/Loadbalancers (If not, adjust some apps/yaml)
+
 ## Initial Setup
 
 Once argocd is deployed, you should create a new app on the interface with the following values.

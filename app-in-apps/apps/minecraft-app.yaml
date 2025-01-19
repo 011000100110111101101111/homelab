@@ -1,0 +1,68 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minecraft-server-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: minecraft
+    repoURL: https://itzg.github.io/minecraft-server-charts/
+    targetRevision: 4.23.7
+    helm:
+      releaseName: my-minecraft
+      valuesObject:
+        nodeSelector:
+          kubernetes.io/hostname: k8-worker-3
+        resources:
+          requests:
+            memory: 16384Mi
+            cpu: 4000m
+        persistence:
+          storageClassName: longhorn
+          dataDir:
+            enabled: true
+            Size: 100Gi
+            accessModes:
+              - ReadWriteOnce
+            existingClaim: minecraft-data-pvc
+        image:
+          repository: itzg/minecraft-server
+          tag: java8-multiarch
+        minecraftServer:
+          eula: "TRUE"
+          type: "FTBA"
+          query:
+            enabled: true
+          ftbModpackId: 125
+          difficulty: normal
+          modt: "FTB Ultimate Reloaded Via Kubernetes :)"
+          pvp: true
+          levelType: AMPLIFIED
+          ops: "concherino"
+          memory: 16G
+          serviceType: LoadBalancer
+          loadBalancerClass: tailscale
+          rcon:
+            enabled: false
+        mcbackup:
+          enabled: true
+          persistence:
+            storageClassName: longhorn
+            dataDir:
+              enabled: true
+              Size: 50Gi
+              accessModes:
+                - ReadWriteOnce
+              existingClaim: minecraft-data-pvc
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: minecraft-server
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
