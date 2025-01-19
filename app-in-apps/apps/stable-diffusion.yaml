@@ -12,6 +12,7 @@ spec:
     helm:
       releaseName: my-stablediffusion
       valuesObject:
+        models: {}
         ingress:
           enabled: true
           className: tailscale
