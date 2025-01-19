@@ -23,8 +23,6 @@ spec:
         ingress:
           enabled: true
           className: tailscale
-          annotations:
-            - kubernetes.io/ingress.class: tailscale
           hosts:
             - host: ollama.border-orfe.ts.net
           tls:
