@@ -27,6 +27,9 @@ spec:
             kubernetes.io/ingress.class: tailscale
           hosts:
             - host: ollama.border-orfe.ts.net
+              paths:
+                - path: /
+                  pathType: Prefix
           tls:
             - secretName: ollama-tls-secret
               hosts:
