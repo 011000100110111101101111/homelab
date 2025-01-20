@@ -21,7 +21,7 @@ spec:
           command: ["/app/stable-diffusion-webui/webui.sh"]
           args: ["--no-half", "--no-half-vae", "--precision", "full"]
           ports:
-            - containerPort: 8080
+            - containerPort: 7860
               protocol: TCP
           resources:
             requests:
