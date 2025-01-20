@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -8,5 +9,18 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
+      storage: 100Gi
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: stable-diffusion-model-output
+  namespace: ollama
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
       storage: 25Gi
-  storageClassName: longhorn
+  storageClassName: local-storage
