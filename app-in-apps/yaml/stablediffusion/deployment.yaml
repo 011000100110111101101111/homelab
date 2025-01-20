@@ -37,7 +37,7 @@ spec:
             - name: WEBUI_ARGS
               value: "--api --listen"
             - name: SUPERVISOR_NO_AUTOSTART
-              value: "jupyter,syncthing"
+              value: "jupyter,syncthing,cloudflared,serviceportal,storagemonitor,sshd"
           volumeMounts:
             - name: models-volume
               mountPath: /opt/stable-diffusion-webui/models
