@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: tailscale
   rules:
-    - host: image-ai.border-orfe.ts.net
+    - host: image-gen.border-orfe.ts.net
       http:
         paths:
           - path: "/"
@@ -23,4 +23,4 @@ spec:
                   name: ui
   tls:
     - hosts:
-        - image-ai.border-orfe.ts.net
+        - image-gen.border-orfe.ts.net
