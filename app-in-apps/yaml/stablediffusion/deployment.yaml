@@ -18,6 +18,8 @@ spec:
       containers:
         - name: automatic1111-container
           image: universonic/stable-diffusion-webui:full
+          command: ["/app/stable-diffusion-webui/launch.py"]
+          args: ["--no-half", "--no-half-vae", "--precision", "full"]
           ports:
             - containerPort: 8080
               protocol: TCP
