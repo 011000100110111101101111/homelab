@@ -12,6 +12,6 @@ spec:
     - name: ui
       port: 8080
       protocol: TCP
-      targetPort: 8080
+      targetPort: 7860
   selector:
     app: stable-diffusion
