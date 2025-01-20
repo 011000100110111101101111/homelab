@@ -17,14 +17,18 @@ spec:
     spec:
       containers:
         - name: automatic1111-container
-          image: siutin/stable-diffusion-webui-docker:latest-cuda-12.1.1
+          image: universonic/stable-diffusion-webui:full
           command:
-            - bash
+            - python
           args:
-            - webui.sh
-            - --share
+            - webui.py
+            - --no-half
+            - --no-half-vae
+            - --precision
+            - full
           ports:
-            - containerPort: 7860
+            - containerPort: 8080
+              protocol: TCP
           resources:
             requests:
               nvidia.com/gpu: 1
@@ -35,16 +39,30 @@ spec:
               cpu: "4"
               nvidia.com/gpu: 1
           volumeMounts:
-            - name: models-volume
+            - name: stable-diffusion-data
+              mountPath: /app/stable-diffusion-webui/inputs
+              subPath: inputs
+            - name: stable-diffusion-data
+              mountPath: /app/stable-diffusion-webui/textual_inversion_templates
+              subPath: textual_inversion_templates
+            - name: stable-diffusion-data
+              mountPath: /app/stable-diffusion-webui/embeddings
+              subPath: embeddings
+            - name: stable-diffusion-data
+              mountPath: /app/stable-diffusion-webui/extensions
+              subPath: extensions
+            - name: stable-diffusion-data
               mountPath: /app/stable-diffusion-webui/models
-            - name: outputs-volume
+              subPath: models
+            - name: stable-diffusion-data
+              mountPath: /app/stable-diffusion-webui/localizations
+              subPath: localizations
+            - name: stable-diffusion-data
               mountPath: /app/stable-diffusion-webui/outputs
+              subPath: outputs
       volumes:
-        - name: models-volume
+        - name: stable-diffusion-data
           persistentVolumeClaim:
             claimName: stable-diffusion-model-store
-        - name: outputs-volume
-          persistentVolumeClaim:
-            claimName: stable-diffusion-model-output
       nodeSelector:
         nvidia.com/gpu.present: "true"

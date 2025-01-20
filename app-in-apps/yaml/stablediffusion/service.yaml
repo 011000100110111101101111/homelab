@@ -10,8 +10,8 @@ spec:
   type: ClusterIP
   ports:
     - name: ui
-      port: 80
+      port: 8080
       protocol: TCP
-      targetPort: 7860
+      targetPort: 8080
   selector:
     app: stable-diffusion
