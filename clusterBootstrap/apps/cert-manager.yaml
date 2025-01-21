@@ -1,0 +1,63 @@
+---
+- name: Cert-manager already deployed?
+  shell: |
+    kubectl get namespace {{ postcluster_cert_manager_namespace }} --ignore-not-found
+  register: cert_manager_alreadydeployed_check
+  ignore_errors: yes
+  args:
+    executable: /bin/bash
+  become: true
+  become_user: "{{ become_user_setting }}"
+  tags:
+    - apps
+    - database
+- block:
+    - name: Add cert_manager Helm Repo
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm_repository:
+        name: "{{ postcluster_cert_manager_helm_repo_name }}"
+        repo_url: "{{ postcluster_cert_manager_helm_repo_url }}"
+
+    - name: Deploy cert_manager
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm:
+        name: "{{ postcluster_cert_manager_chart_name }}"
+        chart_ref: "{{ postcluster_cert_manager_chart_ref }}"
+        chart_version: "{{ postcluster_cert_manager_chart_version }}"
+        release_namespace: "{{ postcluster_cert_manager_namespace }}"
+        create_namespace: true
+        values:
+          crds:
+            enabled: true
+      tags:
+        - apps
+        - database
+
+    - name: Apply Metallb L2Advertisement B yaml file
+      shell: |
+        kubectl apply -f - <<EOF
+        apiVersion: cert-manager.io/v1
+        kind: "{{ postcluster_cert_manager_issuerType }}"
+        metadata:
+          name: "{{ postcluster_cert_manager_issuerName }}"
+        spec:
+          acme:
+            # The ACME server URL
+            server: https://acme-v02.api.letsencrypt.org/directory
+            # Email address used for ACME registration
+            email: "{{ postcluster_cert_manager_acmeEmail }}"
+            # Name of a secret used to store the ACME account private key (Auto-created, name what you want, must match ingress issuer)
+            privateKeySecretRef:
+              name: "{{ postcluster_cert_manager_issuerKey_secretName }}"
+            # Enable the DNS-01 challenge provider
+            solvers:
+            - dns01:
+                cloudflare:
+                  apiTokenSecretRef:
+                    name: "{{ postcluster_cert_manager_apiToken_secretName }}"
+                    key: api-token
+        EOF
+      become: true
+      become_user: "{{ become_user_setting }}"

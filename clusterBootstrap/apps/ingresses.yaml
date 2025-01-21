@@ -1,0 +1,68 @@
+---
+- name: Apply ingress
+  shell: |
+    kubectl apply -f - <<EOF
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: argocd-ingress
+      namespace: "{{ postcluster_argocd_namespace }}"
+      labels:
+        app: argocd
+      annotations:
+        kubernetes.io/ingress.class: "{{ postcluster_ingress_classname }}"
+        cert-manager.io/cluster-issuer: "{{ postcluster_cert_manager_issuerName }}"
+    spec:
+      ingressClassName: "{{ postcluster_ingress_classname }}"
+      rules:
+        - host: "{{ postcluster_argocd_domain }}"
+          http:
+            paths:
+              - path: "/"
+                pathType: Prefix
+                backend:
+                  service:
+                    name: my-argo-cd-argocd-server
+                    port:
+                      number: 80
+      tls:
+        - hosts:
+          - "{{ postcluster_argocd_domain }}"
+          secretName: argocd-ingress-secret
+    EOF
+  become: true
+  become_user: "{{ become_user_setting }}"
+
+- name: Apply ingress
+  shell: |
+    kubectl apply -f - <<EOF
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: longhorn-ingress
+      namespace: "{{ postcluster_longhorn_namespace }}"
+      labels:
+        app: longhorn
+      annotations:
+        kubernetes.io/ingress.class: "{{ postcluster_ingress_classname}}"
+        cert-manager.io/cluster-issuer: "{{ postcluster_cert_manager_issuerName }}"
+    spec:
+      ingressClassName: "{{ postcluster_ingress_classname }}"
+      rules:
+        - host: "{{ postcluster_longhorn_domain }}"
+          http:
+            paths:
+              - path: "/"
+                pathType: Prefix
+                backend:
+                  service:
+                    name: longhorn-frontend
+                    port:
+                      number: 80
+      tls:
+        - hosts:
+          - "{{ postcluster_longhorn_domain }}"
+          secretName: longhorn-ingress-secret
+    EOF
+  become: true
+  become_user: "{{ become_user_setting }}"

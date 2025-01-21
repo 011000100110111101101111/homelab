@@ -1,0 +1,38 @@
+###
+# From: https://github.com/NE-Collegiate-Cyber-Defense-League/neccdc-2024-public/blob/main/ansible/regionals/post/kubernetes/tasks/haproxy_ingress.yaml
+###
+
+---
+- name: Longhorn already deployed?
+  shell: |
+    kubectl get namespace {{ postcluster_longhorn_namespace }} --ignore-not-found
+  register: longhorn_alreadydeployed_check
+  ignore_errors: yes
+  args:
+    executable: /bin/bash
+  become: true
+  become_user: "{{ become_user_setting }}"
+  tags:
+    - apps
+    - storage
+- block:
+    - name: Add longhorn Helm Repo
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm_repository:
+        name: "{{ postcluster_longhorn_helm_repo_name }}"
+        repo_url: "{{ postcluster_longhorn_helm_repo_url }}"
+
+    # https://artifacthub.io/packages/helm/haproxy-ingress/haproxy-ingress
+    - name: Deploy longhorn
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm:
+        name: "{{ postcluster_longhorn_chart_name }}"
+        chart_ref: "{{ postcluster_longhorn_chart_ref }}"
+        chart_version: "{{ postcluster_longhorn_chart_version }}"
+        release_namespace: "{{ postcluster_longhorn_namespace }}"
+        create_namespace: true
+      tags:
+        - apps
+        - loadbalancer

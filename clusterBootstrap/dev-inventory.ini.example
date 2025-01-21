@@ -1,0 +1,17 @@
+# You must keep the far left as the IP so the /etc/hosts file can be populated correctly.
+# Prod
+[masters]
+10.10.10.9 ansible_host=10.10.10.9
+
+[workers]
+10.10.10.10 ansible_host=10.10.10.10
+10.10.10.11 ansible_host=10.10.10.11
+10.10.10.12 ansible_host=10.10.10.12
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_become_pass="localpasswordcaninjectifyouwantbutslowforme"
+ansible_user="ubuntu"
+ansible_become_method=sudo
+ansible_become=yes

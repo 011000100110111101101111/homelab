@@ -24,11 +24,11 @@ spec:
           enabled: true
           ingressClassName: tailscale
           hosts:
-            - grafana.border-orfe.ts.net
+            - grafana.nexus-core.org
           tls:
             - secretName: grafana-tls-secret
               hosts:
-                - grafana.border-orfe.ts.net
+                - grafana.nexus-core.org
         service:
           type: ClusterIP
   destination:

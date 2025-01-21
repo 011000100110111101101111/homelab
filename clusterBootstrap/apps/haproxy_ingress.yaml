@@ -1,0 +1,47 @@
+###
+# From: https://github.com/NE-Collegiate-Cyber-Defense-League/neccdc-2024-public/blob/main/ansible/regionals/post/kubernetes/tasks/haproxy_ingress.yaml
+###
+
+---
+- name: HAProxy already deployed?
+  shell: |
+    kubectl get namespace {{ postcluster_haproxyingress_namespace }} --ignore-not-found
+  register: haproxyingress_alreadydeployed_check
+  ignore_errors: yes
+  args:
+    executable: /bin/bash
+  become: true
+  become_user: "{{ become_user_setting }}"
+  tags:
+    - apps
+    - ingress
+- block:
+    - name: Add haproxy-kubernetes-ingress Helm Repo
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm_repository:
+        name: "{{ postcluster_haproxyingress_helm_repo_name }}"
+        repo_url: "{{ postcluster_haproxyingress_helm_repo_url }}"
+
+    # https://artifacthub.io/packages/helm/haproxy-ingress/haproxy-ingress
+    - name: Deploy haproxy-kubernetes-ingress
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm:
+        name: "{{ postcluster_haproxyingress_chart_name }}"
+        chart_ref: "{{ postcluster_haproxyingress_chart_ref }}"
+        chart_version: "{{ postcluster_haproxyingress_chart_version }}"
+        release_namespace: "{{ postcluster_haproxyingress_namespace }}"
+        create_namespace: true
+        values:
+          controller:
+            kind: DaemonSet
+            ingressClass: haproxy
+            service:
+              type: LoadBalancer
+              externalTrafficPolicy: Local
+            ingressClassResource:
+              enabled: true
+      tags:
+        - apps
+        - ingress

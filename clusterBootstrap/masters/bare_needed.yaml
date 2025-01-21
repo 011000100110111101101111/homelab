@@ -1,0 +1,112 @@
+---
+- name: Check if the master node is already initialized
+  ansible.builtin.stat:
+    path: /etc/kubernetes/admin.conf
+  register: kubeadm_init
+
+- name: Helm repository
+  block:
+    - name: Download key
+      ansible.builtin.get_url:
+        url: https://baltocdn.com/helm/signing.asc
+        dest: /usr/share/keyrings/helm.asc
+
+    - name: Add APT repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/helm.asc] https://baltocdn.com/helm/stable/debian/ all main"
+        state: present
+
+- name: Update apt packages
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install helm
+  ansible.builtin.apt:
+    name: helm
+    state: present
+
+- name: Initialize the master node
+  ansible.builtin.command: kubeadm init --pod-network-cidr={{ basecluster_network_cidr }}
+  when: not kubeadm_init.stat.exists
+  changed_when: not kubeadm_init.stat.exists
+  become: true
+  become_user: root
+
+- name: Create .kube directory
+  ansible.builtin.file:
+    path: /home/{{ become_user_setting }}/.kube
+    state: directory
+    owner: "{{ become_user_setting }}"
+    group: "{{ become_user_setting }}"
+    mode: "0744"
+  when: not kubeadm_init.stat.exists
+
+- name: Copy the kube config file
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/{{ become_user_setting }}/.kube/config
+    remote_src: true
+    owner: "{{ become_user_setting }}"
+    group: "{{ become_user_setting }}"
+    mode: "0640"
+  when: not kubeadm_init.stat.exists
+  changed_when: not kubeadm_init.stat.exists
+
+- name: Add Calico Helm Repo
+  kubernetes.core.helm_repository:
+    name: projectcalico
+    repo_url: "{{ basecluster_calico_helm_chart_url }}"
+  become: true
+  become_user: "{{ become_user_setting }}"
+
+- name: Wait for kube-system pods become ready
+  become: true
+  become_user: "{{ become_user_setting }}"
+  ansible.builtin.shell: "kubectl wait --namespace=kube-system --for=condition=Ready pods --selector tier=control-plane --timeout=600s"
+
+- name: Install Calico
+  kubernetes.core.helm:
+    name: calico
+    namespace: "{{ basecluster_tigera_calico_namespace }}"
+    chart_ref: "{{ basecluster_calico_chart_ref }}"
+    create_namespace: true
+    wait: true
+  become: true
+  become_user: "{{ become_user_setting }}"
+
+- name: Wait for calico pods to start
+  ansible.builtin.pause:
+    seconds: 30
+
+- name: Wait for calico pods become ready
+  become: true
+  become_user: "{{ become_user_setting }}"
+  ansible.builtin.shell: "kubectl wait --namespace=calico-system --for=condition=Ready pods --selector k8s-app=calico-node --timeout=600s"
+
+- name: Install SealedSecrets Security
+  ansible.builtin.include_tasks:
+    file: "../apps/sealedsecrets.yaml"
+  tags:
+    - apps
+    - secrets
+
+- name: Wait for everything to start
+  ansible.builtin.pause:
+    seconds: 60
+
+- name: Get the token for joining the worker nodes
+  ansible.builtin.command: kubeadm token create  --print-join-command
+  register: kubernetes_join_command
+  when: not kubeadm_init.stat.exists
+  changed_when: false
+
+- name: Create dummy host to store variable for node config
+  ansible.builtin.add_host:
+    name: "DUMMY_HOST"
+    JOIN_COMMAND: "{{ kubernetes_join_command.stdout_lines[0] }}"
+  when: not kubeadm_init.stat.exists
+  changed_when: false
+
+- name: Change KubeConfig permissions
+  ansible.builtin.command: chmod go-r /home/{{ become_user_setting }}/.kube/config
+  changed_when: true

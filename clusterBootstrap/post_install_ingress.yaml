@@ -1,0 +1,18 @@
+- name: Post Kubernetes apps setup
+  hosts: masters
+  become: true
+  vars_files:
+    - "./config.yaml"
+  tasks:
+    - name: Fail if wrong OS
+      ansible.builtin.fail:
+        msg: "OS should be Ubuntu 24.04, not {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '24.04'
+
+    #Spare ingresses
+    - name: Install ingresses
+      ansible.builtin.include_tasks:
+        file: "./apps/ingresses.yaml"
+      tags:
+        - apps
+        - pipeline

@@ -1,0 +1,58 @@
+---
+- hosts: all
+  vars_files:
+    - "./config.yaml"
+  become: yes
+  tasks:
+    - name: Stop Docker service
+      ansible.builtin.systemd:
+        name: docker
+        state: stopped
+        enabled: no
+      ignore_errors: true
+
+    - name: Stop kubelet service
+      ansible.builtin.systemd:
+        name: kubelet
+        state: stopped
+        enabled: no
+      ignore_errors: true
+
+    - name: Stop Kubernetes services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: stopped
+        enabled: no
+      loop:
+        - kubelet
+        - docker
+        - containerd
+      ignore_errors: true
+
+    - name: Uninstall stuff
+      become: yes
+      shell: |
+        sudo kubeadm reset --force
+        sudo apt-get purge --allow-change-held-packages -y kubeadm kubectl kubelet kubernetes-cni containerd.io
+        sudo rm -rf /home/{{ become_user_setting | default(ansible_env.USER) }}/.kube
+        sudo rm -rf /etc/cni /etc/kubernetes /var/lib/dockershim /var/lib/etcd /var/lib/kubelet /var/lib/etcd2/ /var/run/kubernetes ~/.kube/*
+        sudo rm -rf /var/lib/docker /etc/docker /var/run/docker.sock
+        sudo rm -f /etc/apparmor.d/docker /etc/systemd/system/etcd*
+        sudo iptables -F && iptables -X
+        sudo iptables -t nat -F && iptables -t nat -X
+        sudo iptables -t raw -F && iptables -t raw -X
+        sudo iptables -t mangle -F && iptables -t mangle -X
+        sudo rm -f /etc/apt/keyrings/docker.asc
+        sudo rm -f /etc/apt/keyrings/docker.gpg
+        sudo rm -f /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+        sudo rm -f /etc/apt/keyrings/kubernetes-apt-keyring.asc
+        sudo rm -f /etc/apt/sources.list.d/kubernetes.list.list
+        sudo rm -f /etc/apt/sources.list.d/docker.list
+        sudo rm -f /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
+        sudo rm -f /etc/apt/sources.list.d/apt_kubernetes_io.list
+        sudo apt-get clean
+        sudo apt-get autoclean
+
+    - name: Reboot
+      reboot:
+        reboot_timeout: 600

@@ -1,0 +1,54 @@
+- name: Post Kubernetes apps setup
+  hosts: masters
+  become: true
+  vars_files:
+    - "./config.yaml"
+  tasks:
+    - name: Fail if wrong OS
+      ansible.builtin.fail:
+        msg: "OS should be Ubuntu 24.04, not {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '24.04'
+
+    # Bare metal loadbalancing
+    - name: Install Metallb Loadbalancer
+      ansible.builtin.include_tasks:
+        file: "./apps/metallb.yaml"
+      tags:
+        - apps
+        - loadbalancer
+
+    # Storage Solution
+    - name: Install Longhorn Storage
+      ansible.builtin.include_tasks:
+        file: "./apps/longhorn.yaml"
+      tags:
+        - apps
+        - storage
+
+    - name: Wait for everything to start
+      ansible.builtin.pause:
+        seconds: 120
+
+    # Ingress solution
+    - name: Install HAproxy Ingress
+      ansible.builtin.include_tasks:
+        file: "./apps/haproxy_ingress.yaml"
+      tags:
+        - apps
+        - ingress
+
+    # Certificate Solution
+    - name: Install Cert-manager certificates
+      ansible.builtin.include_tasks:
+        file: "./apps/cert-manager.yaml"
+      tags:
+        - apps
+        - certificates
+
+    # CICD Solution
+    - name: Install Argocd Pipeline
+      ansible.builtin.include_tasks:
+        file: "./apps/argocd.yaml"
+      tags:
+        - apps
+        - pipeline

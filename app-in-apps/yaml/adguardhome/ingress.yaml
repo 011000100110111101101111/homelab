@@ -7,11 +7,12 @@ metadata:
   labels:
     app: adguard
   annotations:
-    kubernetes.io/ingress.class: tailscale
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
 spec:
-  ingressClassName: tailscale
+  ingressClassName: haproxy
   rules:
-    - host: adguard.border-orfe.ts.net
+    - host: adguard.nexus-core.org
       http:
         paths:
           - path: "/"
@@ -23,4 +24,5 @@ spec:
                   name: adminpanel
   tls:
     - hosts:
-        - adguard.border-orfe.ts.net
+        - adguard.nexus-core.org
+      secretName: adguard-ingress-secret

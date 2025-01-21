@@ -1,0 +1,11 @@
+---
+- name: Post-Launch Task ... Check if the worker node is already joined
+  ansible.builtin.stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: kubeadm_already_joined
+
+- name: Post-Launch Task ... Join the worker nodes to the cluster
+  ansible.builtin.command: "{{ hostvars['DUMMY_HOST']['JOIN_COMMAND'] }}"
+  become: true
+  when: not kubeadm_already_joined.stat.exists
+  changed_when: false

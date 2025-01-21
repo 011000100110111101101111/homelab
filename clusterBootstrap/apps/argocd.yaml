@@ -1,0 +1,39 @@
+---
+- name: Argocd already deployed?
+  shell: |
+    kubectl get namespace {{ postcluster_argocd_namespace }} --ignore-not-found
+  register: argocd_alreadydeployed_check
+  ignore_errors: yes
+  args:
+    executable: /bin/bash
+  become: true
+  become_user: "{{ become_user_setting }}"
+  tags:
+    - apps
+    - database
+- block:
+    - name: Add argocd Helm Repo
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm_repository:
+        name: "{{ postcluster_argocd_helm_repo_name }}"
+        repo_url: "{{ postcluster_argocd_helm_repo_url }}"
+
+    - name: Deploy argocd
+      become: true
+      become_user: "{{ become_user_setting }}"
+      kubernetes.core.helm:
+        name: "{{ postcluster_argocd_chart_name }}"
+        chart_ref: "{{ postcluster_argocd_chart_ref }}"
+        chart_version: "{{ postcluster_argocd_chart_version }}"
+        release_namespace: "{{ postcluster_argocd_namespace }}"
+        create_namespace: true
+        values:
+          global:
+            domain: "{{ postcluster_argocd_domain }}"
+          configs:
+            params:
+              server.insecure: true
+      tags:
+        - apps
+        - pipeline

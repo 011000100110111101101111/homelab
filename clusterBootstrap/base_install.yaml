@@ -1,0 +1,128 @@
+# Numerous parts taken from: https://github.com/NE-Collegiate-Cyber-Defense-League/neccdc-2024-public/blob/main/ansible/regionals/pre/kubernetes/
+# Other parts taken from my own scuffed previous version:  https://github.com/011000100110111101101111/Nexus-2.0/tree/main/DevOps
+---
+- name: Base Kubernetes installation setup
+  hosts: all
+  become: true
+  vars_files:
+    - "./config.yaml"
+  tasks:
+    - name: Fail if wrong OS
+      ansible.builtin.fail:
+        msg: "OS should be Ubuntu 24.04, not {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '24.04'
+
+    - name: Update APT packages
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install required packages
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - open-iscsi
+          - nfs-common
+        state: present
+        update_cache: true
+
+    - name: Disable swap file
+      ansible.builtin.command: swapoff -a
+      changed_when: true
+
+    - name: Check if /etc/fstab file exists
+      ansible.builtin.stat:
+        path: /etc/fstab
+      register: fstab_file
+
+    - name: Remove swap file from /etc/fstab
+      ansible.builtin.replace:
+        path: /etc/fstab
+        regexp: ".*swap.*"
+        replace: ""
+      when: fstab_file.stat.exists
+
+    - name: Create an empty file for Kubernetes sysctl params
+      ansible.builtin.copy:
+        content: ""
+        dest: /etc/sysctl.d/99-kubernetes-cri.conf
+        force: false
+        mode: "0600"
+
+    - name: Configure sysctl params for Kubernetes
+      ansible.builtin.lineinfile:
+        path: /etc/sysctl.d/99-kubernetes-cri.conf
+        line: "{{ item }}"
+      with_items:
+        - "net.bridge.bridge-nf-call-iptables  = 1"
+        - "net.ipv4.ip_forward                 = 1"
+        - "net.bridge.bridge-nf-call-ip6tables = 1"
+
+    - name: Apply sysctl params without reboot
+      ansible.builtin.command: sysctl --system
+
+    - name: Load br_netfilter kernel module
+      community.general.modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: Load overlay kernel module
+      community.general.modprobe:
+        name: overlay
+        state: present
+
+    - name: Setup docker
+      ansible.builtin.include_tasks:
+        file: "./docker/docker.yaml"
+
+    - name: Setup containerd
+      ansible.builtin.include_tasks:
+        file: "./containerd/containerd.yaml"
+
+    - name: Install Kubernetes GPG key
+      ansible.builtin.shell: |
+        /bin/bash -c 'set -o pipefail; curl -fsSL {{ basecluster_k8s_release_key_url }} | gpg --yes --dearmor -o {{ basecluster_k8s_apt_keyring_path }}'
+      args:
+        executable: /bin/bash
+      changed_when: true
+
+    - name: Add Kubernetes repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by={{ basecluster_k8s_apt_keyring_path }}] {{ basecluster_k8s_signed_by_url }} /
+        state: present
+        filename: kubernetes.list
+
+    - name: Install and mark hold
+      ansible.builtin.shell: sudo apt update && sudo apt install -y kubelet kubeadm kubectl && sudo apt-mark hold kubelet kubeadm kubectl
+      changed_when: true
+
+    - name: Set bridge-nf-call-iptables
+      ansible.posix.sysctl:
+        name: net.bridge.bridge-nf-call-iptables
+        value: 1
+
+    - name: Set ip_forward
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: 1
+
+- name: Base masters installation setup
+  hosts: masters
+  become: true
+  vars_files:
+    - "./config.yaml"
+  tasks:
+    - name: Setup masters bare
+      ansible.builtin.include_tasks:
+        file: "./masters/bare_needed.yaml"
+
+- name: Base workers installation setup
+  hosts: workers
+  become: true
+  vars_files:
+    - "./config.yaml"
+  tasks:
+    - name: Setup workers bare
+      ansible.builtin.include_tasks:
+        file: "./workers/bare_needed.yaml"
