@@ -10,7 +10,7 @@ metadata:
     kubernetes.io/ingress.class: haproxy
     cert-manager.io/cluster-issuer: homelab-issuer
 spec:
-  ingressClassName: tailscale
+  ingressClassName: haproxy
   rules:
     - host: home.nexus-core.org
       http:
