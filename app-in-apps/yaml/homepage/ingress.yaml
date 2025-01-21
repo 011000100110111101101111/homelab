@@ -7,16 +7,12 @@ metadata:
   labels:
     app: homepage
   annotations:
-    gethomepage.dev/description: Dynamically Detected Homepage
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Cluster Management
-    gethomepage.dev/icon: homepage.png
-    gethomepage.dev/name: Homepage
-    kubernetes.io/ingress.class: tailscale
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
 spec:
   ingressClassName: tailscale
   rules:
-    - host: homepage.border-orfe.ts.net
+    - host: home.nexus-core.org
       http:
         paths:
           - path: "/"
@@ -28,4 +24,5 @@ spec:
                   number: 3000
   tls:
     - hosts:
-        - homepage.border-orfe.ts.net
+        - home.nexus-core.org
+      secretName: homepage-ingress-secret

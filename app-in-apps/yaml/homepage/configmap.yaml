@@ -99,21 +99,29 @@ data:
   services.yaml: |
     - Apps:
         - Linkwarden:
-            href: https://linkwarden.border-orfe.ts.net/dashboard
+            href: https://linkwarden.nexus-core.org/dashboard
             icon: linkwarden
             description: Link Management
         - Vikunja:
-            href: https://tasks.border-orfe.ts.net/
+            href: https://tasks.nexus-core.org/
             icon: vikunja
             description: Task Management
         - Mealie:
-            href: https://meals.border-orfe.ts.net/g/home
+            href: https://meals.nexus-core.org/g/home
             icon: mealie
             description: Meal Planning
+        - Open WebUI:
+            href: https://ai.nexus-core.org
+            icon: chatgpt
+            description: AI
+        - AI Image Generator:
+            href: https://image-gen.nexus-core.org
+            icon: chatgpt
+            description: AI
 
     - Admin:
         - Longhorn:
-            href: https://longhorn.border-orfe.ts.net/#/dashboard
+            href: https://longhorn.nexus-core.org/#/dashboard
             icon: longhorn
             description: K8s storage UI
         - Tailscale:
@@ -121,15 +129,11 @@ data:
             icon: tailscale-light
             description: VPN Configuration
     - Info:
-        - Minecraft Server:
-            href: 100.67.185.94:32535
-            icon: minecraft
-            description: Modded Minecraft - FTB
         - Strava Tracking:
             href: https://www.strava.com/athlete/training
             icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/miniboard.png
             description: Excersise Logs
-        - ChatGPT:
+        - Online ChatGPT:
             href: https://chatgpt.com
             icon: chatgpt
             description: AI
