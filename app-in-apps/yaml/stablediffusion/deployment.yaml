@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stable-diffusion
-  namespace: ollama
+  namespace: ai
   labels:
     app: stable-diffusion
 spec:

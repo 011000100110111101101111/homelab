@@ -8,7 +8,7 @@ metadata:
     application-type: deployment
 spec:
   destination:
-    namespace: ollama
+    namespace: ai
     server: https://kubernetes.default.svc
   project: default
   source:

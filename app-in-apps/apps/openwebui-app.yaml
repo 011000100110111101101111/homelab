@@ -14,17 +14,17 @@ spec:
       valuesObject:
         ingress:
           enabled: true
-          class: tailscale
-          host: ai.border-orfe.ts.net
+          class: haproxy
+          host: ai.nexus-core.dev
           tls: true
         ollama:
           enabled: false
         persistence:
-          size: 20Gi
+          size: 30Gi
           storageClass: longhorn
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: ollama
+    namespace: ai
   syncPolicy:
     automated:
       prune: true

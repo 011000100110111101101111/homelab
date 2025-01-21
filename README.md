@@ -103,3 +103,44 @@ Essentially, this app is responsible for grabbing any NEW apps and auto deployin
 ## NVIDIA Operator
 
 Needed to manually download the drivers (make sure to update modinit thing)
+
+### Enable time slicing
+
+If you want 1 gpu to server multiple pods, you need the following.
+
+```bash
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: time-slicing-config-all
+data:
+  any: |-
+    version: v1
+    flags:
+      migStrategy: none
+    sharing:
+      timeSlicing:
+        resources:
+        - name: nvidia.com/gpu
+          replicas: 4
+```
+
+Apply
+
+```bash
+kubectl create -n gpu-operator -f time-slicing-config-all.yaml
+```
+
+Config
+
+```bash
+kubectl patch clusterpolicies.nvidia.com/cluster-policy \
+    -n gpu-operator --type merge \
+    -p '{"spec": {"devicePlugin": {"config": {"name": "time-slicing-config-all", "default": "any"}}}}'
+```
+
+Confirm
+
+```bash
+kubectl get events -n gpu-operator --sort-by='.lastTimestamp'
+```

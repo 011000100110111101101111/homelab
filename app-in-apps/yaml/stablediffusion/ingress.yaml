@@ -3,15 +3,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: stablediffusion-ingress
-  namespace: ollama
+  namespace: ai
   labels:
     app: stable-diffusion
   annotations:
-    kubernetes.io/ingress.class: tailscale
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
 spec:
   ingressClassName: tailscale
   rules:
-    - host: image-gen.border-orfe.ts.net
+    - host: image-gen.nexus-core.org
       http:
         paths:
           - path: "/"
@@ -23,4 +24,5 @@ spec:
                   name: ui
   tls:
     - hosts:
-        - image-gen.border-orfe.ts.net
+        - image-gen.nexus-core.org
+      secretName: stablediffusion-ingress-secret
