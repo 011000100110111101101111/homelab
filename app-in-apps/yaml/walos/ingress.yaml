@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: walos-ingress
+  namespace: walos
+  labels:
+    app: walos
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: walos.nexus-core.org
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: walos-service
+                port:
+                  name: ui
+  tls:
+    - hosts:
+        - walos.nexus-core.org
+      secretName: walos-ingress-secret

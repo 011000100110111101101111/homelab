@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: walos
+  namespace: walos
+  labels:
+    app: walos
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: walos
+  template:
+    metadata:
+      labels:
+        app: walos
+    spec:
+      containers:
+        - name: walos
+          image: bellamy/wallos:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "America/Eastern"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/www/html/db
+              name: walos-db
+            - mountPath: /var/www/html/images/uploads/logos
+              name: walos-logos
+      volumes:
+        - name: walos-db
+          persistentVolumeClaim:
+            claimName: walos-db-pvc
+        - name: walos-logos
+          persistentVolumeClaim:
+            claimName: walos-logos-pvc

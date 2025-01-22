@@ -15,7 +15,7 @@ spec:
         ingress:
           enabled: true
           class: haproxy
-          host: ai.nexus-core.dev
+          host: ai.nexus-core.org
           tls: true
         ollama:
           enabled: false
