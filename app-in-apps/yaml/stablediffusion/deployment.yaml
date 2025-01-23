@@ -49,12 +49,13 @@ spec:
             - name: stable-diffusion-data
               mountPath: /app/stable-diffusion-webui/localizations
               subPath: localizations
-            - name: stable-diffusion-data
+            - name: void
               mountPath: /app/stable-diffusion-webui/outputs
-              subPath: outputs
       volumes:
         - name: stable-diffusion-data
           persistentVolumeClaim:
             claimName: stable-diffusion-model-store
+        - name: void
+          emptyDir: {}
       nodeSelector:
         nvidia.com/gpu.present: "true"
