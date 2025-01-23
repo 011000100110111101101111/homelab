@@ -25,10 +25,10 @@ spec:
             requests:
               nvidia.com/gpu: 1
               memory: "32Gi"
-              cpu: "4"
+              cpu: "2"
             limits:
               memory: "32Gi"
-              cpu: "4"
+              cpu: "2"
               nvidia.com/gpu: 1
           volumeMounts:
             - name: stable-diffusion-data
