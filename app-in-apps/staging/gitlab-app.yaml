@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: gitlab
+    repoURL: https://charts.gitlab.io/
+    targetRevision: 8.8.1
+    helm:
+      releaseName: my-gitlab
+      valuesObject:
+        gitlab:
+          webservice:
+            ingress:
+              tls: gitlab-ingress-secret
+        registry:
+          ingress:
+            tls: registry-ingress-secret
+        minio:
+          ingress:
+            tls: minio-ingress-secret
+        global:
+          time_zone: America/New_York
+          edition: ce
+          hosts:
+            domain: nexus-core.org
+          psql:
+            host: hostname
+            username: gitlab
+            database: gitlab
+            password:
+              useSecret: true
+              secret: my-gitlab-postgresql-password
+              key: ppostgresql-postgres-password
+          ingress:
+            configureCertmanager: false
+            class: haproxy
+            annotations:
+              kubernetes.io/ingress.class: haproxy
+              cert-manager.io/cluster-issuer: homelab-issuer
+            tls:
+              secretName: gitlab-ingress-secret
+            provider: haproxy
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: gitlab
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
