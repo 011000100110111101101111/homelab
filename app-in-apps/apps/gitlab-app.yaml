@@ -34,7 +34,6 @@ spec:
               cert-manager.io/cluster-issuer: homelab-issuer
             tls:
               enabled: true
-              secretName: gitlab-ingress-secret
             provider: haproxy
         gitlab:
           webservice:
