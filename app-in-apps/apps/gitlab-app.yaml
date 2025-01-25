@@ -38,7 +38,7 @@ spec:
                 https: false
               ssh: gitlab.nexus-core.org
             psql:
-              host: hostname
+              host: my-postgresql.database.svc.cluster.local
               username: gitlab
               database: gitlab
               password:
