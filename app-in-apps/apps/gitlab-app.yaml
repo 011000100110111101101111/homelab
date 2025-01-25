@@ -18,6 +18,23 @@ spec:
           hosts:
             domain: nexus-core.org
             https: true
+            gitlab:
+              name: gitlab.nexus-core.org
+              https: true
+            registry:
+              name: registry.nexus-core.org
+              https: false
+            minio:
+              name: minio.nexus-core.org
+              https: false
+            smartcard:
+              name: smartcard.nexus-core.org
+            kas:
+              name: kas.nexus-core.org
+            pages:
+              name: pages.nexus-core.org
+              https: false
+            ssh: gitlab.nexus-core.org
           psql:
             host: hostname
             username: gitlab
@@ -34,28 +51,27 @@ spec:
               cert-manager.io/cluster-issuer: homelab-issuer
             tls:
               enabled: true
+            provider: haproxy
         gitlab:
           webservice:
             ingress:
-              enabled: true
               tls:
-                - secretName: gitlab-ingress-secret
-                  hosts:
-                    - gitlab.nexus-core.org
+                secretName: gitlab-gitlab-tls
+          kas:
+            ingress:
+              tls:
+                secretName: gitlab-kas-tls
+
         registry:
           ingress:
-            enabled: true
             tls:
-              - secretName: registry-ingress-secret
-                hosts:
-                  - registry.nexus-core.org
+              secretName: gitlab-registry-tls
+
         minio:
           ingress:
-            enabled: true
             tls:
-              - secretName: minio-ingress-secret
-                hosts:
-                  - minio.nexus-core.org
+              secretName: gitlab-minio-tls
+
         certmanager:
           install: false
         nginx-ingress:
