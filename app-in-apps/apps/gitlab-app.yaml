@@ -43,7 +43,7 @@ spec:
             database: gitlab
             password:
               useSecret: true
-              secret: postgres-credentials
+              secret: my-gitlab-postgresql-password
               key: ppostgresql-postgres-password
           ingress:
             configureCertmanager: false
