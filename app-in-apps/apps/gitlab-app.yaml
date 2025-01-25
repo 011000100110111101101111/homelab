@@ -40,16 +40,22 @@ spec:
               enabled: true
               tls:
                 - secretName: gitlab-ingress-secret
+                  hosts:
+                    - gitlab.nexus-core.org
         registry:
           ingress:
             enabled: true
             tls:
               - secretName: registry-ingress-secret
+                hosts:
+                  - registry.nexus-core.org
         minio:
           ingress:
             enabled: true
             tls:
               - secretName: minio-ingress-secret
+                hosts:
+                  - minio.nexus-core.org
         certmanager:
           install: false
         nginx-ingress:
