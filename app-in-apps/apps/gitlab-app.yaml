@@ -12,21 +12,12 @@ spec:
     helm:
       releaseName: my-gitlab
       valuesObject:
-        gitlab:
-          webservice:
-            ingress:
-              tls: gitlab-ingress-secret
-        registry:
-          ingress:
-            tls: registry-ingress-secret
-        minio:
-          ingress:
-            tls: minio-ingress-secret
         global:
           time_zone: America/New_York
           edition: ce
           hosts:
             domain: nexus-core.org
+            https: true
           psql:
             host: hostname
             username: gitlab
@@ -42,9 +33,31 @@ spec:
               kubernetes.io/ingress.class: haproxy
               cert-manager.io/cluster-issuer: homelab-issuer
             tls:
+              enabled: true
               secretName: gitlab-ingress-secret
             provider: haproxy
-
+        gitlab:
+          webservice:
+            ingress:
+              tls: gitlab-ingress-secret
+        registry:
+          ingress:
+            tls: registry-ingress-secret
+        minio:
+          ingress:
+            tls: minio-ingress-secret
+        certmanager:
+          install: false
+        nginx-ingress:
+          enabled: false
+        # Disable prometheus from being deployed, we have our own
+        prometheus:
+          install: false
+        #redis:
+        #  install: false
+        # Disable postgresql from being deployed, we have our own
+        postgresql:
+          install: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: gitlab
