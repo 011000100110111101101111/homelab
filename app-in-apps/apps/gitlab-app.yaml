@@ -12,6 +12,8 @@ spec:
     helm:
       releaseName: my-gitlab
       valuesObject:
+        upgradeCheck:
+          enabled: false
         global:
           time_zone: America/New_York
           edition: ce
