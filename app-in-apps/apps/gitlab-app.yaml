@@ -34,17 +34,22 @@ spec:
               cert-manager.io/cluster-issuer: homelab-issuer
             tls:
               enabled: true
-            provider: haproxy
         gitlab:
           webservice:
             ingress:
-              tls: gitlab-ingress-secret
+              enabled: true
+              tls:
+                - secretName: gitlab-ingress-secret
         registry:
           ingress:
-            tls: registry-ingress-secret
+            enabled: true
+            tls:
+              - secretName: registry-ingress-secret
         minio:
           ingress:
-            tls: minio-ingress-secret
+            enabled: true
+            tls:
+              - secretName: minio-ingress-secret
         certmanager:
           install: false
         nginx-ingress:
