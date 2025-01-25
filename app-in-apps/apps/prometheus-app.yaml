@@ -18,12 +18,12 @@ spec:
           ingress:
             enabled: true
             hosts:
-              - prometheus.border-orfe.ts.net
+              - prometheus.nexus-core.org
             tls:
               - secretName: prometheus-server-tls
                 hosts:
-                  - prometheus.border-orfe.ts.net
-            ingressClassName: tailscale
+                  - prometheus.nexus-core.org
+            ingressClassName: haproxy
             service:
               type: ClusterIP
   destination:

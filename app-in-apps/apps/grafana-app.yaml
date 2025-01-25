@@ -22,7 +22,7 @@ spec:
               datasource: Prometheus
         ingress:
           enabled: true
-          ingressClassName: tailscale
+          ingressClassName: haproxy
           hosts:
             - grafana.nexus-core.org
           tls:
