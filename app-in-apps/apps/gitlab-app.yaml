@@ -6,11 +6,6 @@ metadata:
 spec:
   project: default
   source:
-    - repoURL: https://github.com/011000100110111101101111/homelab
-      path: app-in-apps/yaml/gitlab
-      targetRevision: main
-      directory:
-        recurse: true
     - repoURL: https://charts.gitlab.io/
       chart: gitlab
       targetRevision: 8.8.1
@@ -91,6 +86,11 @@ spec:
           # Disable postgresql from being deployed, we have our own
           postgresql:
             install: false
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/gitlab
+      targetRevision: main
+      directory:
+        recurse: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: gitlab
