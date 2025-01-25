@@ -6,86 +6,91 @@ metadata:
 spec:
   project: default
   source:
-    chart: gitlab
-    repoURL: https://charts.gitlab.io/
-    targetRevision: 8.8.1
-    helm:
-      releaseName: my-gitlab
-      valuesObject:
-        upgradeCheck:
-          enabled: false
-        global:
-          time_zone: America/New_York
-          edition: ce
-          hosts:
-            domain: nexus-core.org
-            https: true
-            gitlab:
-              name: gitlab.nexus-core.org
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/gitlab
+      targetRevision: main
+      directory:
+        recurse: true
+    - repoURL: https://charts.gitlab.io/
+      chart: gitlab
+      targetRevision: 8.8.1
+      helm:
+        releaseName: my-gitlab
+        valuesObject:
+          upgradeCheck:
+            enabled: false
+          global:
+            time_zone: America/New_York
+            edition: ce
+            hosts:
+              domain: nexus-core.org
               https: true
-            registry:
-              name: registry.nexus-core.org
-              https: false
-            minio:
-              name: minio.nexus-core.org
-              https: false
-            smartcard:
-              name: smartcard.nexus-core.org
+              gitlab:
+                name: gitlab.nexus-core.org
+                https: true
+              registry:
+                name: registry.nexus-core.org
+                https: false
+              minio:
+                name: minio.nexus-core.org
+                https: false
+              smartcard:
+                name: smartcard.nexus-core.org
+              kas:
+                name: kas.nexus-core.org
+              pages:
+                name: pages.nexus-core.org
+                https: false
+              ssh: gitlab.nexus-core.org
+            psql:
+              host: hostname
+              username: gitlab
+              database: gitlab
+              password:
+                useSecret: true
+                secret: my-gitlab-postgresql-password
+                key: postgresql-postgres-password
+            ingress:
+              configureCertmanager: false
+              class: haproxy
+              annotations:
+                kubernetes.io/ingress.class: haproxy
+                cert-manager.io/cluster-issuer: homelab-issuer
+              tls:
+                enabled: true
+              provider: haproxy
+          gitlab:
+            webservice:
+              ingress:
+                tls:
+                  secretName: gitlab-gitlab-tls
             kas:
-              name: kas.nexus-core.org
-            pages:
-              name: pages.nexus-core.org
-              https: false
-            ssh: gitlab.nexus-core.org
-          psql:
-            host: hostname
-            username: gitlab
-            database: gitlab
-            password:
-              useSecret: true
-              secret: my-gitlab-postgresql-password
-              key: postgresql-postgres-password
-          ingress:
-            configureCertmanager: false
-            class: haproxy
-            annotations:
-              kubernetes.io/ingress.class: haproxy
-              cert-manager.io/cluster-issuer: homelab-issuer
-            tls:
-              enabled: true
-            provider: haproxy
-        gitlab:
-          webservice:
+              ingress:
+                tls:
+                  secretName: gitlab-kas-tls
+
+          registry:
             ingress:
               tls:
-                secretName: gitlab-gitlab-tls
-          kas:
+                secretName: gitlab-registry-tls
+
+          minio:
             ingress:
               tls:
-                secretName: gitlab-kas-tls
+                secretName: gitlab-minio-tls
 
-        registry:
-          ingress:
-            tls:
-              secretName: gitlab-registry-tls
-
-        minio:
-          ingress:
-            tls:
-              secretName: gitlab-minio-tls
-
-        certmanager:
-          install: false
-        nginx-ingress:
-          enabled: false
-        # Disable prometheus from being deployed, we have our own
-        prometheus:
-          install: false
-        #redis:
-        #  install: false
-        # Disable postgresql from being deployed, we have our own
-        postgresql:
-          install: false
+          certmanager:
+            install: false
+          nginx-ingress:
+            enabled: false
+          # Disable prometheus from being deployed, we have our own
+          prometheus:
+            install: false
+          #redis:
+          #  install: false
+          # Disable postgresql from being deployed, we have our own
+          postgresql:
+            install: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: gitlab
