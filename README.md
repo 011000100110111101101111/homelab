@@ -1,5 +1,16 @@
 # My Homelab
 
+## Initial Requirements
+
+Install ansible (This is for ubuntu specifically, can also use python pip)
+
+```bash
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+```
+
 ## Cluster Bootstrapping
 
 First, configure your inventory. Then run the following to test connectivity.
@@ -37,6 +48,8 @@ kubeseal -f certapi.yaml -w sealedapisecret.yaml
 kubectl create namespace cert-manager
 
 kubectl create -f sealedapisecret.yaml
+
+rm certapi.yaml sealedapisecret.yaml
 ```
 
 Now lets deploy the post stuff,
@@ -57,6 +70,7 @@ kubectl get services -n haproxy-controller
 Look for the external loadbalancer IP that metallb assigned to it.
 
 Now we need to point our DNS at the haproxy ingress IP, you want to create an A record with your domain name (<www.example.com>) and have it point to the external IP.
+
 The IP to point to is the external IP for the haproxy ingress controller.
 Then you can create a CNAME wild card (name would be *) and have it point to your domain name which will point any subdomains to <www.example.com>.
 
