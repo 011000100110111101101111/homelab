@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: template-service-loadbalanced
+  labels:
+    app: template
+  namespace: template
+spec:
+  selector:
+    app: template
+  ports:
+    - name: dnstcp
+      port: 53
+      protocol: TCP
+      targetPort: 53
+    - name: dnsudp
+      port: 53
+      protocol: UDP
+      targetPort: 53
+  type: LoadBalancer

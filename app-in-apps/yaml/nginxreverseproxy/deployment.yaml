@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxreverseproxy-deployment
+  labels:
+    app: nginxreverseproxy
+  namespace: nginxreverseproxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginxreverseproxy
+  nginxreverseproxy:
+    metadata:
+      labels:
+        app: nginxreverseproxy
+    spec:
+      containers:
+        - name: nginxreverseproxy
+          image: jc21/nginx-proxy-manager:latest
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "500m"
+            limits:
+              memory: "1000Mi"
+              cpu: "1"
+          ports:
+            - containerPort: 80
+            - containerPort: 81
+            - containerPort: 443
+          volumeMounts:
+            - name: nginxreverseproxy-data
+              mountPath: "/data"
+            - name: nginxreverseproxy-letsencrypt
+              mountPath: "/etc/letsencrypt"
+      volumes:
+        - name: nginxreverseproxy-data
+          persistentVolumeClaim:
+            claimName: nginxreverseproxy-data-pvc
+        - name: nginxreverseproxy-letsencrypt
+          persistentVolumeClaim:
+            claimName: nginxreverseproxy-letsencrypt-pvc

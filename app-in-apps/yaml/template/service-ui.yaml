@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: template-service-ingress
+  labels:
+    app: template
+  namespace: template
+spec:
+  selector:
+    app: template
+  ports:
+    - name: adminpanel
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+  type: ClusterIP

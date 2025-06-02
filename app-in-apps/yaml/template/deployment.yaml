@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: template-deployment
+  labels:
+    app: template
+  namespace: template
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: template
+  template:
+    metadata:
+      labels:
+        app: template
+    spec:
+      containers:
+        - name: template
+          image: template/templatehome
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "500m"
+            limits:
+              memory: "1000Mi"
+              cpu: "1"
+          ports:
+            - containerPort: 53
+            - containerPort: 3000
+          volumeMounts:
+            - name: template-workdir
+              mountPath: "/opt/templatehome/work"
+            - name: template-configdir
+              mountPath: "/opt/templatehome/conf"
+      volumes:
+        - name: template-workdir
+          persistentVolumeClaim:
+            claimName: template-workdir-pvc
+        - name: template-configdir
+          persistentVolumeClaim:
+            claimName: template-configdir-pvc

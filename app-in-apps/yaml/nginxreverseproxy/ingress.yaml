@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginxreverseproxy-ingress
+  namespace: nginxreverseproxy
+  labels:
+    app: nginxreverseproxy
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: nginxreverseproxy.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: nginxreverseproxy-service-ingress
+                port:
+                  name: adminpanel
+  tls:
+    - hosts:
+        - nginxreverseproxy.nexus-core.dev
+      secretName: nginxreverseproxy-ingress-secret

@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: authentik
+    repoURL: https://charts.goauthentik.io
+    targetRevision: 2.1.0
+    helm:
+      releaseName: my-authentik
+      valuesObject:
+        authentik:
+          secret_key: "Thisisgreat"
+          error_reporting:
+            enabled: false
+          postgresql:
+            password: "ThisIsNotASecurePassword"
+        server:
+          ingress:
+              # Specify kubernetes ingress controller class name
+              https: true
+              ingressClassName: haproxy
+              enabled: true
+              hosts:
+                - authentik.nexus-core.dev
+              tls:
+                - secretName: authentik-server-tls
+                  hosts:
+                    - authentik.nexus-core.dev
+        postgresql:
+            enabled: true
+            auth:
+                password: "ThisIsNotASecurePassword"
+        redis:
+            enabled: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: security
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false

@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginxreverseproxy-app
+  namespace: argocd
+  labels:
+    application-type: deployment
+spec:
+  destination:
+    namespace: nginxreverseproxy
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: app-in-apps/yaml/nginxreverseproxy
+    repoURL: https://github.com/011000100110111101101111/homelab
+    targetRevision: main
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
