@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: template-configdir-pvc
-  namespace: template
+  name: placeholder-configdir-pvc
+  namespace: placeholder
 spec:
   accessModes:
     - ReadWriteOnce

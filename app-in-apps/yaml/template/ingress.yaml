@@ -2,27 +2,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: template-ingress
-  namespace: template
+  name: placeholder-ingress
+  namespace: placeholder
   labels:
-    app: template
+    app: placeholder
   annotations:
     kubernetes.io/ingress.class: haproxy
     cert-manager.io/cluster-issuer: homelab-issuer
 spec:
   ingressClassName: haproxy
   rules:
-    - host: template.nexus-core.dev
+    - host: placeholder.nexus-core.dev
       http:
         paths:
           - path: "/"
             pathType: Prefix
             backend:
               service:
-                name: template-service-ingress
+                name: placeholder-service-ingress
                 port:
                   name: adminpanel
   tls:
     - hosts:
-        - template.nexus-core.dev
-      secretName: template-ingress-secret
+        - placeholder.nexus-core.dev
+      secretName: placeholder-ingress-secret

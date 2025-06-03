@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: template-deployment
+  name: placeholder-deployment
   labels:
-    app: template
-  namespace: template
+    app: placeholder
+  namespace: placeholder
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: template
+      app: placeholder
   template:
     metadata:
       labels:
-        app: template
+        app: placeholder
     spec:
       containers:
-        - name: template
-          image: template/templatehome
+        - name: placeholder
+          image: placeholder/placeholderhome
           resources:
             requests:
               memory: "500Mi"
@@ -30,14 +30,14 @@ spec:
             - containerPort: 53
             - containerPort: 3000
           volumeMounts:
-            - name: template-workdir
-              mountPath: "/opt/templatehome/work"
-            - name: template-configdir
-              mountPath: "/opt/templatehome/conf"
+            - name: placeholder-workdir
+              mountPath: "/opt/placeholderhome/work"
+            - name: placeholder-configdir
+              mountPath: "/opt/placeholderhome/conf"
       volumes:
-        - name: template-workdir
+        - name: placeholder-workdir
           persistentVolumeClaim:
-            claimName: template-workdir-pvc
-        - name: template-configdir
+            claimName: placeholder-workdir-pvc
+        - name: placeholder-configdir
           persistentVolumeClaim:
-            claimName: template-configdir-pvc
+            claimName: placeholder-configdir-pvc
