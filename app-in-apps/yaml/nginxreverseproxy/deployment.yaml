@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app: nginxreverseproxy
-  nginxreverseproxy:
+  template:
     metadata:
       labels:
         app: nginxreverseproxy
