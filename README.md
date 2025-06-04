@@ -158,3 +158,39 @@ Confirm
 ```bash
 kubectl get events -n gpu-operator --sort-by='.lastTimestamp'
 ```
+
+# Creating secrets for other apps
+
+## Can inject secrets with sealed secrets with following method
+
+Wherever it asks for a password in any helm file, can add useSecret, secret and key below it.
+
+```yaml
+postgresql:
+  password:
+    useSecret: true
+    secret: my-gitlab-postgresql-password
+    key: postgresql-postgres-password
+```
+
+Then create the secret (do this on a machine that can connect to cluster over kubectl). Notice where the above vaues are in the below command, as well as setting correct namespace.
+
+```bash
+echo -n "password" | kubectl create secret generic my-gitlab-postgresql-password --dry-run=client --from-file=postgresql-postgres-password=/dev/stdin --namespace=gitlab -o yaml > gitlabpassword.yaml
+
+# If you need this, available on macos with brew install kubeseal
+kubeseal -f gitlabpassword.yaml -w sealedgitlabpassword.yaml
+
+# If not already deployed
+kubectl create namespace gitlab
+
+kubectl create -f sealedgitlabpassword.yaml
+
+rm gitlabpassword.yaml sealedgitlabpassword.yaml
+```
+
+# Authentik Deployment
+
+## Temp location for steps
+
+echo -n "password" | kubectl create secret generic my-gitlab-postgresql-password --dry-run=client --from-file=postgresql-postgres-password=/dev/stdin --namespace=gitlab -o yaml > gitlabpassword.yaml

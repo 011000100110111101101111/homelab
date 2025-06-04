@@ -13,11 +13,17 @@ spec:
       releaseName: my-authentik
       valuesObject:
         authentik:
-          secret_key: "Thisisgreat"
+          secret_key:
+            useSecret: true
+            secret: my-authentik-secretkey-password
+            key: authentik-secretkey-password
           error_reporting:
             enabled: false
           postgresql:
-            password: "ThisIsNotASecurePassword"
+            password:
+              useSecret: true
+              secret: my-authentik-postgresql-password
+              key: authentik-postgres-password
         server:
           ingress:
               # Specify kubernetes ingress controller class name
@@ -33,12 +39,15 @@ spec:
         postgresql:
             enabled: true
             auth:
-                password: "ThisIsNotASecurePassword"
+              password:
+                useSecret: true
+                secret: my-authentik-postgresql-password
+                key: authentik-postgres-password
         redis:
             enabled: true
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: security
+    namespace: authentik
   syncPolicy:
     automated:
       prune: true
