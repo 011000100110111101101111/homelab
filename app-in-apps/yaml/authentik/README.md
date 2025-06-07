@@ -34,3 +34,30 @@ kubectl create -f sealedauthentikposgres.yaml
 
 rm authentikposgres.yaml sealedauthentikposgres.yaml
 ```
+
+## Alternate option with file
+
+You can also create 1 secret file
+authentiksecrets.yaml
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authentik-env-secrets
+  namespace: authentik
+type: Opaque
+stringData:
+  AUTHENTIK_SECRET_KEY: your_very_secure_key
+  AUTHENTIK_POSTGRESQL__PASSWORD: your_postgres_password
+```
+
+Seal, deploy and delete
+
+```bash
+kubeseal -f authentiksecrets.yaml -w sealedauthentiksecrets.yaml
+
+kubectl create -f sealedauthentiksecrets.yaml
+
+rm authentiksecrets.yaml sealedauthentiksecrets.yaml
+```

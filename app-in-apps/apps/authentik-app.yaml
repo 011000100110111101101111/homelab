@@ -13,38 +13,35 @@ spec:
       releaseName: my-authentik
       valuesObject:
         authentik:
-          secret_key:
-            useSecret: true
-            secret: my-authentik-secretkey-password
-            key: authentik-secretkey-password
+          secret_key: ""
           error_reporting:
             enabled: false
           postgresql:
-            password:
-              useSecret: true
-              secret: my-authentik-postgresql-password
-              key: authentik-postgres-password
+            password: ""
         server:
+          extraEnvFrom:
+            - secretRef:
+                name: authentik-env-secrets
           ingress:
-              # Specify kubernetes ingress controller class name
-              https: true
-              ingressClassName: haproxy
-              enabled: true
-              hosts:
-                - authentik.nexus-core.dev
-              tls:
-                - secretName: authentik-server-tls
-                  hosts:
-                    - authentik.nexus-core.dev
+            https: true
+            ingressClassName: haproxy
+            enabled: true
+            hosts:
+              - authentik.nexus-core.dev
+            tls:
+              - secretName: authentik-server-tls
+                hosts:
+                  - authentik.nexus-core.dev
+        worker:
+          extraEnvFrom:
+            - secretRef:
+                name: authentik-env-secrets
         postgresql:
-            enabled: true
-            auth:
-              password:
-                useSecret: true
-                secret: my-authentik-postgresql-password
-                key: authentik-postgres-password
+          enabled: true
+          auth:
+            password: ""
         redis:
-            enabled: true
+          enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: authentik
