@@ -10,189 +10,206 @@ data:
   kubernetes.yaml: |
     mode: cluster
   settings.yaml: |
-    cardBlur: md
-    useEqualHeights: true
-    headerStyle: boxed
-    layout:
-      Apps:
-        style: column
-        icon: shell-light
-        tab: Homelab
-      Admin:
-        style: column
-        icon: google-admin
-        tab: Homelab
-      Info:
-        style: column
-        icon: readthedocs-light
-        tab: Homelab
-      Entertainment:
-        style: row
-        columns: 6
-        iconsOnly: true
-        icon: beets
-        tab: Homelab
-      Developer:
-        style: row
-        tab: Homelab
-      Cluster Management:
-        initiallyCollapsed: true
-        style: row
-        tab: Homelab
-      Administration:
-        style: column
-        tab: Work
-      Applications:
-        style: column
-        tab: Work
-      Automation:
-        style: column
-        tab: Work
-    background: https://images.unsplash.com/photo-1672288072591-619afe830096?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
-    backgroundOpacity: 0.5
+    title: NAS
+    headerStyle: clean
+    background:
+      image: https://images.unsplash.com/photo-1672288072591-619afe830096?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+      blur: md
+      saturate: 50
+      brightness: 50
+      opacity: 70
     theme: dark
-    color: slate
+    color: zinc
+    useEqualHeights: false
+    quicklaunch:
+      searchDescriptions: true
+      hideInternetSearch: true
+      showSearchSuggestions: true
+      hideVisitURL: true
+    hideVersion: true
+    hideErrors: true
+    statusStyle: "dot"
+    layout:
+      FavSites:
+        iconsOnly: true
+        header: false
+        style: row
+      Arr:
+        header: false
+        style: row
+        columns: 5
+      Platform:
+        header: false
+        style: row
+        columns: 3
+        Media:
+          header: false
+          style: row
+          Apps:
+            header: false
+            style: row
+            columns: 2
+        NAS:
+          header: false
+          style: row
+        Calendar:
+          header: false
+          style: row
 
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: |
-    - Entertainment:
-        - Youtube:
-            - abbr: YT
-              icon: youtube
-              href: https://www.youtube.com
-        - Twitch:
-            - abbr: TW
-              icon: twitch
-              href: https://www.twitch.tv
-        - Apple TV:
-            - abbr: AT
-              icon: apple-tv-plus
-              href: https://tv.apple.com
-        - Max:
-            - abbr: MA
-              icon: max
-              href: https://play.max.com
-        - Crunchyroll:
-            - abbr: CR
-              icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/netbird.svg
-              href: https://www.crunchyroll.com
-        - Hulu:
-            - abbr: HU
-              icon: hulu
-              href: https://www.hulu.com/hub/home
-        - Disney+:
-            - abbr: DN
-              icon: disney-plus
-              href: https://www.disneyplus.com/home
-
-    - Developer:
-        - Github:
-            - abbr: GH
-              icon: github-light
-              href: https://github.com/
-        - Github:
-            - abbr: GH
-              icon: github-light
-              href: https://github.com/
 
   services.yaml: |
-    - Apps:
-        - Linkwarden:
-            href: https://linkwarden.nexus-core.org/dashboard
-            icon: linkwarden
-            description: Link Management
-        - Vikunja:
-            href: https://tasks.nexus-core.org/
-            icon: vikunja
-            description: Task Management
-        - Mealie:
-            href: https://meals.nexus-core.org/g/home
-            icon: mealie
-            description: Meal Planning
-        - Open WebUI:
-            href: https://ai.nexus-core.org
-            icon: chatgpt
-            description: AI
-        - AI Image Generator:
-            href: https://image-gen.nexus-core.org
-            icon: chatgpt
-            description: AI
-
-    - Admin:
-        - Longhorn:
-            href: https://longhorn.nexus-core.org/#/dashboard
-            icon: longhorn
-            description: K8s storage UI
-        - Tailscale:
-            href: https://login.tailscale.com/admin/machines
-            icon: tailscale-light
-            description: VPN Configuration
-    - Info:
-        - Strava Tracking:
-            href: https://www.strava.com/athlete/training
-            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/miniboard.png
-            description: Excersise Logs
-        - Online ChatGPT:
-            href: https://chatgpt.com
-            icon: chatgpt
-            description: AI
-    - Administration:
-        - Microsoft 365 Admin:
-            href: https://admin.microsoft.com/#/homepage
-            icon: microsoft-365-admin-center
-            description: Microsoft 365 Admin Center
-        - Sharepoint Admin:
-            href: https://abodeem-admin.sharepoint.com/_layouts/15/online/AdminHome.aspx#/home
-            icon: microsoft-sharepoint
-            description: Sharepoint Admin Center
-        - Lastpass:
-            href: https://lastpass.com/company/#!/dashboard
-            icon: lastpass
-            description: Password Management
-    - Applications:
-        - Outlook:
-            href: https://outlook.office.com/mail/
-            icon: microsoft-outlook
-            description: Outlook Mail
-        - Calendar:
-            href: https://outlook.office.com/calendar/view/workweek
-            icon: microsoft-exchange
-            description: Outlook Calendar
-        - Teams:
-            href: https://teams.microsoft.com/v2/
-            icon: microsoft-teams
-            description: Outlook Calendar
-        - Workflow ToDo Tasks:
-            href: https://abodeem.sharepoint.com/sites/abodeit/Lists/Workflow%20Request%20Backlog/AllItems.aspx?viewid=54e04c79%2Da8c2%2D43e0%2Db4d7%2Da876bb18d46b&newTargetListUrl=%2Fsites%2Fabodeit%2FLists%2FWorkflow%20Request%20Backlog&viewpath=%2Fsites%2Fabodeit%2FLists%2FWorkflow%20Request%20Backlog%2FAllItems%2Easpx
-            icon: microsoft-sharepoint
-            description: Workflow ToDo Task Tracking
-    - Automation:
-        - Power Automate:
-            href: https://make.powerautomate.com/environments/Default-64d02b5c-ea71-4a74-87e2-572bd16e1914/flows
-            icon: microsoft-bing
-            description: Power Automate
-        - Zapier:
-            href: https://zapier.com/app/home
-            icon: owasp-zap
-            description: Zapier Automation
-        - IT Sharepoint:
-            href: https://abodeem.sharepoint.com/sites/AbodeIT-ScriptsandProcesses
-            icon: microsoft-sharepoint
-            description: IT Sharepoint
-        - Error Tracking:
-            href: https://abodeem.sharepoint.com/sites/AbodeIT-ScriptsandProcesses/Lists/Power%20Automate%20Error%20Tracking/AllItems.aspx?sortField=RunTime&isAscending=false&viewid=61916f81%2D59a4%2D47f0%2Da2db%2D761db6dcf9af
-            icon: microsoft-sharepoint
-            description: IT Sharepoint
-        - Salesforce:
-            href: https://0ttb0000000r0pw1123.lightning.force.com/lightning/n/IT_Homepage
-            icon: airvpn
-            description: CRM Solution
-        - JotForm:
-            href: https://abodeem.jotform.com/myforms/
-            icon: google-forms
-            description: Form Submissions
-
+    - Platform:
+      - Media:
+        - Jellyfin:
+            icon: jellyfin.png
+            href: https://jellyfin.nexus-core.org
+            description: Media center
+            siteMonitor: https://jellyfin.nexus-core.org
+            widgets:
+              - type: jellyfin
+                url: https://jellyfin.nexus-core.org
+                key: {{HOMEPAGE_VAR_PLEX}}
+                fields: ["albums", "movies", "tv"]
+        - Jellyseer:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
+            href: https://jellyseer.nexus-core.org
+            description: Media discovery
+            siteMonitor: https://jellyseer.nexus-core.org
+            widget:
+              type: jellyseerr
+              url: http://{{HOMEPAGE_VAR_HOST}}:5055
+              key: {{HOMEPAGE_VAR_OVERSEERR}}
+        - Apps:
+            - Resilio Sync:
+                icon: https://external-content.duckduckgo.com/ip3/help.resilio.com.ico
+                href: http://{{HOMEPAGE_VAR_HOST}}:8888
+                description: File synchronization
+                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8888
+            - Filestash:
+                icon: https://external-content.duckduckgo.com/ip3/www.filestash.app.ico
+                href: http://{{HOMEPAGE_VAR_HOST}}:8334
+                description: Filesystem browser
+                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8334
+            - LidaTube:
+                icon: http://{{HOMEPAGE_VAR_HOST}}:5000/static/logo.png
+                href: http://{{HOMEPAGE_VAR_HOST}}:5000
+                description: Music discovery
+                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:5000
+            - Tautulli:
+                icon: tautulli.png
+                href: http://{{HOMEPAGE_VAR_HOST}}:8181
+                description: Plex monitoring
+                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8181
+      - NAS:
+        - SparrowNAS:
+            icon: truenas-scale.png
+            href: http://{{HOMEPAGE_VAR_HOST}}
+            description: Primary NAS
+            siteMonitor: http://{{HOMEPAGE_VAR_HOST}}
+            widget:
+              type: truenas
+              url: http://{{HOMEPAGE_VAR_HOST}}
+              key: {{HOMEPAGE_VAR_TN_PRIMARY}}
+              enablePools: true
+        - Portainer:
+            icon: portainer.png
+            href: https://{{HOMEPAGE_VAR_HOST}}:31015
+            description: Docker container management
+            siteMonitor: https://{{HOMEPAGE_VAR_HOST}}:31015
+            widget:
+              type: portainer
+              url: https://{{HOMEPAGE_VAR_HOST}}:31015
+              env: 3
+              key: {{HOMEPAGE_VAR_PORTAINER-KEY}}
+              fields: ["running","stopped"]
+        - VelkaNAS:
+            icon: truenas-scale.png
+            href: http://{{HOMEPAGE_VAR_HOST_BACKUP}}
+            description: Backup NAS
+            siteMonitor: http://{{HOMEPAGE_VAR_HOST_BACKUP}}
+            widget:
+              type: truenas
+              url: http://{{HOMEPAGE_VAR_HOST_BACKUP}}
+              key: {{HOMEPAGE_VAR_TN_BACKUP}}
+              enablePools: true
+      - Calendar:
+        - " ":
+            widget:
+              type: calendar
+              firstDayInWeek: sunday
+              view: monthly
+              showTime: true
+              timezone: TIME_ZONE
+              integrations:
+                - type: sonarr
+                  service_group: Arr
+                  service_name: Sonarr
+                  color: blue
+                  params:
+                    unmonitored: false
+                - type: radarr
+                  service_group: Arr
+                  service_name: Radarr
+                  color: yellow
+                  params:
+                    unmonitored: false
+                - type: lidarr
+                  service_group: Arr
+                  service_name: Lidarr
+                  color: green
+                  params:
+                    unmonitored: false
+    - Arr:
+      - Qbit:
+          icon: qbittorrent.png
+          href: http://{{HOMEPAGE_VAR_HOST}}:8088
+          description: Bittorrent management
+          siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8088
+          widget:
+            type: qbittorrent
+            url: http://{{HOMEPAGE_VAR_HOST}}:8088
+            username: admin
+            password: {{HOMEPAGE_VAR_QBIT}}
+      - Radarr:
+          icon: radarr.png
+          href: https://radarr.nexus-core.org
+          description: Movie management
+          siteMonitor: https://radarr.nexus-core.org
+          widget:
+            type: radarr
+            url: https://radarr.nexus-core.org
+            key: {{HOMEPAGE_VAR_RADARR}}
+      - Sonarr:
+          icon: sonarr.png
+          href: https://sonarr.nexus-core.org
+          description: TV series management
+          siteMonitor: https://sonarr.nexus-core.org
+          widget:
+            type: sonarr
+            url: https://sonarr.nexus-core.org
+            key: {{HOMEPAGE_VAR_SONARR}}
+      - Lidarr:
+          icon: lidarr.png
+          href: http://{{HOMEPAGE_VAR_HOST}}:8686
+          description: Music management
+          siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8686
+          widget:
+            type: lidarr
+            url: http://{{HOMEPAGE_VAR_HOST}}:8686
+            key: {{HOMEPAGE_VAR_LIDARR}}
+      - Prowlarr:
+          icon: prowlarr.png
+          href: https://prowlarr.nexus-core.org
+          description: Indexer management
+          siteMonitor: https://prowlarr.nexus-core.org
+          widget:
+            type: prowlarr
+            url: https://prowlarr.nexus-core.org
+            key: {{HOMEPAGE_VAR_PROWLARR}}
+            fields: ["numberOfGrabs","numberOfQueries"]
   widgets.yaml: |
     - kubernetes:
         cluster:
@@ -227,13 +244,10 @@ data:
         cache: 5
         format:
           maximumFractionDigits: 1
-    # - Calendar:
-    #     icon: mdi-calendar-blank
-    #     description: Calendar
-    #     widget:
-    #       type: calendar
-    #       view: monthly
-    #       maxEvents: 10
-    #       showTime: false
-    #       previousDays: 3
+    - datetime:
+        text_size: xl
+        format:
+          timeStyle: short
+          hourCycle: h23
+          dateStyle: short
   docker.yaml: ""

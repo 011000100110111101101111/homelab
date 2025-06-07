@@ -12,7 +12,7 @@ metadata:
 spec:
   ingressClassName: haproxy
   rules:
-    - host: home.nexus-core.org
+    - host: home.nexus-core.dev
       http:
         paths:
           - path: "/"
@@ -24,5 +24,5 @@ spec:
                   number: 3000
   tls:
     - hosts:
-        - home.nexus-core.org
+        - home.nexus-core.dev
       secretName: homepage-ingress-secret
