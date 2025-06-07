@@ -160,12 +160,12 @@ data:
     - Arr:
       - Qbit:
           icon: qbittorrent.png
-          href: http://{{HOMEPAGE_VAR_HOST}}:8088
+          href: http://192.168.10.50:8200
           description: Bittorrent management
-          siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8088
+          siteMonitor: http://192.168.10.50:8200
           widget:
             type: qbittorrent
-            url: http://{{HOMEPAGE_VAR_HOST}}:8088
+            url: http://192.168.10.50:8200
             username: admin
             password: {{HOMEPAGE_VAR_QBIT}}
       - Radarr:
@@ -188,12 +188,12 @@ data:
             key: {{HOMEPAGE_VAR_SONARR}}
       - Lidarr:
           icon: lidarr.png
-          href: http://{{HOMEPAGE_VAR_HOST}}:8686
+          href: https://lidarr.nexus-core.org
           description: Music management
-          siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8686
+          siteMonitor: https://lidarr.nexus-core.org
           widget:
             type: lidarr
-            url: http://{{HOMEPAGE_VAR_HOST}}:8686
+            url: https://lidarr.nexus-core.org
             key: {{HOMEPAGE_VAR_LIDARR}}
       - Prowlarr:
           icon: prowlarr.png
