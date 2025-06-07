@@ -71,7 +71,7 @@ data:
             widgets:
               - type: jellyfin
                 url: https://jellyfin.nexus-core.org
-                key: {{HOMEPAGE_VAR_PLEX}}
+                key: {{HOMEPAGE_VAR_JELLYFIN}}
                 fields: ["albums", "movies", "tv"]
         - Jellyseer:
             icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
@@ -80,8 +80,8 @@ data:
             siteMonitor: https://jellyseer.nexus-core.org
             widget:
               type: jellyseerr
-              url: http://{{HOMEPAGE_VAR_HOST}}:5055
-              key: {{HOMEPAGE_VAR_OVERSEERR}}
+              url: https://jellyseer.nexus-core.org
+              key: {{HOMEPAGE_VAR_JELLYSEER}}
         - Apps:
             - Resilio Sync:
                 icon: https://external-content.duckduckgo.com/ip3/help.resilio.com.ico
@@ -142,7 +142,7 @@ data:
               firstDayInWeek: sunday
               view: monthly
               showTime: true
-              timezone: TIME_ZONE
+              timezone: America/New_York
               integrations:
                 - type: sonarr
                   service_group: Arr
