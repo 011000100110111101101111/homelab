@@ -82,27 +82,22 @@ data:
               type: jellyseerr
               url: https://jellyseer.nexus-core.org
               key: {{HOMEPAGE_VAR_JELLYSEER}}
+        - Adguard:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/adguard-home.png
+            href: https://adguard.nexus-core.dev
+            description: Add Blocking
+            siteMonitor: https://jellyseer.nexus-core.dev
+            widget:
+              type: adguard
+              url: https://adguard.nexus-core.dev
+              username: {{HOMEPAGE_VAR_ADGUARD_USERNAME}}
+              password: {{HOMEPAGE_VAR_ADGUARD_PASSWORD}}
         - Apps:
             - Resilio Sync:
                 icon: https://external-content.duckduckgo.com/ip3/help.resilio.com.ico
                 href: http://{{HOMEPAGE_VAR_HOST}}:8888
                 description: File synchronization
                 siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8888
-            - Filestash:
-                icon: https://external-content.duckduckgo.com/ip3/www.filestash.app.ico
-                href: http://{{HOMEPAGE_VAR_HOST}}:8334
-                description: Filesystem browser
-                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8334
-            - LidaTube:
-                icon: http://{{HOMEPAGE_VAR_HOST}}:5000/static/logo.png
-                href: http://{{HOMEPAGE_VAR_HOST}}:5000
-                description: Music discovery
-                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:5000
-            - Tautulli:
-                icon: tautulli.png
-                href: http://{{HOMEPAGE_VAR_HOST}}:8181
-                description: Plex monitoring
-                siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8181
       - NAS:
         - SparrowNAS:
             icon: truenas-scale.png

@@ -1,2 +1,3 @@
 config.yaml
 dev-inventory.ini
+*secret*

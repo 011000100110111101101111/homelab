@@ -24,6 +24,9 @@ stringData:
 Now deploy
 
 ```bash
+# If you have an existing secret
+kubectl delete sealedsecrets/homepage-secrets -n homepage
+
 kubeseal -f homepagesecretkey.yaml -w sealedhomepagesecretkey.yaml
 
 # If not already deployed
