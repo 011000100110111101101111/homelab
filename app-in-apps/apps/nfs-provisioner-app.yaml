@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfs-provisioner-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: nfs-subdir-external-provisioner
+    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+    targetRevision: 4.0.18
+    helm:
+      releaseName: my-nfs-provisioner
+      valuesObject:
+        nfs:
+          server: 192.168.9.98         # <-- Replace with your actual NFS server IP, make sure to allow the connection on the nfs server itself
+          path: /var/nfs/shared/K8sNFS    # <-- Replace with your NFS exported path
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: nfs-provisioner
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
