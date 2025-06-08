@@ -13,35 +13,41 @@ spec:
       releaseName: my-authentik
       valuesObject:
         authentik:
-          secret_key: ""
           error_reporting:
             enabled: false
-          postgresql:
-            password: ""
+
         server:
           extraEnvFrom:
             - secretRef:
                 name: authentik-env-secrets
           ingress:
+            enabled: true
             https: true
             ingressClassName: haproxy
-            enabled: true
             hosts:
               - authentik.nexus-core.dev
             tls:
               - secretName: authentik-server-tls
                 hosts:
                   - authentik.nexus-core.dev
+
         worker:
           extraEnvFrom:
             - secretRef:
                 name: authentik-env-secrets
+
         postgresql:
           enabled: true
           auth:
-            password: ""
+            existingSecret: authentik-env-secrets
+            # Map the chart's expected key names to your existing ones
+            passwordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+            postgresPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+            replicationPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+
         redis:
           enabled: true
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: authentik
