@@ -48,8 +48,10 @@ metadata:
   namespace: authentik
 type: Opaque
 stringData:
-  AUTHENTIK_SECRET_KEY: your_very_secure_key
-  AUTHENTIK_POSTGRESQL__PASSWORD: your_postgres_password
+  password: secret
+  postgres-password: secret
+  replication-password: secret
+  secret_key: secret
 ```
 
 Seal, deploy and delete

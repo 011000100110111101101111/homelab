@@ -17,9 +17,17 @@ spec:
             enabled: false
 
         server:
-          extraEnvFrom:
-            - secretRef:
-                name: authentik-env-secrets
+          env:
+            - name: AUTHENTIK_POSTGRESQL__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: authentik-env-secrets
+                  key: password
+            - name: AUTHENTIK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: authentik-env-secrets
+                  key: secret_key
           ingress:
             enabled: true
             https: true
@@ -32,18 +40,25 @@ spec:
                   - authentik.nexus-core.dev
 
         worker:
-          extraEnvFrom:
-            - secretRef:
-                name: authentik-env-secrets
+          env:
+            - name: AUTHENTIK_POSTGRESQL__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: authentik-env-secrets
+                  key: password
+            - name: AUTHENTIK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: authentik-env-secrets
+                  key: secret_key
 
         postgresql:
           enabled: true
           auth:
             existingSecret: authentik-env-secrets
-            # Map the chart's expected key names to your existing ones
-            passwordKey: AUTHENTIK_POSTGRESQL__PASSWORD
-            postgresPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
-            replicationPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+            passwordKey: password
+            postgresPasswordKey: postgres-password
+            replicationPasswordKey: replication-password
 
         redis:
           enabled: true
