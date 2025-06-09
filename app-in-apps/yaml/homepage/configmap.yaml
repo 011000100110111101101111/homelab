@@ -88,7 +88,7 @@ data:
                 href: https://nginxreverseproxy.nexus-core.dev
                 description: Certificate Management
                 siteMonitor: https://nginxreverseproxy.nexus-core.dev
-            - Network
+            - Network:
                 icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/ubiquiti-unifi.png
                 href: https://network.nexus-core.org/
                 description: Network Control
