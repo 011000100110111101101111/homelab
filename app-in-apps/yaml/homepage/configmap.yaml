@@ -37,7 +37,7 @@ data:
       Arr:
         header: false
         style: row
-        columns: 5
+        columns: 3
       Platform:
         header: false
         style: row
@@ -99,16 +99,11 @@ data:
                 description: File synchronization
                 siteMonitor: http://{{HOMEPAGE_VAR_HOST}}:8888
       - NAS:
-        - SparrowNAS:
-            icon: truenas-scale.png
-            href: http://{{HOMEPAGE_VAR_HOST}}
+        - UNAS Pro:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/ubiquiti-unifi.png
+            href: https://drive.nexus-core.org/
             description: Primary NAS
-            siteMonitor: http://{{HOMEPAGE_VAR_HOST}}
-            widget:
-              type: truenas
-              url: http://{{HOMEPAGE_VAR_HOST}}
-              key: {{HOMEPAGE_VAR_TN_PRIMARY}}
-              enablePools: true
+            siteMonitor: https://drive.nexus-core.org/
         - Portainer:
             icon: portainer.png
             href: https://{{HOMEPAGE_VAR_HOST}}:31015
@@ -120,16 +115,6 @@ data:
               env: 3
               key: {{HOMEPAGE_VAR_PORTAINER-KEY}}
               fields: ["running","stopped"]
-        - VelkaNAS:
-            icon: truenas-scale.png
-            href: http://{{HOMEPAGE_VAR_HOST_BACKUP}}
-            description: Backup NAS
-            siteMonitor: http://{{HOMEPAGE_VAR_HOST_BACKUP}}
-            widget:
-              type: truenas
-              url: http://{{HOMEPAGE_VAR_HOST_BACKUP}}
-              key: {{HOMEPAGE_VAR_TN_BACKUP}}
-              enablePools: true
       - Calendar:
         - " ":
             widget:
