@@ -18,7 +18,6 @@ spec:
             enabled: false
           postgresql:
             password: "env://AUTHENTIK_POSTGRESQL__PASSWORD"
-
         postgresql:
           enabled: true
           auth:
