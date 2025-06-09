@@ -1,74 +1,52 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: authentik-app
-  namespace: argocd
-spec:
-  project: default
-  source:
-    chart: authentik
-    repoURL: https://charts.goauthentik.io
-    targetRevision: 2.1.0
-    helm:
-      releaseName: my-authentik
-      valuesObject:
-        authentik:
-          secret_key: "env://AUTHENTIK_SECRET_KEY"
-          error_reporting:
-            enabled: false
-          postgresql:
-            password: "env://AUTHENTIK_POSTGRESQL__PASSWORD"
-        postgresql:
-          enabled: true
-          auth:
-            existingSecret: authentik-env-secrets
-        server:
-          env:
-            - name: AUTHENTIK_POSTGRESQL__PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: authentik-env-secrets
-                  key: password
-            - name: AUTHENTIK_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: authentik-env-secrets
-                  key: secret_key
-          ingress:
-            enabled: true
-            https: true
-            ingressClassName: haproxy
+helm:
+  releaseName: my-authentik
+  valuesObject:
+    authentik:
+      secret_key: "env://AUTHENTIK_SECRET_KEY"
+      postgresql:
+        password: "env://AUTHENTIK_POSTGRESQL__PASSWORD"
+      error_reporting:
+        enabled: false
+    postgresql:
+      enabled: true
+      auth:
+        existingSecret: authentik-env-secrets
+        passwordKey: password
+        postgresPasswordKey: postgres-password
+        replicationPasswordKey: replication-password
+    redis:
+      enabled: true
+    server:
+      env:
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-env-secrets
+              key: password
+        - name: AUTHENTIK_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-env-secrets
+              key: secret_key
+      ingress:
+        https: true
+        ingressClassName: haproxy
+        enabled: true
+        hosts:
+          - authentik.nexus-core.dev
+        tls:
+          - secretName: authentik-server-tls
             hosts:
               - authentik.nexus-core.dev
-            tls:
-              - secretName: authentik-server-tls
-                hosts:
-                  - authentik.nexus-core.dev
-
-        worker:
-          env:
-            - name: AUTHENTIK_POSTGRESQL__PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: authentik-env-secrets
-                  key: password
-            - name: AUTHENTIK_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: authentik-env-secrets
-                  key: secret_key
-
-        redis:
-          enabled: true
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: authentik
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - Validate=false
-      - CreateNamespace=true
-      - ServerSideApply=false
+    worker:
+      env:
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-env-secrets
+              key: password
+        - name: AUTHENTIK_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-env-secrets
+              key: secret_key
