@@ -83,33 +83,34 @@ data:
               url: https://jellyseer.nexus-core.org
               key: {{HOMEPAGE_VAR_JELLYSEER}}
         - Apps:
-            - NGINX Proxy Manager:
-                icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nginx-proxy-manager.png
-                href: https://nginxreverseproxy.nexus-core.dev
-                description: Certificate Management
-                siteMonitor: https://nginxreverseproxy.nexus-core.dev
-            - Network:
-                icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/ubiquiti-unifi.png
-                href: https://network.nexus-core.org/
-                description: Network Control
-                siteMonitor: https://network.nexus-core.org/
-            - UNAS Pro:
-                icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/ugreen-nas.png
-                href: https://drive.nexus-core.org/
-                description: Primary NAS
-                siteMonitor: https://drive.nexus-core.org/
+
       - NAS:
         - Portainer:
             icon: portainer.png
-            href: https://{{HOMEPAGE_VAR_HOST}}:31015
+            href: https://portainer.nexus-core.org
             description: Docker container management
-            siteMonitor: https://{{HOMEPAGE_VAR_HOST}}:31015
+            siteMonitor: https://portainer.nexus-core.org
             widget:
               type: portainer
-              url: https://{{HOMEPAGE_VAR_HOST}}:31015
+              url: https://portainer.nexus-core.org
               env: 3
               key: {{HOMEPAGE_VAR_PORTAINER-KEY}}
               fields: ["running","stopped"]
+        - Proxy Manager:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nginx-proxy-manager.png
+            href: https://nginxreverseproxy.nexus-core.dev
+            description: Certificate Management
+            siteMonitor: https://nginxreverseproxy.nexus-core.dev
+        - Network:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/ubiquiti-unifi.png
+            href: https://network.nexus-core.org/
+            description: Network Control
+            siteMonitor: https://network.nexus-core.org/
+        - UNAS Pro:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/ugreen-nas.png
+            href: https://drive.nexus-core.org/
+            description: Primary NAS
+            siteMonitor: https://drive.nexus-core.org/
       - Calendar:
         - " ":
             widget:
@@ -189,7 +190,7 @@ data:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/adguard-home.png
           href: https://adguard.nexus-core.dev
           description: Add Blocking
-          siteMonitor: https://jellyseer.nexus-core.dev
+          siteMonitor: https://adguard.nexus-core.dev
           widget:
             type: adguard
             url: https://adguard.nexus-core.dev
