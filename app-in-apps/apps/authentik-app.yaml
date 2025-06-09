@@ -1,19 +1,10 @@
 helm:
   releaseName: my-authentik
   valuesObject:
-    authentik:
-      secret_key: "env://AUTHENTIK_SECRET_KEY"
-      postgresql:
-        password: "env://AUTHENTIK_POSTGRESQL__PASSWORD"
-      error_reporting:
-        enabled: false
     postgresql:
       enabled: true
       auth:
         existingSecret: authentik-env-secrets
-        passwordKey: password
-        postgresPasswordKey: postgres-password
-        replicationPasswordKey: replication-password
     redis:
       enabled: true
     server:
