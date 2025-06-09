@@ -23,10 +23,6 @@ spec:
           enabled: true
           auth:
             existingSecret: authentik-env-secrets
-            passwordKey: password
-            postgresPasswordKey: postgres-password
-            replicationPasswordKey: replication-password
-
         server:
           env:
             - name: AUTHENTIK_POSTGRESQL__PASSWORD
