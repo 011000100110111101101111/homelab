@@ -13,8 +13,19 @@ spec:
       releaseName: my-authentik
       valuesObject:
         authentik:
+          secret_key: "env://AUTHENTIK_SECRET_KEY"
           error_reporting:
             enabled: false
+          postgresql:
+            password: "env://AUTHENTIK_POSTGRESQL__PASSWORD"
+
+        postgresql:
+          enabled: true
+          auth:
+            existingSecret: authentik-env-secrets
+            passwordKey: password
+            postgresPasswordKey: postgres-password
+            replicationPasswordKey: replication-password
 
         server:
           env:
@@ -52,19 +63,11 @@ spec:
                   name: authentik-env-secrets
                   key: secret_key
 
-        postgresql:
-          enabled: true
-          auth:
-            existingSecret: authentik-env-secrets
-            passwordKey: password
-            postgresPasswordKey: postgres-password
-            replicationPasswordKey: replication-password
-
         redis:
           enabled: true
 
   destination:
-    server: "https://kubernetes.default.svc"
+    server: https://kubernetes.default.svc
     namespace: authentik
   syncPolicy:
     automated:
