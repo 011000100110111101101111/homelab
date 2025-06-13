@@ -185,7 +185,7 @@ data:
             type: sabnzbd
             url: https://sabnzbd.nexus-core.dev
             key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
-      - Huntarr
+      - Huntarr:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
           href: https://huntarr.nexus-core.org
           description: Missing content management
