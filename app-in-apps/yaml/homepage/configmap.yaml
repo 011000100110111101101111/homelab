@@ -79,6 +79,11 @@ data:
             description: Primary NAS
             siteMonitor: https://drive.nexus-core.org/
         - Apps:
+          - Huntarr:
+              icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
+              href: https://huntarr.nexus-core.org
+              description: Missing content management
+              siteMonitor: https://huntarr.nexus-core.org
       - NAS:
       - Calendar:
         - " ":
@@ -176,18 +181,13 @@ data:
             password: {{HOMEPAGE_VAR_QBIT}}
       - Sabnzbd:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
-          href: https://sabnzbd.nexus-core.org
+          href: http://192.168.10.50:8100
           description: Usenet Downloader
-          siteMonitor: https://sabnzbd.nexus-core.org
+          siteMonitor: http://192.168.10.50:8100
           widget:
             type: sabnzbd
-            url: https://sabnzbd.nexus-core.org
+            url: http://192.168.10.50:8100
             key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
-      - Huntarr:
-          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
-          href: https://huntarr.nexus-core.org
-          description: Missing content management
-          siteMonitor: https://huntarr.nexus-core.org
       - Adguard:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/adguard-home.png
           href: https://adguard.nexus-core.dev
