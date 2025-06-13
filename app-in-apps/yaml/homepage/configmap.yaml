@@ -63,17 +63,6 @@ data:
   services.yaml: |
     - Platform:
       - Media:
-        - Portainer:
-            icon: portainer.png
-            href: https://portainer.nexus-core.org
-            description: Docker container management
-            siteMonitor: https://portainer.nexus-core.org
-            widget:
-              type: portainer
-              url: https://portainer.nexus-core.org
-              env: 3
-              key: {{HOMEPAGE_VAR_PORTAINER-KEY}}
-              fields: ["running","stopped"]
         - Proxy Manager:
             icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nginx-proxy-manager.png
             href: https://nginxreverseproxy.nexus-core.dev
@@ -121,16 +110,35 @@ data:
                   params:
                     unmonitored: false
     - Arr:
-      - Qbit:
-          icon: qbittorrent.png
-          href: http://192.168.10.50:8200
-          description: Bittorrent management
-          siteMonitor: http://192.168.10.50:8200
+      - Jellyfin:
+          icon: jellyfin.png
+          href: https://jellyfin.nexus-core.org
+          description: Media center
+          siteMonitor: https://jellyfin.nexus-core.org
+          widgets:
+            - type: jellyfin
+              url: https://jellyfin.nexus-core.org
+              key: {{HOMEPAGE_VAR_JELLYFIN}}
+              fields: ["albums", "movies", "tv"]
+      - Jellyseer:
+          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
+          href: https://jellyseer.nexus-core.org
+          description: Media discovery
+          siteMonitor: https://jellyseer.nexus-core.org
           widget:
-            type: qbittorrent
-            url: http://192.168.10.50:8200
-            username: admin
-            password: {{HOMEPAGE_VAR_QBIT}}
+            type: jellyseerr
+            url: https://jellyseer.nexus-core.org
+            key: {{HOMEPAGE_VAR_JELLYSEER}}
+      - Prowlarr:
+          icon: prowlarr.png
+          href: https://prowlarr.nexus-core.org
+          description: Indexer management
+          siteMonitor: https://prowlarr.nexus-core.org
+          widget:
+            type: prowlarr
+            url: https://prowlarr.nexus-core.org
+            key: {{HOMEPAGE_VAR_PROWLARR}}
+            fields: ["numberOfGrabs","numberOfQueries"]
       - Radarr:
           icon: radarr.png
           href: https://radarr.nexus-core.org
@@ -158,44 +166,30 @@ data:
             type: lidarr
             url: https://lidarr.nexus-core.org
             key: {{HOMEPAGE_VAR_LIDARR}}
-      - Prowlarr:
-          icon: prowlarr.png
-          href: https://prowlarr.nexus-core.org
-          description: Indexer management
-          siteMonitor: https://prowlarr.nexus-core.org
+      - Qbit:
+          icon: qbittorrent.png
+          href: http://192.168.10.50:8200
+          description: Bittorrent management
+          siteMonitor: http://192.168.10.50:8200
           widget:
-            type: prowlarr
-            url: https://prowlarr.nexus-core.org
-            key: {{HOMEPAGE_VAR_PROWLARR}}
-            fields: ["numberOfGrabs","numberOfQueries"]
-      - Jellyfin:
-          icon: jellyfin.png
-          href: https://jellyfin.nexus-core.org
-          description: Media center
-          siteMonitor: https://jellyfin.nexus-core.org
-          widgets:
-            - type: jellyfin
-              url: https://jellyfin.nexus-core.org
-              key: {{HOMEPAGE_VAR_JELLYFIN}}
-              fields: ["albums", "movies", "tv"]
-      - Jellyseer:
-          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
-          href: https://jellyseer.nexus-core.org
-          description: Media discovery
-          siteMonitor: https://jellyseer.nexus-core.org
-          widget:
-            type: jellyseerr
-            url: https://jellyseer.nexus-core.org
-            key: {{HOMEPAGE_VAR_JELLYSEER}}
+            type: qbittorrent
+            url: http://192.168.10.50:8200
+            username: admin
+            password: {{HOMEPAGE_VAR_QBIT}}
       - Sabnzbd:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
-        href: https://sabnzbd.nexus-core.dev
-        description: Usenet Downloader
-        siteMonitor: https://sabnzbd.nexus-core.dev
-        widget:
-          type: sabnzbd
-          url: https://sabnzbd.nexus-core.dev
-          key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
+          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
+          href: https://sabnzbd.nexus-core.org
+          description: Usenet Downloader
+          siteMonitor: https://sabnzbd.nexus-core.org
+          widget:
+            type: sabnzbd
+            url: https://sabnzbd.nexus-core.dev
+            key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
+      - Huntarr
+          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
+          href: https://huntarr.nexus-core.org
+          description: Missing content management
+          siteMonitor: https://huntarr.nexus-core.org
       - Adguard:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/adguard-home.png
           href: https://adguard.nexus-core.dev
@@ -206,6 +200,17 @@ data:
             url: https://adguard.nexus-core.dev
             username: {{HOMEPAGE_VAR_ADGUARD_USERNAME}}
             password: {{HOMEPAGE_VAR_ADGUARD_PASSWORD}}
+      - Portainer:
+          icon: portainer.png
+          href: https://portainer.nexus-core.org
+          description: Docker container management
+          siteMonitor: https://portainer.nexus-core.org
+          widget:
+            type: portainer
+            url: https://portainer.nexus-core.org
+            env: 3
+            key: {{HOMEPAGE_VAR_PORTAINER-KEY}}
+            fields: ["running","stopped"]
   widgets.yaml: |
     - kubernetes:
         cluster:
