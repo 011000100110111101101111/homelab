@@ -112,6 +112,18 @@ data:
                   color: yellow
                   params:
                     unmonitored: false
+                - type: sonarr
+                  service_group: Arr
+                  service_name: Sonarr (Anime)
+                  color: green
+                  params:
+                    unmonitored: false
+                - type: radarr
+                  service_group: Arr
+                  service_name: Radarr (Anime)
+                  color: pink
+                  params:
+                    unmonitored: false
                 - type: lidarr
                   service_group: Arr
                   service_name: Lidarr
@@ -188,10 +200,10 @@ data:
           icon: sonarr.png
           href: https://sonarr-anime.nexus-core.org
           description: TV series management
-          siteMonitor: https://onarr-anime.nexus-core.org
+          siteMonitor: https://sonarr-anime.nexus-core.org
           widget:
             type: sonarr
-            url: https://onarr-anime.nexus-core.org
+            url: https://sonarr-anime.nexus-core.org
             key: {{HOMEPAGE_VAR_SONARR_ANIME}}
       - Qbit:
           icon: qbittorrent.png
