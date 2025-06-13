@@ -79,12 +79,18 @@ data:
             description: Primary NAS
             siteMonitor: https://drive.nexus-core.org/
         - Apps:
-          - Huntarr:
-              icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
-              href: https://huntarr.nexus-core.org
-              description: Missing content management
-              siteMonitor: https://huntarr.nexus-core.org
+
       - NAS:
+        - Huntarr:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
+            href: https://huntarr.nexus-core.org
+            description: Missing content management
+            siteMonitor: https://huntarr.nexus-core.org
+        - Proxmox Main:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/proxmox.png
+            href: https://proxmox1.nexus-core.org
+            description: Virtualization
+            siteMonitor: https://proxmox1.nexus-core.org
       - Calendar:
         - " ":
             widget:
@@ -169,6 +175,24 @@ data:
             type: lidarr
             url: https://lidarr.nexus-core.org
             key: {{HOMEPAGE_VAR_LIDARR}}
+      - Radarr (Anime):
+          icon: radarr.png
+          href: https://radarr-anime.nexus-core.org
+          description: Movie management
+          siteMonitor: https://radarr-anime.nexus-core.org
+          widget:
+            type: radarr
+            url: https://radarr-anime.nexus-core.org
+            key: {{HOMEPAGE_VAR_RADARR_ANIME}}
+      - Sonarr (Anime):
+          icon: sonarr.png
+          href: https://sonarr-anime.nexus-core.org
+          description: TV series management
+          siteMonitor: https://onarr-anime.nexus-core.org
+          widget:
+            type: sonarr
+            url: https://onarr-anime.nexus-core.org
+            key: {{HOMEPAGE_VAR_SONARR_ANIME}}
       - Qbit:
           icon: qbittorrent.png
           href: http://192.168.10.50:8200
