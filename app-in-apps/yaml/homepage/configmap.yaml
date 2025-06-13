@@ -63,28 +63,6 @@ data:
   services.yaml: |
     - Platform:
       - Media:
-        - Jellyfin:
-            icon: jellyfin.png
-            href: https://jellyfin.nexus-core.org
-            description: Media center
-            siteMonitor: https://jellyfin.nexus-core.org
-            widgets:
-              - type: jellyfin
-                url: https://jellyfin.nexus-core.org
-                key: {{HOMEPAGE_VAR_JELLYFIN}}
-                fields: ["albums", "movies", "tv"]
-        - Jellyseer:
-            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
-            href: https://jellyseer.nexus-core.org
-            description: Media discovery
-            siteMonitor: https://jellyseer.nexus-core.org
-            widget:
-              type: jellyseerr
-              url: https://jellyseer.nexus-core.org
-              key: {{HOMEPAGE_VAR_JELLYSEER}}
-        - Apps:
-
-      - NAS:
         - Portainer:
             icon: portainer.png
             href: https://portainer.nexus-core.org
@@ -111,6 +89,10 @@ data:
             href: https://drive.nexus-core.org/
             description: Primary NAS
             siteMonitor: https://drive.nexus-core.org/
+        - Apps:
+
+      - NAS:
+
       - Calendar:
         - " ":
             widget:
@@ -186,6 +168,34 @@ data:
             url: https://prowlarr.nexus-core.org
             key: {{HOMEPAGE_VAR_PROWLARR}}
             fields: ["numberOfGrabs","numberOfQueries"]
+      - Jellyfin:
+          icon: jellyfin.png
+          href: https://jellyfin.nexus-core.org
+          description: Media center
+          siteMonitor: https://jellyfin.nexus-core.org
+          widgets:
+            - type: jellyfin
+              url: https://jellyfin.nexus-core.org
+              key: {{HOMEPAGE_VAR_JELLYFIN}}
+              fields: ["albums", "movies", "tv"]
+      - Jellyseer:
+          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
+          href: https://jellyseer.nexus-core.org
+          description: Media discovery
+          siteMonitor: https://jellyseer.nexus-core.org
+          widget:
+            type: jellyseerr
+            url: https://jellyseer.nexus-core.org
+            key: {{HOMEPAGE_VAR_JELLYSEER}}
+      - Sabnzbd:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
+        href: https://sabnzbd.nexus-core.dev
+        description: Usenet Downloader
+        siteMonitor: https://sabnzbd.nexus-core.dev
+        widget:
+          type: sabnzbd
+          url: https://sabnzbd.nexus-core.dev
+          key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
       - Adguard:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/adguard-home.png
           href: https://adguard.nexus-core.dev
@@ -230,10 +240,10 @@ data:
         cache: 5
         format:
           maximumFractionDigits: 1
-    - datetime:
-        text_size: xl
-        format:
-          timeStyle: short
-          hourCycle: h23
-          dateStyle: short
+    # - datetime:
+    #     text_size: xl
+    #     format:
+    #       timeStyle: short
+    #       hourCycle: h23
+    #       dateStyle: short
   docker.yaml: ""
