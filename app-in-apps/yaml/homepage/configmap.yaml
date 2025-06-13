@@ -79,9 +79,7 @@ data:
             description: Primary NAS
             siteMonitor: https://drive.nexus-core.org/
         - Apps:
-
       - NAS:
-
       - Calendar:
         - " ":
             widget:
@@ -183,7 +181,7 @@ data:
           siteMonitor: https://sabnzbd.nexus-core.org
           widget:
             type: sabnzbd
-            url: https://sabnzbd.nexus-core.dev
+            url: https://sabnzbd.nexus-core.org
             key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
       - Huntarr:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/huntarr.png
