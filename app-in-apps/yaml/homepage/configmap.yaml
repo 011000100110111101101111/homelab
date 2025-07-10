@@ -217,12 +217,12 @@ data:
             key: {{HOMEPAGE_VAR_SONARR_ANIME}}
       - Readarr:
           icon: readarr.png
-          href: https://readarr-anime.nexus-core.org
+          href: https://readarr.nexus-core.org
           description: Book series management
-          siteMonitor: https://readarr-anime.nexus-core.org
+          siteMonitor: https://readarr.nexus-core.org
           widget:
             type: readarr
-            url: https://readarr-anime.nexus-core.org
+            url: https://readarr.nexus-core.org
             key: {{HOMEPAGE_VAR_READARR_ANIME}}
       - Sabnzbd:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
