@@ -78,6 +78,11 @@ data:
             href: https://drive.nexus-core.org/
             description: Primary NAS
             siteMonitor: https://drive.nexus-core.org/
+        - Proxmox Main:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/proxmox.png
+            href: https://proxmox1.nexus-core.org
+            description: Virtualization
+            siteMonitor: https://proxmox1.nexus-core.org
         - Apps:
 
       - NAS:
@@ -86,11 +91,16 @@ data:
             href: https://huntarr.nexus-core.org
             description: Missing content management
             siteMonitor: https://huntarr.nexus-core.org
-        - Proxmox Main:
-            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/proxmox.png
-            href: https://proxmox1.nexus-core.org
-            description: Virtualization
-            siteMonitor: https://proxmox1.nexus-core.org
+        - Kavita:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kavita.svg
+            href: https://books.nexus-core.org
+            description: Book Reading
+            siteMonitor: https://books.nexus-core.org
+        - Calibre Web:
+            icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/calibre-web.svg
+            href: https://calibreweb.nexus-core.org
+            description: Book Processing
+            siteMonitor: https://calibreweb.nexus-core.org
       - Calendar:
         - " ":
             widget:
@@ -205,16 +215,15 @@ data:
             type: sonarr
             url: https://sonarr-anime.nexus-core.org
             key: {{HOMEPAGE_VAR_SONARR_ANIME}}
-      - Qbit:
-          icon: qbittorrent.png
-          href: http://192.168.10.50:8200
-          description: Bittorrent management
-          siteMonitor: http://192.168.10.50:8200
+      - Readarr:
+          icon: readarr.png
+          href: https://readarr-anime.nexus-core.org
+          description: Book series management
+          siteMonitor: https://readarr-anime.nexus-core.org
           widget:
-            type: qbittorrent
-            url: http://192.168.10.50:8200
-            username: admin
-            password: {{HOMEPAGE_VAR_QBIT}}
+            type: readarr
+            url: https://readarr-anime.nexus-core.org
+            key: {{HOMEPAGE_VAR_READARR_ANIME}}
       - Sabnzbd:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
           href: http://192.168.10.50:8100
