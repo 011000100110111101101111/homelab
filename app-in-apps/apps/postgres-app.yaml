@@ -24,11 +24,6 @@ spec:
             secretKeys:
               userPasswordKey: "postgres-password"
             database: "default"
-    - repoURL: https://github.com/011000100110111101101111/homelab
-      path: app-in-apps/yaml/postgres
-      targetRevision: main
-      directory:
-        recurse: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: database
