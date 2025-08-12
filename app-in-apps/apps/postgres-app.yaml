@@ -16,8 +16,8 @@ spec:
           primary:
             persistence:
               enabled: true
-              storageClass: longhorn
-              size: "100Gi"
+              storageClass: nfs-client
+              size: "50Gi"
           auth:
             username: "admin"
             existingSecret: "postgres-credentials"
