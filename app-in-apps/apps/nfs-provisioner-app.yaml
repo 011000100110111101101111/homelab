@@ -14,7 +14,7 @@ spec:
       valuesObject:
         nfs:
           server: 192.168.9.98         # <-- Replace with your actual NFS server IP, make sure to allow the connection on the nfs server itself
-          path: /var/nfs/shared/K8sNFS    # <-- Replace with your NFS exported path
+          path: /var/nfs/shared/KubernetesShare    # <-- Replace with your NFS exported path
   destination:
     server: "https://kubernetes.default.svc"
     namespace: nfs-provisioner
