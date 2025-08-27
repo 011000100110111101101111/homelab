@@ -46,7 +46,10 @@ spec:
             - name: POSTGRES_USER
               value: "mealie"
             - name: POSTGRES_PASSWORD
-              value: "{{ postcluster_postgres_password }}"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres-password
             - name: POSTGRES_SERVER
               value: "my-postgresql-0.database.svc.cluster.local"
             - name: POSTGRES_PORT
