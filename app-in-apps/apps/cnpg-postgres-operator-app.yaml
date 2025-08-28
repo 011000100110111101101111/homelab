@@ -9,7 +9,7 @@ spec:
   sources:
     - repoURL: https://cloudnative-pg.github.io/charts
       chart: cloudnative-pg
-      targetRevision: 1.27.0
+      targetRevision: 0.26.0
       helm:
         releaseName: my-cnpg-operator
   destination:
