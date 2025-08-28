@@ -8,7 +8,7 @@ spec:
   project: default
   sources:
     - repoURL: https://cloudnative-pg.github.io/charts
-      chart: cnpg
+      chart: cloudnative-pg
       targetRevision: 16.7.27
       helm:
         releaseName: my-cnpg-operator
