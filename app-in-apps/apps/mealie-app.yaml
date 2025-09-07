@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: homepage-app
+  name: mealie-app
   namespace: argocd
   labels:
     application-type: deployment
