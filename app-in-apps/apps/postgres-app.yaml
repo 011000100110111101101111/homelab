@@ -6,8 +6,8 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - repoURL: oci://registry-1.docker.io/bitnamicharts
+  source:
+      repoURL: oci://registry-1.docker.io/bitnamicharts
       chart: postgresql
       targetRevision: 16.7.27
       helm:
