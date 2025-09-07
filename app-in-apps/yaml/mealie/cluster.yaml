@@ -8,12 +8,11 @@ spec:
   storage:
     size: 10Gi
     storageClassName: nfs-client
-  postgresVersion: 16
-  users:
-    - name: mealie
-      passwordSecret:
-        name: postgres-credentials      # reuse your existing secret
-        key: postgres-password
-  databases:
-    - name: mealie
-      owner: mealie
+  managed:
+    roles:
+      - name: mealie
+        ensure: present
+        login: true
+        passwordSecret:
+          name: postgres-credentials
+          key: postgres-password
