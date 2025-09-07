@@ -29,4 +29,8 @@ kubectl create -f sealedpostgressecret.yaml
 kubectl create -f sealedpostgressecretmealie.yaml
 
 rm postgressecret.yaml sealedpostgressecret.yaml
+
+# Troubleshooting
+kubectl delete sealedsecret -n database postgres-credentials
+kubectl delete sealedsecret -n mealie postgres-credentials
 ```
