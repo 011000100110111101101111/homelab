@@ -20,11 +20,13 @@ Now deploy
 kubectl delete sealedsecrets/postgres-credentials -n mealie
 
 kubeseal -f postgressecret.yaml -w sealedpostgressecret.yaml
+kubeseal -f postgressecretmealie.yaml -w sealedpostgressecretmealie.yaml
 
 # If not already deployed
 kubectl create namespace mealie
 
 kubectl create -f sealedpostgressecret.yaml
+kubectl create -f sealedpostgressecretmealie.yaml
 
 rm postgressecret.yaml sealedpostgressecret.yaml
 ```

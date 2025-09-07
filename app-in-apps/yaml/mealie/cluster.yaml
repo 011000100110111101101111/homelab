@@ -8,11 +8,9 @@ spec:
   storage:
     size: 10Gi
     storageClassName: nfs-client
-  managed:
-    roles:
-      - name: mealie
-        ensure: present
-        login: true
-        passwordSecret:
-          name: postgres-credentials
-          key: postgres-password
+  bootstrap:
+    initdb:
+      database: mealie
+      owner: mealie
+      secret:
+        name: postgres-credentials

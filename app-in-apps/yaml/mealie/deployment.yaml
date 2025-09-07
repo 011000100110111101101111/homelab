@@ -49,13 +49,13 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: postgres-credentials
-                  key: postgres-password
+                  key: password
             - name: POSTGRES_SERVER
               value: "my-postgresql-mealie-rw.database.svc.cluster.local"
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_DB
-              value: "app"
+              value: "mealie"
           volumeMounts:
             - name: mealie-data
               mountPath: "/app/data"
