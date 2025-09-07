@@ -51,7 +51,7 @@ spec:
                   name: postgres-credentials
                   key: postgres-password
             - name: POSTGRES_SERVER
-              value: "my-postgresql-mealie.database.svc.cluster.local"
+              value: "my-postgresql-mealie-rw.database.svc.cluster.local"
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_DB
