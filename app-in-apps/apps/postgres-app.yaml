@@ -7,8 +7,8 @@ metadata:
 spec:
   project: default
   source:
-      repoURL: oci://registry-1.docker.io/bitnamicharts
-      chart: postgresql
+      path: .
+      repoURL: oci://registry-1.docker.io/bitnamicharts/postgresql
       targetRevision: 16.7.27
       helm:
         releaseName: my-postgresql
