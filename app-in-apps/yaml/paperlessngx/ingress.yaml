@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paperlessngx-ingress
+  namespace: paperlessngx
+  labels:
+    app: paperlessngx
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: paperlessngx.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: placeholder-service-ingress
+                port:
+                  name: adminpanel
+  tls:
+    - hosts:
+        - paperlessngx.nexus-core.dev
+      secretName: paperlessngx-ingress-secret

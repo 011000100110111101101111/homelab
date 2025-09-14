@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.30.1
+    helm:
+      releaseName: my-vault
+      valuesObject:
+        server:
+          ui:
+            enabled: true
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: haproxy
+              cert-manager.io/cluster-issuer: homelab-issuer
+            ingressClassName: haproxy
+            hosts:
+              - host: vault.nexus-core.dev
+            tls:
+              - secretName: vault-tls
+                hosts:
+                  - vault.nexus-core.dev
+          ha:
+            enabled: true
+            replicas: 3
+          dataStorage:
+            enabled: true
+            size: 10Gi
+            storageClass: nfs-client
+          standalone:
+            enabled: false
+          auditStorage:
+            enabled: true
+        injector:
+          enabled: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false

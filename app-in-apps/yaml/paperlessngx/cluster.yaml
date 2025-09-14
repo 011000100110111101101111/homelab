@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgresql-paperlessngx
+  namespace: database
+spec:
+  instances: 1
+  storage:
+    size: 20Gi
+    storageClassName: nfs-client
+  bootstrap:
+    initdb:
+      database: paperlessngx
+      owner: paperlessngx
+      secret:
+        name: postgres-paperlessngx-credentials
