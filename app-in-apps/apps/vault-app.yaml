@@ -19,7 +19,7 @@ spec:
 
           # Disable standalone mode since HA is enabled
           standalone:
-            enabled: false
+            enabled: true
 
           # Enable the Vault UI (optional)
           ui:
