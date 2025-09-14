@@ -15,22 +15,18 @@ spec:
         server:
           # Enable HA mode (multiple pods)
           ha:
-            enabled: false
-
+            enabled: true
           # Disable standalone mode since HA is enabled
           standalone:
-            enabled: true
-
+            enabled: false
           # Enable the Vault UI (optional)
           ui:
             enabled: true
-
           # Persistent storage configuration for Vault data
           dataStorage:
             enabled: true
             size: 10Gi
             storageClass: nfs-client  # or nfs-client, depending on your setup
-
           # Configure ingress for external access
           ingress:
             enabled: true
@@ -46,7 +42,6 @@ spec:
                   - vault.nexus-core.dev
         injector:
           enabled: true  # enable automatic secret injection into pods
-
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault
