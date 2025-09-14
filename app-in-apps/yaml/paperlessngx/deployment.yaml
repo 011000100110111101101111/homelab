@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperlessngx
-  namespace: paperless
+  namespace: paperlessngx
 spec:
   replicas: 1
   revisionHistoryLimit: 5

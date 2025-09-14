@@ -2,7 +2,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: paperless-secrets
-  namespace: paperless
+  namespace: paperlessngx
 spec:
   vaultAuthRef: paperless-auth
   mount: kv-v2
@@ -22,7 +22,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: paperless-db-secrets
-  namespace: paperless
+  namespace: paperlessngx
 spec:
   vaultAuthRef: paperless-auth
   mount: kv-v2
