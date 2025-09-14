@@ -15,8 +15,7 @@ spec:
         server:
           # Enable HA mode (multiple pods)
           ha:
-            enabled: true
-            replicas: 3
+            enabled: false
 
           # Disable standalone mode since HA is enabled
           standalone:
@@ -26,22 +25,11 @@ spec:
           ui:
             enabled: true
 
-          # Storage backend: Raft (uses your PV for persistence)
-          storage:
-            raft:
-              enabled: true
-              path: /vault/data
-              nodeId: vault-0  # Will be unique per pod (vault-0, vault-1, vault-2)
-
           # Persistent storage configuration for Vault data
           dataStorage:
             enabled: true
             size: 10Gi
             storageClass: nfs-client  # or nfs-client, depending on your setup
-
-          # Optional: enable audit logging
-          auditStorage:
-            enabled: true
 
           # Configure ingress for external access
           ingress:
