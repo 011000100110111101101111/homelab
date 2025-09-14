@@ -13,8 +13,37 @@ spec:
       releaseName: my-vault
       valuesObject:
         server:
+          # Enable HA mode (multiple pods)
+          ha:
+            enabled: true
+            replicas: 3
+
+          # Disable standalone mode since HA is enabled
+          standalone:
+            enabled: false
+
+          # Enable the Vault UI (optional)
           ui:
             enabled: true
+
+          # Storage backend: Raft (uses your PV for persistence)
+          storage:
+            raft:
+              enabled: true
+              path: /vault/data
+              nodeId: vault-0  # Will be unique per pod (vault-0, vault-1, vault-2)
+
+          # Persistent storage configuration for Vault data
+          dataStorage:
+            enabled: true
+            size: 10Gi
+            storageClass: longhorn  # or nfs-client, depending on your setup
+
+          # Optional: enable audit logging
+          auditStorage:
+            enabled: true
+
+          # Configure ingress for external access
           ingress:
             enabled: true
             annotations:
@@ -27,19 +56,9 @@ spec:
               - secretName: vault-tls
                 hosts:
                   - vault.nexus-core.dev
-          ha:
-            enabled: true
-            replicas: 3
-          dataStorage:
-            enabled: true
-            size: 10Gi
-            storageClass: nfs-client
-          standalone:
-            enabled: false
-          auditStorage:
-            enabled: true
         injector:
-          enabled: true
+          enabled: true  # enable automatic secret injection into pods
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault
