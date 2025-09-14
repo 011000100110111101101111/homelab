@@ -13,4 +13,4 @@ spec:
       database: paperlessngx
       owner: paperlessngx
       secret:
-        name: postgres-paperlessngx-credentials
+        name: postgres-credentials

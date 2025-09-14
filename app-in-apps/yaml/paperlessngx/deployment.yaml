@@ -33,16 +33,19 @@ spec:
           value: my-postgresql-paperlessngx-rw.database.svc.cluster.local
         - name: PAPERLESS_DBNAME
           value: paperlessngx
-        - name: PAPERLESS_DBUSER
-          value: paperlessngx
         - name: PAPERLESS_URL
           value: https://paperless.nexus-core.dev
         - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
           value: https://paperless.nexus-core.dev
+        - name: PAPERLESS_DBUSER
+          valueFrom:
+            secretKeyRef:
+              name: paperless-db-credentials
+              key: POSTGRES_USER
         - name: PAPERLESS_DBPASS
           valueFrom:
             secretKeyRef:
-              name: paperlessngx-secrets
+              name: paperless-db-credentials
               key: POSTGRES_PASSWORD
         - name: PAPERLESS_ADMIN_USER
           valueFrom:

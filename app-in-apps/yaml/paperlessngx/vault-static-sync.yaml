@@ -15,3 +15,23 @@ spec:
   rolloutRestartTargets:
   - kind: Deployment
     name: paperlessngx
+
+---
+
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: paperless-db-secrets
+  namespace: paperless
+spec:
+  vaultAuthRef: paperless-auth
+  mount: kv-v2
+  type: kv-v2
+  path: paperlessngx/db
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: paperless-db-credentials
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: paperlessngx
