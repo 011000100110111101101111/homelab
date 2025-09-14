@@ -15,10 +15,10 @@ spec:
         server:
           # Enable HA mode (multiple pods)
           ha:
-            enabled: true
+            enabled: false
           # Disable standalone mode since HA is enabled
           standalone:
-            enabled: false
+            enabled: true
           # Enable the Vault UI (optional)
           ui:
             enabled: true
