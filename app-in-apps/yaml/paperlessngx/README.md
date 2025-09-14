@@ -45,7 +45,7 @@ vault kv put kv-v2/paperlessngx POSTGRES_PASSWORD="supersecret" PAPERLESS_ADMIN_
 
 ```bash
 vault policy write paperlessngx - <<EOF
-path "kv-v2/data/paperlessngx" {
+path "kv-v2/data/paperlessngx*" {
   capabilities = ["read"]
 }
 EOF
@@ -56,8 +56,8 @@ EOF
 ```bash
 vault write auth/kubernetes/role/paperlessngx \
     bound_service_account_names=default \
-    bound_service_account_namespaces=paperless \
-    policies=paperlessngx-policy \
+    bound_service_account_namespaces=paperlessngx \
+    policies=paperlessngx \
     ttl=24h \
     audience=vault
 ```
@@ -69,7 +69,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: paperless-auth
-  namespace: paperless
+  namespace: paperlessngx
 spec:
   method: kubernetes
   mount: kubernetes
@@ -87,7 +87,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: paperless-secrets
-  namespace: paperless
+  namespace: paperlessngx
 spec:
   vaultAuthRef: paperless-auth
   mount: kv-v2
@@ -97,6 +97,26 @@ spec:
   destination:
     create: true
     name: paperlessngx-secrets
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: paperlessngx
+
+---
+
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: paperless-db-secrets
+  namespace: paperlessngx
+spec:
+  vaultAuthRef: paperless-auth
+  mount: kv-v2
+  type: kv-v2
+  path: paperlessngx/db
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: paperless-db-credentials
   rolloutRestartTargets:
   - kind: Deployment
     name: paperlessngx
