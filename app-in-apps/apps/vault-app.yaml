@@ -37,7 +37,7 @@ spec:
           dataStorage:
             enabled: true
             size: 10Gi
-            storageClass: longhorn  # or nfs-client, depending on your setup
+            storageClass: nfs-client  # or nfs-client, depending on your setup
 
           # Optional: enable audit logging
           auditStorage:
