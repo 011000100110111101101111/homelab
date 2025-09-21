@@ -7,7 +7,7 @@ spec:
   instances: 1
   storage:
     size: 10Gi
-    storageClassName: nfs-client
+    storageClass: longhorn
   bootstrap:
     initdb:
       database: mealie
