@@ -34,7 +34,7 @@ spec:
         - name: PAPERLESS_DBNAME
           value: paperlessngx
         - name: PAPERLESS_URL
-          value: https://paperless.nexus-core.dev
+          value: https://paperlessngx.nexus-core.dev
         - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
           value: https://paperless.nexus-core.dev
         - name: PAPERLESS_DBUSER
