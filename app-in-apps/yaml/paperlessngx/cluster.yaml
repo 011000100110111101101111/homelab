@@ -16,6 +16,6 @@ spec:
         name: postgres-credentials
   podTemplate:
     securityContext:
-      runAsUser: 26
-      runAsGroup: 26
-      fsGroup: 26
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
