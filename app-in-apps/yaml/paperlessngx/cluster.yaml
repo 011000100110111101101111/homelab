@@ -14,3 +14,8 @@ spec:
       owner: paperlessngx
       secret:
         name: postgres-credentials
+  podTemplate:
+    securityContext:
+      runAsUser: 26
+      runAsGroup: 26
+      fsGroup: 26
