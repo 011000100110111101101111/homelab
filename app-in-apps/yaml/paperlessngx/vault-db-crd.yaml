@@ -1,7 +1,7 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
-  name: paperless-auth
+  name: paperless-auth-db
   namespace: database
 spec:
   method: kubernetes
