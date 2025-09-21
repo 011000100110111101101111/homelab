@@ -33,7 +33,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: homepage-secrets
+                name: homepage-secret
           volumeMounts:
             - mountPath: /app/config/custom.js
               name: homepage-config
