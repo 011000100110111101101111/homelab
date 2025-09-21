@@ -56,7 +56,7 @@ EOF
 ```bash
 vault write auth/kubernetes/role/paperlessngx \
     bound_service_account_names=default \
-    bound_service_account_namespaces=paperlessngx \
+    bound_service_account_namespaces=paperlessngx,database \
     policies=paperlessngx \
     ttl=24h \
     audience=vault
