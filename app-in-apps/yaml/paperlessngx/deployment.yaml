@@ -41,12 +41,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: paperless-db-credentials
-              key: POSTGRES_USER
+              key: username
         - name: PAPERLESS_DBPASS
           valueFrom:
             secretKeyRef:
               name: paperless-db-credentials
-              key: POSTGRES_PASSWORD
+              key: password
         - name: PAPERLESS_ADMIN_USER
           valueFrom:
             secretKeyRef:
