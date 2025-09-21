@@ -19,7 +19,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: placeholder-service-ingress
+                name: paperlessngx-service-ingress
                 port:
                   name: adminpanel
   tls:
