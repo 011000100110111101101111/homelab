@@ -1,7 +1,7 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
-  name: paperless-db-secrets
+  name: paperless-dbside-secrets
   namespace: database
 spec:
   vaultAuthRef:
@@ -12,5 +12,5 @@ spec:
   refreshAfter: 10s
   destination:
     create: true
-    name: paperless-db-credentials
+    name: postgres-credentials
   rolloutRestartTargets: []
