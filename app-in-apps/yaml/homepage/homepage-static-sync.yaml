@@ -1,0 +1,17 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: homepage-secrets
+  namespace: homepage
+spec:
+  vaultAuthRef: homepage-auth
+  mount: kv-v2
+  type: kv-v2
+  path: homepage
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: homepage-secret
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: homepage

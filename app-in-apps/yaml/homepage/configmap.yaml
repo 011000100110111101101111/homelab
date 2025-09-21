@@ -223,7 +223,7 @@ data:
           widget:
             type: readarr
             url: https://readarr.nexus-core.org
-            key: {{HOMEPAGE_VAR_READARR_ANIME}}
+            key: {{HOMEPAGE_VAR_READARR}}
       - Sabnzbd:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/sabnzbd.png
           href: http://192.168.10.50:8100

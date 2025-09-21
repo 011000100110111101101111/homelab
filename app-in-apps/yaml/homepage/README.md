@@ -1,38 +1,30 @@
-# Secret deployment prior to app deployment
+# New setup
 
-Create a file (homepagesecretkey.yaml) with the following values
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: homepage-secrets
-  namespace: homepage
-type: Opaque
-stringData:
-  HOMEPAGE_VAR_RADARR: radarr_key
-  HOMEPAGE_VAR_SONARR: sonarr_key
-  HOMEPAGE_VAR_PROWLARR: prowlarr_key
-  HOMEPAGE_VAR_LIDARR: your_lidarr_api_key
-  HOMEPAGE_VAR_QBIT: your_qbittorrent_password
-  HOMEPAGE_VAR_JELLYFIN: jellyfin_key
-  HOMEPAGE_VAR_JELLYSEER: jellyseer_key
-  HOMEPAGE_VAR_PORTAINER-KEY: your_portainer_key
-  HOMEPAGE_ALLOWED_HOSTS: "*"
-```
-
-Now deploy
+## Deploy vault secrets
 
 ```bash
-# If you have an existing secret
-kubectl delete sealedsecrets/homepage-secrets -n homepage
+vault kv put kv-v2/homepage POSTGRES_PASSWORD="supersecret" PAPERLESS_ADMIN_USER="admin" PAPERLESS_ADMIN_PASSWORD="adminpass"
+OR
+Create it in vault itself
+```
 
-kubeseal -f homepagesecretkey.yaml -w sealedhomepagesecretkey.yaml
+## Create Vault policy
 
-# If not already deployed
-kubectl create namespace homepage
+```bash
+vault policy write homepage - <<EOF
+path "kv-v2/data/homepage*" {
+  capabilities = ["read"]
+}
+EOF
+```
 
-kubectl create -f sealedhomepagesecretkey.yaml
+## Create k8s auth role
 
-rm homepagesecretkey.yaml sealedhomepagesecretkey.yaml
+```bash
+vault write auth/kubernetes/role/homepage \
+    bound_service_account_names=default \
+    bound_service_account_namespaces=homepage \
+    policies=homepage \
+    ttl=24h \
+    audience=vault
 ```
