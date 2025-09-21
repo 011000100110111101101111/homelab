@@ -8,14 +8,12 @@ spec:
   storage:
     size: 20Gi
     storageClassName: nfs-client
-  bootstrap:
-    initdb:
-      database: paperlessngx
-      owner: paperlessngx
-      secret:
-        name: postgres-credentials
-  podTemplate:
-    securityContext:
-      runAsUser: 0
-      runAsGroup: 0
-      fsGroup: 0
+    pvcTemplate:
+      metadata:
+        annotations:
+          k8s-sigs.io/nfs-directory-uid: "26"
+          k8s-sigs.io/nfs-directory-gid: "26"
+          k8s-sigs.io/nfs-directory-mode: "0770"
+      accessModes:
+        - ReadWriteOnce
+      volumeMode: Filesystem
