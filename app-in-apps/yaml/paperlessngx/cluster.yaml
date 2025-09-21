@@ -7,16 +7,7 @@ spec:
   instances: 1
   storage:
     size: 20Gi
-    storageClassName: nfs-client
-    pvcTemplate:
-      metadata:
-        annotations:
-          k8s-sigs.io/nfs-directory-uid: "26"
-          k8s-sigs.io/nfs-directory-gid: "26"
-          k8s-sigs.io/nfs-directory-mode: "0770"
-      accessModes:
-        - ReadWriteOnce
-      volumeMode: Filesystem
+    storageClassName: longhorn
   bootstrap:
     initdb:
       database: paperlessngx
