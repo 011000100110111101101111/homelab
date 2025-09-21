@@ -17,3 +17,9 @@ spec:
       accessModes:
         - ReadWriteOnce
       volumeMode: Filesystem
+  bootstrap:
+    initdb:
+      database: paperlessngx
+      owner: paperlessngx
+      secret:
+        name: postgres-credentials
