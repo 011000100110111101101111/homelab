@@ -1,7 +1,7 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
-  name: homepage-secrets
+  name: homepage-secret
   namespace: homepage
 spec:
   vaultAuthRef: homepage-auth
