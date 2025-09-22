@@ -25,6 +25,24 @@ data:
 
           - size: full
             widgets:
+              - type: twitch-channels
+                channels:
+                  - cohhcarnage
+                  - quin69
+                  - moonmoon
+          - size: small
+            widgets:
+
+              - type: weather
+                units: imperial
+                hour-format: 12h
+                location: New York,US
+      - name: Feed
+        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+        # hide-desktop-navigation: true
+        columns:
+          - size: small
+            widgets:
               - type: rss
                 limit: 10
                 collapse-after: 3
@@ -39,9 +57,3 @@ data:
                   - url: https://samwho.dev/rss.xml
                   - url: https://ishadeed.com/feed.xml
                     title: Ahmad Shadeed
-
-              - type: twitch-channels
-                channels:
-                  - cohhcarnage
-                  - quin69
-                  - moonmoon
