@@ -19,8 +19,6 @@ spec:
       labels:
         app: glance
     spec:
-      serviceAccountName: glance
-      automountServiceAccountToken: true
       dnsPolicy: ClusterFirst
       enableServiceLinks: true
       containers:
