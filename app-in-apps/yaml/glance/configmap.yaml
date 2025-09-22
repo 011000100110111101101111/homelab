@@ -17,7 +17,7 @@ data:
               - type: rss
                 title: "Tech News"
                 url: "https://hnrss.org/frontpage"
-          - size: large
+          - size: full
             widgets:
               - type: bookmarks
                 title: "Quick Links"
