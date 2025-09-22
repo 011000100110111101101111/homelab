@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rsshub-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: rsshub
+    repoURL: https://naturalselectionlabs.github.io/helm-charts
+    targetRevision: 0.2.9
+    helm:
+      releaseName: my-rsshub
+      valuesObject:
+        ingress:
+          enabled: true
+          className: haproxy
+          annotations:
+              kubernetes.io/ingress.class: haproxy
+              cert-manager.io/cluster-issuer: homelab-issuer
+          hosts:
+              - host: rsshub.nexus-core.dev
+          tls:
+            - secretName: rsshub-tls
+              hosts:
+                - rsshub.nexus-core.dev
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: rsshub
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
