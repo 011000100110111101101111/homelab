@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: glance
+  namespace: glance
+  labels:
+    app: glance
+data:
+  glance.yml: |
+    pages:
+      - name: Home
+        columns:
+          - size: small
+            widgets:
+              - type: weather
+                location: "New York,US"
+              - type: rss
+                title: "Tech News"
+                url: "https://hnrss.org/frontpage"
+          - size: large
+            widgets:
+              - type: bookmarks
+                title: "Quick Links"
+                links:
+                  - name: GitHub
+                    url: https://github.com
+                  - name: ArgoCD
+                    url: https://argocd.nexus-core.dev
