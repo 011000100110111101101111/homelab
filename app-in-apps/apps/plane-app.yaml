@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plane-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: plane-ce
+    repoURL: https://helm.plane.so/
+    targetRevision: 1.2.2
+    helm:
+      releaseName: my-plane
+      valuesObject:
+        planeVersion: stable
+        ingress:
+          appHost: "plane.nexus-core.dev"
+          ingressClass: "haproxy"
+        redis:
+          storageClass: "nfs-client"
+        postgres:
+          storageClass: "nfs-client"
+        minio:
+          storageClass: "nfs-client"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: plane
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
