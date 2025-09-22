@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rsshub-ingress
+  namespace: rsshub
+  labels:
+    app: rsshub
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: rsshub.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: my-rsshub
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - rsshub.nexus-core.dev
+      secretName: rsshub-ingress-secret
