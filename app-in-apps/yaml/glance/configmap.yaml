@@ -67,7 +67,7 @@ data:
               - type: custom-api
                 title: Astronomy Picture of the Day
                 cache: 1d
-                url: https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}
+                url: https://api.nasa.gov/planetary/apod?api_key=qtyasrGwKC7rcSBxJd2E53LccTZLvBaau0CgAZm1
                 headers:
                   Accept: application/json
                 template: |
