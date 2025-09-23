@@ -308,3 +308,12 @@ data:
                   - url: https://samwho.dev/rss.xml
                   - url: https://ishadeed.com/feed.xml
                     title: Ahmad Shadeed
+      - name: Homepage
+        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+        # hide-desktop-navigation: true
+        columns:
+          - size: full
+            widgets:
+              - type: iframe
+                source: https://home.nexus-core.dev
+                height: 800
