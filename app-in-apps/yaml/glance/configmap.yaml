@@ -29,7 +29,7 @@ data:
               - type: bookmarks
                 groups:
                   - title: Useful
-                    color: 0 200 40
+                    color: 0 60 40
                     links:
                       - title: Gmail
                         url: https://mail.google.com/mail/u/0/
