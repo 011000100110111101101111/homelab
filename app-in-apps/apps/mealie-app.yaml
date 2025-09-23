@@ -11,7 +11,7 @@ spec:
     namespace: mealie
     server: https://kubernetes.default.svc
   project: default 
-  source: 
+  source:
     path: app-in-apps/yaml/mealie
     repoURL: https://github.com/011000100110111101101111/homelab
     targetRevision: main
