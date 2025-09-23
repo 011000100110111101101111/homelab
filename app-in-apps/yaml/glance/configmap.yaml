@@ -18,18 +18,45 @@ data:
               - type: calendar
                 first-day-of-week: monday
 
-              - type: weather
-                units: imperial
-                hour-format: 12h
-                location: New York,US
-
           - size: full
             widgets:
-              - type: twitch-channels
+              - type: bookmarks
+                groups:
+                  - links:
+                      - title: Gmail
+                        url: https://mail.google.com/mail/u/0/
+                      - title: Amazon
+                        url: https://www.amazon.com/
+                      - title: Github
+                        url: https://github.com/
+                      - title: Wikipedia
+                        url: https://en.wikipedia.org/
+                  - title: Entertainment
+                    color: 10 70 50
+                    links:
+                      - title: Netflix
+                        url: https://www.netflix.com/
+                      - title: Disney+
+                        url: https://www.disneyplus.com/
+                      - title: YouTube
+                        url: https://www.youtube.com/
+                      - title: Prime Video
+                        url: https://www.primevideo.com/
+                  - title: Social
+                    color: 200 50 50
+                    links:
+                      - title: Reddit
+                        url: https://www.reddit.com/
+                      - title: Twitter
+                        url: https://twitter.com/
+                      - title: Instagram
+                        url: https://www.instagram.com/
+              - type: videos
                 channels:
-                  - cohhcarnage
-                  - quin69
-                  - moonmoon
+                  - UCXuqSBlHAE6Xw-yeJA0Tunw
+                  - UCBJycsmduvYEL83R_U4JriQ
+                  - UCHnyfMqiRRG1u-2MsSQLbXA
+
           - size: small
             widgets:
 
@@ -37,6 +64,11 @@ data:
                 units: imperial
                 hour-format: 12h
                 location: New York,US
+              - type: twitch-channels
+                channels:
+                  - cohhcarnage
+                  - quin69
+                  - moonmoon
       - name: Feed
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true
