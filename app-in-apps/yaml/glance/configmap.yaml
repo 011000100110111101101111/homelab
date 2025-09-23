@@ -22,7 +22,9 @@ data:
             widgets:
               - type: bookmarks
                 groups:
-                  - links:
+                  - title: Useful
+                    color: 0 200 40
+                    links:
                       - title: Gmail
                         url: https://mail.google.com/mail/u/0/
                       - title: Amazon
@@ -64,6 +66,74 @@ data:
                 units: imperial
                 hour-format: 12h
                 location: New York,US
+              - type: custom-api
+                title: Air Quality
+                cache: 10m
+                url: https://api.waqi.info/feed/geo:42.391866;-71.099912/?token=4633e1f9ed26aa95327cd6744ad40c180682491f
+                template: |
+                  {{ $aqi := printf "%03s" (.JSON.String "data.aqi") }}
+                  {{ $aqiraw := .JSON.String "data.aqi" }}
+                  {{ $updated := .JSON.String "data.time.iso" }}
+                  {{ $humidity := .JSON.String "data.iaqi.h.v" }}
+                  {{ $ozone := .JSON.String "data.iaqi.o3.v" }}
+                  {{ $pm25 := .JSON.String "data.iaqi.pm25.v" }}
+                  {{ $pressure := .JSON.String "data.iaqi.p.v" }}
+
+                  <div class="flex justify-between">
+                    <div class="size-h5">
+                      {{ if le $aqi "050" }}
+                        <div class="color-positive">Good air quality</div>
+                      {{ else if le $aqi "100" }}
+                        <div class="color-primary">Moderate air quality</div>
+                      {{ else }}
+                        <div class="color-negative">Bad air quality</div>
+                      {{ end }}
+                    </div>
+                  </div>
+
+                  <div class="color-highlight size-h2">AQI: {{ $aqiraw }}</div>
+                  <div style="border-bottom: 1px solid; margin-block: 10px;"></div>
+
+                  <div class="margin-block-2">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $humidity }}%</div>
+                        <div class="size-h6">HUMIDITY</div>
+                      </div>
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $ozone }} μg/m³</div>
+                        <div class="size-h6">OZONE</div>
+                      </div>
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $pm25 }} μg/m³</div>
+                        <div class="size-h6">PM2.5</div>
+                      </div>
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $pressure }} hPa</div>
+                        <div class="size-h6">PRESSURE</div>
+                      </div>
+
+                    </div>
+
+                    <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
+                  </div>
+              - type: custom-api
+                title: Daily Chess Puzzle
+                cache: 6h
+                url: https://api.chess.com/pub/puzzle
+                template: |
+                  <div style="text-align: center;">
+                    <h3 style="font-size: 1.5rem; margin: 0 0 8px 0;">
+                      <a href="{{ .JSON.String "url" }}" target="_blank" style="text-decoration: underline;">
+                        {{ .JSON.String "title" }}
+                      </a>
+                    </h3>
+                    <img src="{{ .JSON.String "image" }}" alt="Daily Chess Puzzle" style="max-width:100%; height:auto; border-radius: 3px;">
+                  </div>
               - type: twitch-channels
                 channels:
                   - cohhcarnage
