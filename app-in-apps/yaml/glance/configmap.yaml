@@ -292,22 +292,35 @@ data:
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true
         columns:
+          - size: small
+            widgets:
+              - type: rss
+                limit: 10
+                collapse-after: 10
+                cache: 12h
+                feeds:
+                  - url: https://feeds.npr.org/510318/podcast.xml
+                    title: Up First NPR
+                    limit: 2
+                  - url: https://risky.biz/rss.xml
+                    title: Risky Business
+                    limit: 3
           - size: full
             widgets:
               - type: rss
                 limit: 10
-                collapse-after: 3
+                collapse-after: 10
                 cache: 12h
                 feeds:
                   - url: https://selfh.st/rss/
                     title: selfh.st
-                    limit: 4
-                  - url: https://ciechanow.ski/atom.xml
-                  - url: https://www.joshwcomeau.com/rss.xml
-                    title: Josh Comeau
-                  - url: https://samwho.dev/rss.xml
-                  - url: https://ishadeed.com/feed.xml
-                    title: Ahmad Shadeed
+                    limit: 2
+                  - url: https://arxiv.org/rss/cs.AI/recent
+                    title: Artificial Intelligence
+                    limit: 3
+                  - url: http://feeds.nature.com/nature/rss/current
+                    title: Nature
+                    limit: 2
       - name: Homepage
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true

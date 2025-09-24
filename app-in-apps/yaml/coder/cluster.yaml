@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgresql-coder
+  namespace: database
+spec:
+  instances: 1
+  storage:
+    size: 20Gi
+    storageClass: longhorn
+  bootstrap:
+    initdb:
+      database: coder
+      owner: coder
+      secret:
+        name: postgres-credentials

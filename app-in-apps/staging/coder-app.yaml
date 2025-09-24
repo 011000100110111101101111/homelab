@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coder-app
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://helm.coder.com/v2
+      chart: coder
+      targetRevision: 2.26.0
+      helm:
+        releaseName: my-coder
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/coder
+      targetRevision: main
+      directory:
+        recurse: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: coder
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
