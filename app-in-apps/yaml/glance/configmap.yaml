@@ -321,6 +321,16 @@ data:
                   - url: http://feeds.nature.com/nature/rss/current
                     title: Nature
                     limit: 2
+          - size: small
+            widgets:
+              - type: rss
+                limit: 10
+                collapse-after: 10
+                cache: 12h
+                feeds:
+                  - url: https://techcrunch.com/feed/
+                    title: techcrunch
+                    limit: 4
       - name: Homepage
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true
