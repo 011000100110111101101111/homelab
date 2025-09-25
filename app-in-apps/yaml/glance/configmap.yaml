@@ -308,8 +308,8 @@ data:
           - size: full
             widgets:
               - type: rss
-                limit: 10
-                collapse-after: 10
+                limit: 40
+                collapse-after: 20
                 cache: 12h
                 feeds:
                   - url: https://selfh.st/rss/
@@ -320,7 +320,16 @@ data:
                     limit: 3
                   - url: http://feeds.nature.com/nature/rss/current
                     title: Nature
-                    limit: 2
+                    limit: 3
+                  - url: https://reddit.com/r/selfhosted/top.rss?t=week
+                    title: Self Hosted Reddit
+                    limit: 3
+                  - url: https://www.bookbrowse.com/rss/book_news.rss
+                    title: Book News Feed
+                    limit: 3
+                  - url: https://www.reddit.com/r/booksuggestions/.rss
+                    title: Reddit suggested books
+                    limit: 3
           - size: small
             widgets:
               - type: rss
