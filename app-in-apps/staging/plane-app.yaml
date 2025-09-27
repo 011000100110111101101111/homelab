@@ -15,13 +15,14 @@ spec:
         planeVersion: stable
         ingress:
           appHost: "plane.nexus-core.dev"
+          minioHost: "plane-minio.nexus-core.dev"
           ingressClass: "haproxy"
         redis:
-          storageClass: "nfs-client"
+          storageClass: "longhorn"
         postgres:
           storageClass: "longhorn"
         minio:
-          storageClass: "nfs-client"
+          storageClass: "longhorn"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: plane
