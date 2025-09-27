@@ -23,6 +23,8 @@ spec:
           storageClass: "longhorn"
         minio:
           storageClass: "longhorn"
+        rabbitmq:
+          storageClass: "longhorn"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: plane
