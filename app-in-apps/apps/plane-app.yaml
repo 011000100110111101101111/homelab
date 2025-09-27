@@ -19,7 +19,7 @@ spec:
         redis:
           storageClass: "nfs-client"
         postgres:
-          storageClass: "nfs-client"
+          storageClass: "longhorn"
         minio:
           storageClass: "nfs-client"
   destination:
