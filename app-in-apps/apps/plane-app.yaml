@@ -13,6 +13,8 @@ spec:
         releaseName: my-plane
         valuesObject:
           planeVersion: stable
+          ingress:
+            enabled: false
           redis:
             storageClass: "longhorn"
           postgres:
