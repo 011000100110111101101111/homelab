@@ -1,8 +1,8 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
-  name: coder-auth
-  namespace: coder
+  name: coder-auth-db
+  namespace: database
 spec:
   method: kubernetes
   mount: kubernetes

@@ -13,4 +13,4 @@ spec:
       database: coder
       owner: coder
       secret:
-        name: postgres-credentials
+        name: coder-postgres-credentials

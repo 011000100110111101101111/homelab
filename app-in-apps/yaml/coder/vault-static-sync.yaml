@@ -1,37 +1,17 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
-  name: paperless-secrets
-  namespace: paperlessngx
+  name: coder-secrets
+  namespace: coder
 spec:
-  vaultAuthRef: paperless-auth
+  vaultAuthRef: coder-auth
   mount: kv-v2
   type: kv-v2
-  path: paperlessngx
+  path: coder/db_url
   refreshAfter: 10s
   destination:
     create: true
-    name: paperlessngx-secrets
+    name: coder-db-url
   rolloutRestartTargets:
   - kind: Deployment
-    name: paperlessngx
-
----
-
-apiVersion: secrets.hashicorp.com/v1beta1
-kind: VaultStaticSecret
-metadata:
-  name: paperless-db-secrets
-  namespace: paperlessngx
-spec:
-  vaultAuthRef: paperless-auth
-  mount: kv-v2
-  type: kv-v2
-  path: paperlessngx/db
-  refreshAfter: 10s
-  destination:
-    create: true
-    name: paperless-db-credentials
-  rolloutRestartTargets:
-  - kind: Deployment
-    name: paperlessngx
+    name: coder
