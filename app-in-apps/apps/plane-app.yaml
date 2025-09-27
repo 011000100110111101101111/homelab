@@ -5,28 +5,27 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    chart: plane-ce
-    repoURL: https://helm.plane.so/
-    targetRevision: 1.2.2
-    helm:
-      releaseName: my-plane
-      valuesObject:
-        planeVersion: stable
-        ingress:
-          appHost: "plane.nexus-core.dev"
-          ingressClass: "haproxy"
-          ingress_annotations:
-            kubernetes.io/ingress.class: haproxy
-            cert-manager.io/cluster-issuer: homelab-issuer
-        redis:
-          storageClass: "longhorn"
-        postgres:
-          storageClass: "longhorn"
-        minio:
-          storageClass: "longhorn"
-        rabbitmq:
-          storageClass: "longhorn"
+  sources:
+    - repoURL: https://helm.plane.so/
+      chart: plane-ce
+      targetRevision: 1.2.2
+      helm:
+        releaseName: my-plane
+        valuesObject:
+          planeVersion: stable
+          redis:
+            storageClass: "longhorn"
+          postgres:
+            storageClass: "longhorn"
+          minio:
+            storageClass: "longhorn"
+          rabbitmq:
+            storageClass: "longhorn"
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/plane
+      targetRevision: main
+      directory:
+        recurse: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: plane
