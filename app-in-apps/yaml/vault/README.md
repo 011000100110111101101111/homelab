@@ -50,3 +50,25 @@ vault kv put kvv2/webapp/config username="static-user" password="static-password
 # 
 exit
 ```
+
+## IMPORTANT
+
+```bash
+kubectl -n vault create serviceaccount vault-auth
+kubectl create clusterrolebinding vault-auth-delegator \
+    --clusterrole=system:auth-delegator \
+    --serviceaccount=vault:vault-auth
+```
+
+Get token
+
+```bash
+kubectl -n vault create token vault-auth
+```
+
+```bash
+vault write auth/kubernetes/config \
+    kubernetes_host="https://10.96.0.1:443" \
+    kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+    token_reviewer_jwt=<token-from-step-2>
+```

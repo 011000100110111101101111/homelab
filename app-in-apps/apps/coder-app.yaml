@@ -23,6 +23,9 @@ spec:
                     key: url
             ingress:
               enable: false
+            service:
+              enable: true
+              type: ClusterIP
     - repoURL: https://github.com/011000100110111101101111/homelab
       path: app-in-apps/yaml/coder
       targetRevision: main

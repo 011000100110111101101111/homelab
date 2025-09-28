@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: coder-ingress
+  namespace: coder
+  labels:
+    app: coder
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: coder
+  rules:
+    - host: coder.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: coder-service-ingress
+                port:
+                  name: adminpanel
+  tls:
+    - hosts:
+        - coder.nexus-core.dev
+      secretName: coder-ingress-secret
