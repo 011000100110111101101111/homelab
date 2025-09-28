@@ -33,6 +33,8 @@ spec:
                   secretKeyRef:
                     name: coder-db-url
                     key: client_secret
+              - name: CODER_OAUTH2_GITHUB_ALLOW_EVERYONE
+                value: "true"
             ingress:
               enable: false
             service:
