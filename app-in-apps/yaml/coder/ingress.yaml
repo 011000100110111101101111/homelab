@@ -18,7 +18,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: coder-service-ingress
+                name: coder
                 port:
                   number: 80
   tls:
