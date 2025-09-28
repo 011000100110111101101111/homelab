@@ -21,7 +21,7 @@ spec:
               service:
                 name: coder-service-ingress
                 port:
-                  name: adminpanel
+                  number: 80
   tls:
     - hosts:
         - coder.nexus-core.dev
