@@ -21,6 +21,18 @@ spec:
                   secretKeyRef:
                     name: coder-db-url
                     key: url
+              - name: CODER_OAUTH2_GITHUB_ALLOW_SIGNUPS
+                value: "true"
+              - name: CODER_OAUTH2_GITHUB_CLIENT_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: coder-db-url
+                    key: client_id
+              - name: CODER_OAUTH2_GITHUB_CLIENT_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: coder-db-url
+                    key: client_secret
             ingress:
               enable: false
             service:
