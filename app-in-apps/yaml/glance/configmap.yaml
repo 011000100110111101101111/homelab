@@ -23,6 +23,122 @@ data:
 
               - type: calendar
                 first-day-of-week: monday
+              - type: weather
+                units: imperial
+                hour-format: 12h
+                location: New York,US
+              - type: custom-api
+                title: Air Quality
+                cache: 10m
+                url: https://api.waqi.info/feed/geo:42.391866;-71.099912/?token=4633e1f9ed26aa95327cd6744ad40c180682491f
+                template: |
+                  {{ $aqi := printf "%03s" (.JSON.String "data.aqi") }}
+                  {{ $aqiraw := .JSON.String "data.aqi" }}
+                  {{ $updated := .JSON.String "data.time.iso" }}
+                  {{ $humidity := .JSON.String "data.iaqi.h.v" }}
+                  {{ $ozone := .JSON.String "data.iaqi.o3.v" }}
+                  {{ $pm25 := .JSON.String "data.iaqi.pm25.v" }}
+                  {{ $pressure := .JSON.String "data.iaqi.p.v" }}
+
+                  <div class="flex justify-between">
+                    <div class="size-h5">
+                      {{ if le $aqi "050" }}
+                        <div class="color-positive">Good air quality</div>
+                      {{ else if le $aqi "100" }}
+                        <div class="color-primary">Moderate air quality</div>
+                      {{ else }}
+                        <div class="color-negative">Bad air quality</div>
+                      {{ end }}
+                    </div>
+                  </div>
+
+                  <div class="color-highlight size-h2">AQI: {{ $aqiraw }}</div>
+                  <div style="border-bottom: 1px solid; margin-block: 10px;"></div>
+
+                  <div class="margin-block-2">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $humidity }}%</div>
+                        <div class="size-h6">HUMIDITY</div>
+                      </div>
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $ozone }} μg/m³</div>
+                        <div class="size-h6">OZONE</div>
+                      </div>
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $pm25 }} μg/m³</div>
+                        <div class="size-h6">PM2.5</div>
+                      </div>
+
+                      <div>
+                        <div class="size-h3 color-highlight">{{ $pressure }} hPa</div>
+                        <div class="size-h6">PRESSURE</div>
+                      </div>
+
+                    </div>
+
+                    <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
+                  </div>
+
+
+          - size: full
+            widgets:
+              - type: bookmarks
+                groups:
+                  - links:
+                      - title: Reddit
+                        url: https://reddit.com
+                        icon: https://cdn.simpleicons.org/reddit/FF4500
+                        hide-arrow: true
+
+                      - title: YouTube
+                        url: https://youtube.com
+                        icon: https://cdn.simpleicons.org/youtube/FF0000
+                        hide-arrow: true
+
+                      - title: Amazon
+                        url: https://amazon.com
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/amazon.svg
+                        hide-arrow: true
+
+                      - title: Jellyfin
+                        url: https://jellyfin.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/jellyfin.svg
+                        hide-arrow: true
+                  - links:
+                      - title: Jellyfin
+                        url: https://jellyfin.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/jellyfin.svg
+                        hide-arrow: true
+
+                      - title: Jellyseer
+                        url: https://jellyseer.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/jellyseerr.svg
+                        hide-arrow: true
+
+                      - title: UniFi Network
+                        url: https://network.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ubiquiti-unifi.svg
+                        hide-arrow: true
+
+                      - title: UniFi Drive
+                        url: https://drive.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/mydrive.svg
+                        hide-arrow: true
+              - type: videos
+                style: grid-cards
+                collapse-after-rows: 3
+                channels:
+                  - UCXuqSBlHAE6Xw-yeJA0Tunw
+                  - UCBJycsmduvYEL83R_U4JriQ
+                  - UCHnyfMqiRRG1u-2MsSQLbXA
+                  - UCsBjURrPoezykLs9EqgamOA # Fireship
+
+          - size: small
+            widgets:
               - type: custom-api
                 title: Astronomy Picture of the Day
                 cache: 1d
@@ -168,108 +284,6 @@ data:
                     {{ end }}
                   </div>
 
-          - size: full
-            widgets:
-              - type: bookmarks
-                groups:
-                  - title: Useful
-                    color: 0 60 40
-                    links:
-                      - title: Gmail
-                        url: https://mail.google.com/mail/u/0/
-                      - title: Amazon
-                        url: https://www.amazon.com/
-                      - title: Github
-                        url: https://github.com/
-                      - title: Wikipedia
-                        url: https://en.wikipedia.org/
-                  - title: Entertainment
-                    color: 10 70 50
-                    links:
-                      - title: Netflix
-                        url: https://www.netflix.com/
-                      - title: Disney+
-                        url: https://www.disneyplus.com/
-                      - title: YouTube
-                        url: https://www.youtube.com/
-                      - title: Prime Video
-                        url: https://www.primevideo.com/
-                  - title: Social
-                    color: 200 50 50
-                    links:
-                      - title: Reddit
-                        url: https://www.reddit.com/
-                      - title: Twitter
-                        url: https://twitter.com/
-                      - title: Instagram
-                        url: https://www.instagram.com/
-              - type: videos
-                channels:
-                  - UCXuqSBlHAE6Xw-yeJA0Tunw
-                  - UCBJycsmduvYEL83R_U4JriQ
-                  - UCHnyfMqiRRG1u-2MsSQLbXA
-
-          - size: small
-            widgets:
-              - type: weather
-                units: imperial
-                hour-format: 12h
-                location: New York,US
-              - type: custom-api
-                title: Air Quality
-                cache: 10m
-                url: https://api.waqi.info/feed/geo:42.391866;-71.099912/?token=4633e1f9ed26aa95327cd6744ad40c180682491f
-                template: |
-                  {{ $aqi := printf "%03s" (.JSON.String "data.aqi") }}
-                  {{ $aqiraw := .JSON.String "data.aqi" }}
-                  {{ $updated := .JSON.String "data.time.iso" }}
-                  {{ $humidity := .JSON.String "data.iaqi.h.v" }}
-                  {{ $ozone := .JSON.String "data.iaqi.o3.v" }}
-                  {{ $pm25 := .JSON.String "data.iaqi.pm25.v" }}
-                  {{ $pressure := .JSON.String "data.iaqi.p.v" }}
-
-                  <div class="flex justify-between">
-                    <div class="size-h5">
-                      {{ if le $aqi "050" }}
-                        <div class="color-positive">Good air quality</div>
-                      {{ else if le $aqi "100" }}
-                        <div class="color-primary">Moderate air quality</div>
-                      {{ else }}
-                        <div class="color-negative">Bad air quality</div>
-                      {{ end }}
-                    </div>
-                  </div>
-
-                  <div class="color-highlight size-h2">AQI: {{ $aqiraw }}</div>
-                  <div style="border-bottom: 1px solid; margin-block: 10px;"></div>
-
-                  <div class="margin-block-2">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-
-                      <div>
-                        <div class="size-h3 color-highlight">{{ $humidity }}%</div>
-                        <div class="size-h6">HUMIDITY</div>
-                      </div>
-
-                      <div>
-                        <div class="size-h3 color-highlight">{{ $ozone }} μg/m³</div>
-                        <div class="size-h6">OZONE</div>
-                      </div>
-
-                      <div>
-                        <div class="size-h3 color-highlight">{{ $pm25 }} μg/m³</div>
-                        <div class="size-h6">PM2.5</div>
-                      </div>
-
-                      <div>
-                        <div class="size-h3 color-highlight">{{ $pressure }} hPa</div>
-                        <div class="size-h6">PRESSURE</div>
-                      </div>
-
-                    </div>
-
-                    <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
-                  </div>
               - type: custom-api
                 title: Daily Chess Puzzle
                 cache: 6h
@@ -295,44 +309,108 @@ data:
           - size: small
             widgets:
               - type: rss
-                limit: 10
-                collapse-after: 10
+                title: Up First NPR
+                limit: 4
+                collapse-after: 2
                 cache: 12h
                 feeds:
                   - url: https://feeds.npr.org/510318/podcast.xml
                     title: Up First NPR
                     limit: 2
+              - type: rss
+                title: Risky Business
+                limit: 4
+                collapse-after: 2
+                cache: 12h
+                feeds:
                   - url: https://risky.biz/rss.xml
                     title: Risky Business
                     limit: 3
+
           - size: full
             widgets:
-              - type: rss
-                limit: 40
-                collapse-after: 20
-                cache: 12h
-                feeds:
-                  - url: https://selfh.st/rss/
-                    title: selfh.st
-                    limit: 2
-                  - url: https://arxiv.org/rss/cs.AI/recent
-                    title: Artificial Intelligence
-                    limit: 3
-                  - url: http://feeds.nature.com/nature/rss/current
-                    title: Nature
-                    limit: 3
-                  - url: https://reddit.com/r/selfhosted/top.rss?t=week
-                    title: Self Hosted Reddit
-                    limit: 3
-                  - url: https://www.bookbrowse.com/rss/book_news.rss
-                    title: Book News Feed
-                    limit: 3
-                  - url: https://www.reddit.com/r/booksuggestions/.rss
-                    title: Reddit suggested books
-                    limit: 3
+              - type: group
+                widgets:
+                  - subreddit: spaceporn
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - subreddit: selfhosted
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - subreddit: Ubiquiti
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - subreddit: unixporn
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - subreddit: cybersecurity
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - subreddit: gamingnews
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+                  - subreddit: pcgaming
+                    type: reddit
+                    show-thumbnails: true
+                    collapse-after: 6
+
+              - type: group
+                title: Tech & Self-Hosted
+                widgets:
+                  - type: rss
+                    title: Tech & Self-Hosted
+                    limit: 10
+                    collapse-after: 5
+                    cache: 12h
+                    feeds:
+                      - url: https://selfh.st/rss/
+                        title: selfh.st
+                        limit: 2
+                      - url: https://reddit.com/r/selfhosted/top.rss?t=week
+                        title: Self Hosted Reddit
+                        limit: 3
+
+              - type: group
+                title: Research
+                widgets:
+                  - type: rss
+                    title: Research
+                    limit: 10
+                    collapse-after: 5
+                    cache: 12h
+                    feeds:
+                      - url: https://arxiv.org/rss/cs.AI/recent
+                        title: Artificial Intelligence
+                        limit: 3
+                      - url: http://feeds.nature.com/nature/rss/current
+                        title: Nature
+                        limit: 3
+
+              - type: group
+                title: Books
+                widgets:
+                  - type: rss
+                    title: Books
+                    limit: 10
+                    collapse-after: 5
+                    cache: 12h
+                    feeds:
+                      - url: https://www.bookbrowse.com/rss/book_news.rss
+                        title: Book News Feed
+                        limit: 3
+                      - url: https://www.reddit.com/r/booksuggestions/.rss
+                        title: Reddit suggested books
+                        limit: 3
           - size: small
             widgets:
               - type: rss
+                title: Techcrunch
                 limit: 10
                 collapse-after: 10
                 cache: 12h
@@ -340,6 +418,14 @@ data:
                   - url: https://techcrunch.com/feed/
                     title: techcrunch
                     limit: 4
+              - type: releases
+                cache: 1d
+                token:
+                repositories:
+                  - it-baer/nc-iframewidget
+                  - go-gitea/gitea
+                  - glanceapp/glance
+
       - name: Homepage
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true
