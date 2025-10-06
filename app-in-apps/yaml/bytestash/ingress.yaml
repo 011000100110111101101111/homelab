@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bytestash-ingress
+  namespace: bytestash
+  labels:
+    app: bytestash
+  annotations:
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: snippets.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: bytestash-service-ingress
+                port:
+                  name: adminpanel
+  tls:
+    - hosts:
+        - snippets.nexus-core.dev
+      secretName: bytestash-ingress-secret
