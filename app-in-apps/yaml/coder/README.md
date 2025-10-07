@@ -3,7 +3,7 @@
 ## Deploy vault secrets
 
 ```bash
-kubectl exec -it pod/my-vault-0 -- /bin/sh
+kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 ```
 
 ```bash
