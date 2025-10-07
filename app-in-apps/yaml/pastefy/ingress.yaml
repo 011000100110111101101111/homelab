@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pastefy-ingress
+  namespace: pastefy
+  labels:
+    app: pastefy
+  annotations:
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: paste.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: pastefy-service-ingress
+                port:
+                  name: ui
+  tls:
+    - hosts:
+        - pastefy.nexus-core.dev
+      secretName: pastefy-ingress-secret

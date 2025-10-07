@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pastefy-service-ingress
+  labels:
+    app: pastefy
+  namespace: pastefy
+spec:
+  selector:
+    app: pastefy
+  ports:
+    - name: ui
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  type: ClusterIP

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pastefy
+  labels:
+    app: pastefy
+  namespace: pastefy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pastefy
+  template:
+    metadata:
+      labels:
+        app: pastefy
+    spec:
+      containers:
+        - name: pastefy
+          image: interaapps/pastefy:latest
+          env:
+          - name: DATABASE_DRIVER
+            value: postgresql
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: database_name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: username
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: password
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: database_host
+          - name: SERVER_NAME
+            value: https://paste.nexus-core.dev
+          ports:
+            - containerPort: 80
