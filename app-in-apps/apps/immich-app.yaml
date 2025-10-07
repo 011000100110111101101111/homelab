@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metrics-server-app
+  name: immich-app
   namespace: argocd
 spec:
   project: default
@@ -29,7 +29,7 @@ spec:
         recurse: true
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: metrics-server
+    namespace: immich
   syncPolicy:
     automated:
       prune: true
