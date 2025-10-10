@@ -310,7 +310,7 @@ data:
             widgets:
               - type: rss
                 title: Up First NPR
-                limit: 4
+                limit: 2
                 collapse-after: 2
                 cache: 12h
                 feeds:
@@ -319,13 +319,41 @@ data:
                     limit: 2
               - type: rss
                 title: Risky Business
-                limit: 4
+                limit: 2
                 collapse-after: 2
                 cache: 12h
                 feeds:
                   - url: https://risky.biz/rss.xml
                     title: Risky Business
                     limit: 3
+              - type: rss
+                title: The Skeptics Guide
+                limit: 2
+                collapse-after: 2
+                cache: 12h
+                feeds:
+                  - url: https://www.theskepticsguide.org/podcasts/feed
+                    title: The Skeptics Guide
+                    limit: 2
+              - type: rss
+                title: The Naked Scientists
+                limit: 2
+                collapse-after: 2
+                cache: 12h
+                feeds:
+                  - url: https://www.thenakedscientists.com/naked_scientists_podcast.xml
+                    title: The Naked Scientists
+                    limit: 2
+              - type: rss
+                title: Smithsonian Sidedoor
+                limit: 2
+                collapse-after: 2
+                cache: 12h
+                feeds:
+                  - url: http://feeds.si.edu/SmithsonianSidedoor
+                    title: Smithsonian Sidedoor
+                    limit: 2
+
 
           - size: full
             widgets:
