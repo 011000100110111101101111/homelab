@@ -24,8 +24,8 @@ EOF
 
 ```bash
 vault write auth/kubernetes/role/pastefy \
-    bound_service_account_names=default \
-    bound_service_account_namespaces=pastefy,database \
+    bound_service_account_names=my-vault-secrets-operator-controller-manager \
+    bound_service_account_namespaces=vault-secrets-operator \
     policies=pastefy \
     ttl=24h \
     audience=vault
