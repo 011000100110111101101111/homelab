@@ -16,6 +16,13 @@ spec:
           enabled: true
           address: "http://my-vault.vault.svc.cluster.local:8200"
           skipTLSVerify: false
+        defaultAuthMethod:
+          enabled: true
+          kubernetes:
+            role: ${vault-kube-auth-role}
+            serviceAccount: default
+            tokenAudiences:
+            - vault
         controller:
           manager:
             clientCache:
