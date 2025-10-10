@@ -6,7 +6,7 @@ metadata:
 spec:
   mount: kv-v2
   type: kv-v2
-  path: pastefy
+  path: pastefy/db
   refreshAfter: 10s
   destination:
     create: true
@@ -26,7 +26,7 @@ metadata:
 spec:
   mount: kv-v2
   type: kv-v2
-  path: pastefy
+  path: pastefy/db
   refreshAfter: 10s
   destination:
     create: true
