@@ -72,3 +72,14 @@ vault write auth/kubernetes/config \
     kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
     token_reviewer_jwt=<token-from-step-2>
 ```
+
+## For using default SA across all namespaces to reduce vaultauths
+
+```bash
+vault write auth/kubernetes/role/my-vault-role \
+  bound_service_account_names=default \
+  bound_service_account_namespaces='*' \
+  policies=pastefy \
+  ttl=24h \
+  audience=vault
+```
