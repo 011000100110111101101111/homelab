@@ -2,7 +2,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: pastefy-db-secrets
-  namespace: vault-secrets-operator
+  namespace: database
 spec:
   vaultAuthRef: pastefy-db-auth
   mount: kv-v2
@@ -12,7 +12,6 @@ spec:
   destination:
     create: true
     name: pastefy-db-credentials
-    namespace: database
   rolloutRestartTargets:
   - kind: Deployment
     name: pastefy
@@ -24,7 +23,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: pastefy-db-secrets
-  namespace: vault-secrets-operator
+  namespace: pastefy
 spec:
   vaultAuthRef: pastefy-db-auth
   mount: kv-v2
@@ -34,7 +33,6 @@ spec:
   destination:
     create: true
     name: pastefy-db-credentials
-    namespace: pastefy
   rolloutRestartTargets:
   - kind: Deployment
     name: pastefy

@@ -2,7 +2,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: pastefy-db-auth
-  namespace: vault-secrets-operator
+  namespace: pastefy
 spec:
   method: kubernetes
   mount: kubernetes
@@ -18,7 +18,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: pastefy-db-auth
-  namespace: vault-secrets-operator
+  namespace: database
 spec:
   method: kubernetes
   mount: kubernetes
