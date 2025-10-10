@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bytestash-service-ingress
+  labels:
+    app: bytestash
+  namespace: bytestash
+spec:
+  selector:
+    app: bytestash
+  ports:
+    - name: adminpanel
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+  type: ClusterIP

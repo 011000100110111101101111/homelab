@@ -2,26 +2,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nocodb-ingress
-  namespace: nocodb
+  name: pastefy-ingress
+  namespace: pastefy
   labels:
-    app: nocodb
+    app: pastefy
   annotations:
     cert-manager.io/cluster-issuer: homelab-issuer
 spec:
   ingressClassName: haproxy
   rules:
-    - host: nocodb.nexus-core.dev
+    - host: paste.nexus-core.dev
       http:
         paths:
           - path: "/"
             pathType: Prefix
             backend:
               service:
-                name: nocodb-service
+                name: pastefy-service-ingress
                 port:
                   name: ui
   tls:
     - hosts:
-        - nocodb.nexus-core.dev
-      secretName: nocodb-ingress-secret
+        - pastefy.nexus-core.dev
+      secretName: pastefy-ingress-secret

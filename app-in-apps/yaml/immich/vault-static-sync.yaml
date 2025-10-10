@@ -1,0 +1,17 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: immich-db-secrets
+  namespace: database
+spec:
+  vaultAuthRef: immich-db-auth
+  mount: kv-v2
+  type: kv-v2
+  path: immich
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: immich-db-credentials
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: immich

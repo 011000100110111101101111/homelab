@@ -2,26 +2,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nocodb-ingress
-  namespace: nocodb
+  name: bytestash-ingress
+  namespace: bytestash
   labels:
-    app: nocodb
+    app: bytestash
   annotations:
     cert-manager.io/cluster-issuer: homelab-issuer
 spec:
   ingressClassName: haproxy
   rules:
-    - host: nocodb.nexus-core.dev
+    - host: snippets.nexus-core.dev
       http:
         paths:
           - path: "/"
             pathType: Prefix
             backend:
               service:
-                name: nocodb-service
+                name: bytestash-service-ingress
                 port:
-                  name: ui
+                  name: adminpanel
   tls:
     - hosts:
-        - nocodb.nexus-core.dev
-      secretName: nocodb-ingress-secret
+        - snippets.nexus-core.dev
+      secretName: bytestash-ingress-secret

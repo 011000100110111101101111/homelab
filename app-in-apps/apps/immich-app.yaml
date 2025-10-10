@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich-app
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
+      chart: immich
+      targetRevision: 0.9.3
+      helm:
+        releaseName: my-immich
+        valuesObject:
+          immich:
+            persistence:
+              library:
+                existingClaim: immich-data
+          server:
+            ingress:
+              main:
+                enabled: false
+          machine-learning:
+            enabled: false
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/immich
+      targetRevision: main
+      directory:
+        recurse: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: immich
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false

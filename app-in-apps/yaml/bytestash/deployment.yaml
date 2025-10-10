@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bytestash-deployment
+  labels:
+    app: bytestash
+  namespace: bytestash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bytestash
+  template:
+    metadata:
+      labels:
+        app: bytestash
+    spec:
+      containers:
+        - name: bytestash
+          image: ghcr.io/jordan-dalby/bytestash:latest
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: bytestash-snippets
+              mountPath: "/data/snippets"
+      volumes:
+        - name: bytestash-snippets
+          persistentVolumeClaim:
+            claimName: bytestash-snippets-pvc

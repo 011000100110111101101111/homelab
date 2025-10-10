@@ -1,0 +1,38 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: pastefy-db-secrets
+  namespace: database
+spec:
+  vaultAuthRef: pastefy-db-auth
+  mount: kv-v2
+  type: kv-v2
+  path: pastefy
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: pastefy-db-credentials
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: pastefy
+
+
+---
+
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: pastefy-db-secrets
+  namespace: pastefy
+spec:
+  vaultAuthRef: pastefy-db-auth
+  mount: kv-v2
+  type: kv-v2
+  path: pastefy
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: pastefy-db-credentials
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: pastefy
