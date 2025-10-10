@@ -23,19 +23,6 @@ spec:
             serviceAccount: default
             tokenAudiences:
             - vault
-        controller:
-          manager:
-            clientCache:
-              persistenceModel: direct-encrypted
-              storageEncryption:
-                enabled: true
-                mount: demo-auth-mount
-                keyName: vso-client-cache
-                transitMount: demo-transit
-                kubernetes:
-                  role: auth-role-operator
-                  serviceAccount: vault-secrets-operator-controller-manager
-                  tokenAudiences: ["vault"]
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault-secrets-operator
