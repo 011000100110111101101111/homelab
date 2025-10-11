@@ -54,23 +54,34 @@ exit
 ## IMPORTANT
 
 ```bash
-kubectl -n vault create serviceaccount vault-auth
-kubectl create clusterrolebinding vault-auth-delegator \
-    --clusterrole=system:auth-delegator \
-    --serviceaccount=vault:vault-auth
+kubectl create sa vault-token-reviewer -n vault
+kubectl apply -f - <<EOF
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vault-token-reviewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: vault-token-reviewer
+  namespace: vault
+EOF
 ```
 
 Get token
 
 ```bash
-kubectl -n vault create token vault-auth
+kubectl create token vault-token-reviewer -n vault
 ```
 
 ```bash
 vault write auth/kubernetes/config \
-    kubernetes_host="https://10.96.0.1:443" \
+    kubernetes_host="https://kubernetes.default.svc" \
     kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
-    token_reviewer_jwt=<token-from-step-2>
+    token_reviewer_jwt="<VAULT_TOKEN_REVIEWER_JWT>"
 ```
 
 ## For using default SA across all namespaces to reduce vaultauths
@@ -82,4 +93,39 @@ vault write auth/kubernetes/role/my-vault-role \
   policies=pastefy \
   ttl=24h \
   audience=vault
+```
+
+
+
+
+
+# Temp
+
+```bash
+kubectl create sa vault-auth -n pastefy
+kubectl create token vault-auth -n pastefy
+```
+
+```bash
+vault write auth/kubernetes/role/pastefy-role \
+    bound_service_account_names="vault-auth" \
+    bound_service_account_namespaces="pastefy" \
+    policies="pastefy-policy" \
+    ttl="24h"
+```
+
+```bash
+vault policy write pastefy-policy - <<EOF
+path "kv-v2/data/pastefy*" {
+  capabilities = ["read", "list"]
+}
+EOF
+```
+
+```bash
+
+```
+
+```bash
+
 ```
