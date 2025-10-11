@@ -6,7 +6,7 @@ metadata:
 spec:
   mount: kv-v2
   type: kv-v2
-  path: immich
+  path: immich/db
   refreshAfter: 10s
   destination:
     create: true
