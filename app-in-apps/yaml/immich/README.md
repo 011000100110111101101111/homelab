@@ -30,3 +30,10 @@ vault write auth/kubernetes/role/immich \
     ttl=24h \
     audience=vault
 ```
+
+
+## Also need to grab immich locally before deploying
+
+```bash
+
+```
