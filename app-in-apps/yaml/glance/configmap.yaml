@@ -132,10 +132,14 @@ data:
                 style: grid-cards
                 collapse-after-rows: 3
                 channels:
-                  - UCXuqSBlHAE6Xw-yeJA0Tunw
-                  - UCBJycsmduvYEL83R_U4JriQ
-                  - UCHnyfMqiRRG1u-2MsSQLbXA
+                  - UCz9qw5nupdzCGwHwQiqs7qA # ImKibitz
                   - UCsBjURrPoezykLs9EqgamOA # Fireship
+                  - UCq6VFHwMzcMXbuKyG7SQYIg # MoistCritikal
+                  - UCywBfpGBYhsczNuyyh6Cf6w # Worth A Buy
+                  - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
+                  - UCP5tjEmvPItGyLhmjdwP7Ww # Real Life Lore
+                  - UCW6xlqxSY3gGur4PkGPEUeA # Seytonic
+                  - UCZXW8E1__d5tZb-wLFOt8TQ # Bog
 
           - size: small
             widgets:
@@ -157,6 +161,19 @@ data:
                   {{- else -}}
                     <p class="color-negative" style="text-align:center;">No image available today.</p>
                   {{- end }}
+              - type: custom-api
+                title: Daily Chess Puzzle
+                cache: 6h
+                url: https://api.chess.com/pub/puzzle
+                template: |
+                  <div style="text-align: center;">
+                    <h3 style="font-size: 1.5rem; margin: 0 0 8px 0;">
+                      <a href="{{ .JSON.String "url" }}" target="_blank" style="text-decoration: underline;">
+                        {{ .JSON.String "title" }}
+                      </a>
+                    </h3>
+                    <img src="{{ .JSON.String "image" }}" alt="Daily Chess Puzzle" style="max-width:100%; height:auto; border-radius: 3px;">
+                  </div>
               - type: custom-api
                 title: LeetCode Daily Question
                 cache: 6h
@@ -284,19 +301,7 @@ data:
                     {{ end }}
                   </div>
 
-              - type: custom-api
-                title: Daily Chess Puzzle
-                cache: 6h
-                url: https://api.chess.com/pub/puzzle
-                template: |
-                  <div style="text-align: center;">
-                    <h3 style="font-size: 1.5rem; margin: 0 0 8px 0;">
-                      <a href="{{ .JSON.String "url" }}" target="_blank" style="text-decoration: underline;">
-                        {{ .JSON.String "title" }}
-                      </a>
-                    </h3>
-                    <img src="{{ .JSON.String "image" }}" alt="Daily Chess Puzzle" style="max-width:100%; height:auto; border-radius: 3px;">
-                  </div>
+
               - type: twitch-channels
                 channels:
                   - cohhcarnage
@@ -343,6 +348,15 @@ data:
                 feeds:
                   - url: https://www.thenakedscientists.com/naked_scientists_podcast.xml
                     title: The Naked Scientists
+                    limit: 2
+              - type: rss
+                title: Darknet Diaries
+                limit: 2
+                collapse-after: 2
+                cache: 12h
+                feeds:
+                  - url: https://podcast.darknetdiaries.com/
+                    title: Darknet Diaries
                     limit: 2
               - type: rss
                 title: Smithsonian Sidedoor
@@ -450,10 +464,12 @@ data:
                 cache: 1d
                 token:
                 repositories:
-                  - it-baer/nc-iframewidget
-                  - go-gitea/gitea
+                  - immich-app/immich
+                  - paperless-ngx/paperless-ngx
                   - glanceapp/glance
-
+                  - AdguardTeam/AdGuardHome
+                  - coder/coder
+                  - hashicorp/vault
       - name: Homepage
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true
