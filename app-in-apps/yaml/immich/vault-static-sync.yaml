@@ -13,4 +13,25 @@ spec:
     name: immich-db-credentials
   rolloutRestartTargets:
   - kind: Deployment
-    name: immich
+    name: my-immich-server
+
+
+---
+
+
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: immich-db-secrets
+  namespace: immich
+spec:
+  mount: kv-v2
+  type: kv-v2
+  path: immich/db
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: immich-db-credentials
+  rolloutRestartTargets:
+  - kind: Deployment
+    name: my-immich-server

@@ -20,6 +20,13 @@ spec:
             ingress:
               main:
                 enabled: false
+            controllers:
+              main:
+                containers:
+                  main:
+                    envFrom:
+                      - secretRef:
+                          name: immich-db-credentials
           machine-learning:
             enabled: false
     - repoURL: https://github.com/011000100110111101101111/homelab

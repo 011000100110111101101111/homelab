@@ -14,41 +14,9 @@ kubectl exec --stdin=true --tty=true my-vault-0 -n vault -- /bin/sh
 # use root token to login
 vault login
 
-# auth
-cd tmp
-
-#
-vault auth enable -path demo-auth-mount kubernetes
-
-#
-vault write auth/demo-auth-mount/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
-
 #
 vault secrets enable -path=kvv2 kv-v2
 
-#
-tee webapp.json <<EOF
-path "kvv2/data/webapp/config" {
-   capabilities = ["read", "list"]
-}
-EOF
-
-#
-vault policy write webapp webapp.json
-
-# create role
-vault write auth/demo-auth-mount/role/role1 \
-   bound_service_account_names=demo-static-app \
-   bound_service_account_namespaces=app \
-   policies=webapp \
-   audience=vault \
-   ttl=24h
-
-# create secret
-vault kv put kvv2/webapp/config username="static-user" password="static-password"
-
-# 
-exit
 ```
 
 ## IMPORTANT
@@ -79,9 +47,9 @@ kubectl create token vault-token-reviewer -n vault
 
 ```bash
 vault write auth/kubernetes/config \
-    kubernetes_host="https://kubernetes.default.svc" \
-    kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
-    token_reviewer_jwt="<VAULT_TOKEN_REVIEWER_JWT>"
+  kubernetes_host="https://kubernetes.default.svc" \
+  kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+  token_reviewer_jwt=@/var/run/secrets/kubernetes.io/serviceaccount/token
 ```
 
 ## For using default SA across all namespaces to reduce vaultauths
@@ -93,39 +61,4 @@ vault write auth/kubernetes/role/my-vault-role \
   policies=pastefy \
   ttl=24h \
   audience=vault
-```
-
-
-
-
-
-# Temp
-
-```bash
-kubectl create sa vault-auth -n pastefy
-kubectl create token vault-auth -n pastefy
-```
-
-```bash
-vault write auth/kubernetes/role/pastefy-role \
-    bound_service_account_names="vault-auth" \
-    bound_service_account_namespaces="pastefy" \
-    policies="pastefy-policy" \
-    ttl="24h"
-```
-
-```bash
-vault policy write pastefy-policy - <<EOF
-path "kv-v2/data/pastefy*" {
-  capabilities = ["read", "list"]
-}
-EOF
-```
-
-```bash
-
-```
-
-```bash
-
 ```
