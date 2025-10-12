@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich-ingress
+  namespace: immich
+  labels:
+    app: immich
+  annotations:
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: photos.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: my-immich-server
+                port:
+                  number: 2283
+  tls:
+    - hosts:
+        - photos.nexus-core.dev
+      secretName: immich-ingress-secret
