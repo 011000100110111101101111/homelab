@@ -16,6 +16,16 @@ spec:
             persistence:
               library:
                 existingClaim: immich-data
+          valkey:
+            enabled: true
+            persistence:
+              data:
+                enabled: true
+                size: 1Gi
+                # Optional: Set this to persistentVolumeClaim to keep job queues persistent
+                type: emptyDir
+                accessMode: ReadWriteOnce
+                storageClass: longhorn
           server:
             ingress:
               main:
