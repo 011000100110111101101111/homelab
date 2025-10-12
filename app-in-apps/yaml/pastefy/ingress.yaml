@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: haproxy
   rules:
-    - host: paste.nexus-core.dev
+    - host: pastefy.nexus-core.dev
       http:
         paths:
           - path: "/"
