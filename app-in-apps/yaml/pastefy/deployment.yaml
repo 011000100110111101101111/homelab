@@ -49,7 +49,6 @@ spec:
 
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -73,24 +72,24 @@ spec:
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
-              secretKeyRef:
-                name: pastefy-db-credentials
-                key: password
+                secretKeyRef:
+                  name: pastefy-db-credentials
+                  key: password
             - name: MYSQL_DATABASE
               valueFrom:
-              secretKeyRef:
-                name: pastefy-db-credentials
-                key: database_host
+                secretKeyRef:
+                  name: pastefy-db-credentials
+                  key: database_name
             - name: MYSQL_USER
               valueFrom:
-              secretKeyRef:
-                name: pastefy-db-credentials
-                key: username
+                secretKeyRef:
+                  name: pastefy-db-credentials
+                  key: username
             - name: MYSQL_PASSWORD
               valueFrom:
-              secretKeyRef:
-                name: pastefy-db-credentials
-                key: password
+                secretKeyRef:
+                  name: pastefy-db-credentials
+                  key: password
           volumeMounts:
             - name: mariadb-storage
               mountPath: /var/lib/mysql
