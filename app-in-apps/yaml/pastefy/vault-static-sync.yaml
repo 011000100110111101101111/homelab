@@ -14,3 +14,5 @@ spec:
   rolloutRestartTargets:
   - kind: Deployment
     name: pastefy
+  - kind: Deployment
+    name: mariadb
