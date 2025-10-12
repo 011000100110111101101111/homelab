@@ -128,18 +128,7 @@ data:
                         url: https://drive.nexus-core.org
                         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/mydrive.svg
                         hide-arrow: true
-              - type: videos
-                style: grid-cards
-                collapse-after-rows: 3
-                channels:
-                  - UCz9qw5nupdzCGwHwQiqs7qA # ImKibitz
-                  - UCsBjURrPoezykLs9EqgamOA # Fireship
-                  - UCq6VFHwMzcMXbuKyG7SQYIg # MoistCritikal
-                  - UCywBfpGBYhsczNuyyh6Cf6w # Worth A Buy
-                  - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
-                  - UCP5tjEmvPItGyLhmjdwP7Ww # Real Life Lore
-                  - UCW6xlqxSY3gGur4PkGPEUeA # Seytonic
-                  - UCZXW8E1__d5tZb-wLFOt8TQ # Bog
+
 
           - size: small
             widgets:
@@ -470,6 +459,24 @@ data:
                   - AdguardTeam/AdGuardHome
                   - coder/coder
                   - hashicorp/vault
+      - name: Entertainment
+        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+        # hide-desktop-navigation: true
+        columns:
+          - size: full
+            widgets:
+              - type: videos
+                style: grid-cards
+                collapse-after-rows: 3
+                channels:
+                  - UCz9qw5nupdzCGwHwQiqs7qA # ImKibitz
+                  - UCsBjURrPoezykLs9EqgamOA # Fireship
+                  - UCq6VFHwMzcMXbuKyG7SQYIg # MoistCritikal
+                  - UCywBfpGBYhsczNuyyh6Cf6w # Worth A Buy
+                  - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
+                  - UCP5tjEmvPItGyLhmjdwP7Ww # Real Life Lore
+                  - UCW6xlqxSY3gGur4PkGPEUeA # Seytonic
+                  - UCZXW8E1__d5tZb-wLFOt8TQ # Bog
       - name: Homepage
         # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
         # hide-desktop-navigation: true

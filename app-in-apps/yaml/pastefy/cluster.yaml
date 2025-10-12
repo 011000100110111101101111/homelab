@@ -1,16 +1,16 @@
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
-metadata:
-  name: my-postgresql-pastefy
-  namespace: database
-spec:
-  instances: 1
-  storage:
-    size: 10Gi
-    storageClass: longhorn
-  bootstrap:
-    initdb:
-      database: pastefy
-      owner: pastefy
-      secret:
-        name: pastefy-postgres-credentials
+#apiVersion: postgresql.cnpg.io/v1
+#kind: Cluster
+#metadata:
+#  name: my-postgresql-pastefy
+#  namespace: database
+#spec:
+#  instances: 1
+#  storage:
+#    size: 10Gi
+#    storageClass: longhorn
+#  bootstrap:
+#    initdb:
+#      database: pastefy
+#      owner: pastefy
+#      secret:
+#        name: pastefy-postgres-credentials

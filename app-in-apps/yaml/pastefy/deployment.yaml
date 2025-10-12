@@ -20,7 +20,7 @@ spec:
           image: interaapps/pastefy:latest
           env:
           - name: DATABASE_DRIVER
-            value: postgresql
+            value: mysql
           - name: DATABASE_NAME
             valueFrom:
               secretKeyRef:
@@ -45,3 +45,56 @@ spec:
             value: https://paste.nexus-core.dev
           ports:
             - containerPort: 80
+
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: pastefy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+        - name: mariadb
+          image: mariadb:10.11
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: password
+            - name: MYSQL_DATABASE
+              valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: database_host
+            - name: MYSQL_USER
+              valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+              secretKeyRef:
+                name: pastefy-db-credentials
+                key: password
+          volumeMounts:
+            - name: mariadb-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mariadb-storage
+          persistentVolumeClaim:
+            claimName: mariadb-data
