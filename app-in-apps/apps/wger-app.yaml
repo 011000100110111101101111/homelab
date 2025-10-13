@@ -12,19 +12,7 @@ spec:
     helm:
       releaseName: my-wger
       valuesObject:
-        postgres:
-          enabled: false
         app:
-          existingDatabase:
-            enabled: true
-            dbhost: my-postgresql-wger-rw.database.svc.cluster.local
-            dbuser: wger
-            dbname: wger
-            existingSecret:
-              name: wger-db-credentials
-              dbuserKey: username
-              dbnameKey: database_name
-              dbpwKey: password
           persistence:
             enabled: true
             storageClass: nfs-client
