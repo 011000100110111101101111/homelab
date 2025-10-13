@@ -25,3 +25,4 @@ spec:
   tls:
     - hosts:
         - mealie.nexus-core.dev
+      secretName: mealie-ingress-secret

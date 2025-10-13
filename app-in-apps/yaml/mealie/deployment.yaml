@@ -40,7 +40,7 @@ spec:
             - name: WEB_CONCURRENCY
               value: "1"
             - name: BASE_URL
-              value: "https://mealie.nexus-core.org"
+              value: "https://mealie.nexus-core.dev"
             - name: DB_ENGINE
               value: "postgres"
             - name: POSTGRES_USER
