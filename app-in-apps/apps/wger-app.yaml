@@ -5,23 +5,26 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-  - repoURL: https://wger-project.github.io/helm-charts
+  source:
     chart: wger
+    repoURL: https://wger-project.github.io/helm-charts
     targetRevision: 0.2.4
     helm:
       releaseName: my-wger
       valuesObject:
+        ingress:
+          enabled: true
+          ingressClassName: "haproxy"              # or whatever ingress class you use
+          url: "wger.nexus-core.dev"
+          tls: true
+          annotations:
+            kubernetes.io/ingress.class: haproxy
+            cert-manager.io/cluster-issuer: homelab-issuer
         app:
           persistence:
             enabled: true
             storageClass: nfs-client
             size: 10Gi
-  - repoURL: https://github.com/011000100110111101101111/homelab
-    path: app-in-apps/yaml/wger
-    targetRevision: main
-    directory:
-      recurse: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: wger
