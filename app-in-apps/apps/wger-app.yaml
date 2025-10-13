@@ -20,6 +20,7 @@ spec:
               enabled: true
               storageClass: nfs-client
               size: 10Gi
+            envFrom: []
             env:
               - name: DJANGO_DB_ENGINE
                 value: django.db.backends.postgresql
