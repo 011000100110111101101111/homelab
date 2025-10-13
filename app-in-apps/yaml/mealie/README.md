@@ -8,7 +8,7 @@ kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 
 ## Create secret in vault
 ```bash
-vault kv put kv-v2/mealie/db password="vpruptpErbtmYgaDGLvpErisB4PYsnuY"
+vault kv put kv-v2/mealie/db username="mealie" password="dwIrotatedit"
 ```
 
 ## Create mealie policy
