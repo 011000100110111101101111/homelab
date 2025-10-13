@@ -20,6 +20,10 @@ spec:
             annotations:
               kubernetes.io/ingress.class: haproxy
               cert-manager.io/cluster-issuer: homelab-issuer
+              haproxy.org/timeout-client: "300s"
+              haproxy.org/timeout-server: "300s"
+              haproxy.org/timeout-http-request: "30s"
+              haproxy.org/timeout-connect: "10s"
           app:
             environment:
               - name: ALLOW_REGISTRATION
