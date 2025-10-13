@@ -15,37 +15,20 @@ spec:
           postgres:
             enabled: false
           app:
-            initContainers: []
+            existingDatabase:
+              enabled: true
+              dbhost: my-postgresql-wger-rw.database.svc.cluster.local
+              dbuser: wger
+              dbname: wger
+              existingSecret:
+                name: wger-db-credentials
+                dbuserKey: username
+                dbnameKey: database_name
+                dbpwKey: password
             persistence:
               enabled: true
               storageClass: nfs-client
               size: 10Gi
-            envFrom: []
-            env:
-              - name: DJANGO_DB_ENGINE
-                value: django.db.backends.postgresql
-              - name: DJANGO_DB_NAME
-                valueFrom:
-                  secretKeyRef:
-                    name: wger-db-credentials
-                    key: database_name
-              - name: DJANGO_DB_USER
-                valueFrom:
-                  secretKeyRef:
-                    name: wger-db-credentials
-                    key: username
-              - name: DJANGO_DB_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: wger-db-credentials
-                    key: password
-              - name: DJANGO_DB_HOST
-                valueFrom:
-                  secretKeyRef:
-                    name: wger-db-credentials
-                    key: database_host
-              - name: DJANGO_DB_PORT
-                value: "5432"
   - repoURL: https://github.com/011000100110111101101111/homelab
     path: app-in-apps/yaml/wger
     targetRevision: main
