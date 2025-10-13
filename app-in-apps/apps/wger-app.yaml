@@ -12,23 +12,23 @@ spec:
     helm:
       releaseName: my-wger
       valuesObject:
-          postgres:
-            enabled: false
-          app:
-            existingDatabase:
-              enabled: true
-              dbhost: my-postgresql-wger-rw.database.svc.cluster.local
-              dbuser: wger
-              dbname: wger
-              existingSecret:
-                name: wger-db-credentials
-                dbuserKey: username
-                dbnameKey: database_name
-                dbpwKey: password
-            persistence:
-              enabled: true
-              storageClass: nfs-client
-              size: 10Gi
+        postgres:
+          enabled: false
+        app:
+          existingDatabase:
+            enabled: true
+            dbhost: my-postgresql-wger-rw.database.svc.cluster.local
+            dbuser: wger
+            dbname: wger
+            existingSecret:
+              name: wger-db-credentials
+              dbuserKey: username
+              dbnameKey: database_name
+              dbpwKey: password
+          persistence:
+            enabled: true
+            storageClass: nfs-client
+            size: 10Gi
   - repoURL: https://github.com/011000100110111101101111/homelab
     path: app-in-apps/yaml/wger
     targetRevision: main
