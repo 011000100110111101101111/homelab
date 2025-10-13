@@ -5,26 +5,57 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    chart: wger
-    repoURL: https://wger-project.github.io/helm-charts
-    targetRevision: 0.2.4
-    helm:
-      releaseName: my-wger
-      valuesObject:
-        ingress:
-          enabled: true
-          ingressClassName: "haproxy"              # or whatever ingress class you use
-          url: "wger.nexus-core.dev"
-          tls: true
-          annotations:
-            kubernetes.io/ingress.class: haproxy
-            cert-manager.io/cluster-issuer: homelab-issuer
-        app:
-          persistence:
+  sources:
+    - repoURL: https://wger-project.github.io/helm-charts
+      chart: wger
+      targetRevision: 0.2.4
+      helm:
+        releaseName: my-wger
+        valuesObject:
+          ingress:
             enabled: true
-            storageClass: nfs-client
-            size: 10Gi
+            ingressClassName: "haproxy"              # or whatever ingress class you use
+            url: "wger.nexus-core.dev"
+            tls: true
+            annotations:
+              kubernetes.io/ingress.class: haproxy
+              cert-manager.io/cluster-issuer: homelab-issuer
+          app:
+            persistence:
+              enabled: true
+              storageClass: nfs-client
+              size: 10Gi
+          postgres:
+            enabled: true
+            settings:
+              superuser:
+                secretKeyRef:
+                  name: wger-db-credentials
+                  key: superuser
+              superuserPassword:
+                secretKeyRef:
+                  name: wger-db-credentials
+                  key: superpass
+            userDatabase:
+              name:
+                secretKeyRef:
+                  name: wger-db-credentials
+                  key: username
+              user:
+                secretKeyRef:
+                  name: wger-db-credentials
+                  key: username
+              password:
+                secretKeyRef:
+                  name: wger-db-credentials
+                  key: password
+            service:
+              port: 5432
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/wger
+      targetRevision: main
+      directory:
+        recurse: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: wger

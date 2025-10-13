@@ -7,7 +7,7 @@ kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 ```
 
 ```bash
-vault kv put kv-v2/wger/db username="wger" password="password" database_name="wger" database_host="my-postgresql-wger-rw.database.svc.cluster.local"
+vault kv put kv-v2/wger/db username="user" password="password" superuser="superuser" superpass="password"
 ```
 
 ## Create wger policy
