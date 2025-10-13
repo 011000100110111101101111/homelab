@@ -7,11 +7,11 @@ kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 ```
 
 ```bash
-vault kv put kv-v2/coder/db_url url="postgres://coder:qdu_bke!fhm0ntm*YAH@postgres.database.svc.cluster.local:5432/coder?sslmode=disable"
-vault kv put kv-v2/coder/db username="coder" password="qdu_bke!fhm0ntm*YAH"
+vault kv put kv-v2/coder/db_url url="postgres://coder:password@postgres.database.svc.cluster.local:5432/coder?sslmode=disable"
+vault kv put kv-v2/coder/db username="coder" password="password"
 ```
 
-## Create Vault policy
+## Create coder policy
 
 ```bash
 vault policy write coder - <<EOF
@@ -23,11 +23,4 @@ EOF
 
 ## Create k8s auth role
 
-```bash
-vault write auth/kubernetes/role/coder \
-    bound_service_account_names=default \
-    bound_service_account_namespaces=coder,database \
-    policies=coder \
-    ttl=24h \
-    audience=vault
-```
+Add policy to the main default role in the UI

@@ -14,3 +14,17 @@ vault kv put kv-v2/immich/db \
   DB_PASSWORD="password" \
   DB_DATABASE_NAME="immichdb"
 ```
+
+## Create immich policy
+
+```bash
+vault policy write immich - <<EOF
+path "kv-v2/data/immich*" {
+  capabilities = ["read"]
+}
+EOF
+```
+
+## Create k8s auth role
+
+Add policy to the main default role in the UI

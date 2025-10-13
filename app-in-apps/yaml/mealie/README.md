@@ -1,36 +1,26 @@
-# Secret deployment prior to app deployment
+# New setup
 
-Create a file (postgressecret.yaml) with the following values
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: postgres-credentials
-  namespace: mealie
-type: Opaque
-stringData:
-  postgres-password: postgres_password
-```
-
-Now deploy
+## Deploy vault secrets
 
 ```bash
-# If you have an existing secret
-kubectl delete sealedsecrets/postgres-credentials -n mealie
-
-kubeseal -f postgressecret.yaml -w sealedpostgressecret.yaml
-kubeseal -f postgressecretmealie.yaml -w sealedpostgressecretmealie.yaml
-
-# If not already deployed
-kubectl create namespace mealie
-
-kubectl create -f sealedpostgressecret.yaml
-kubectl create -f sealedpostgressecretmealie.yaml
-
-rm postgressecret.yaml sealedpostgressecret.yaml
-
-# Troubleshooting
-kubectl delete sealedsecret -n database postgres-credentials
-kubectl delete sealedsecret -n mealie postgres-credentials
+kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 ```
+
+## Create secret in vault
+```bash
+vault kv put kv-v2/mealie/db password="vpruptpErbtmYgaDGLvpErisB4PYsnuY"
+```
+
+## Create mealie policy
+
+```bash
+vault policy write mealie - <<EOF
+path "kv-v2/data/mealie*" {
+  capabilities = ["read"]
+}
+EOF
+```
+
+## Create k8s auth role
+
+Add policy to the main default role in the UI

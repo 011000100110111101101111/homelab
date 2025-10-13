@@ -3,12 +3,16 @@
 ## Deploy vault secrets
 
 ```bash
-vault kv put kv-v2/homepage POSTGRES_PASSWORD="supersecret" PAPERLESS_ADMIN_USER="admin" PAPERLESS_ADMIN_PASSWORD="adminpass"
-OR
-Create it in vault itself
+kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 ```
 
-## Create Vault policy
+
+```bash
+vault kv put kv-v2/homepage POSTGRES_PASSWORD="supersecret" PAPERLESS_ADMIN_USER="admin" PAPERLESS_ADMIN_PASSWORD="adminpass"
+```
+
+
+## Create homepage policy
 
 ```bash
 vault policy write homepage - <<EOF
@@ -20,11 +24,4 @@ EOF
 
 ## Create k8s auth role
 
-```bash
-vault write auth/kubernetes/role/homepage \
-    bound_service_account_names=default \
-    bound_service_account_namespaces=homepage \
-    policies=homepage \
-    ttl=24h \
-    audience=vault
-```
+Add policy to the main default role in the UI

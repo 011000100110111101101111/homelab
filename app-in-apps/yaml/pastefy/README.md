@@ -10,7 +10,7 @@ kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 vault kv put kv-v2/pastefy/db username="pastefy" password="password" database_name="pastefy-dbs" database_host="my-postgresql-pastefy-rw.database.svc.cluster.local"
 ```
 
-## Create immich policy
+## Create pastefy policy
 
 ```bash
 vault policy write pastefy - <<EOF
@@ -22,11 +22,4 @@ EOF
 
 ## Create k8s auth role
 
-```bash
-vault write auth/kubernetes/role/pastefy \
-    bound_service_account_names=my-vault-secrets-operator-controller-manager \
-    bound_service_account_namespaces=vault-secrets-operator,pastefy,database \
-    policies=pastefy \
-    ttl=24h \
-    audience=vault
-```
+Add policy to the main default role in the UI

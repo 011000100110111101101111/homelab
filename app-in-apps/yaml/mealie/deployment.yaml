@@ -48,7 +48,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: mealie-postgres-credentials
                   key: password
             - name: POSTGRES_SERVER
               value: "my-postgresql-mealie-rw.database.svc.cluster.local"
