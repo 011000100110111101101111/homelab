@@ -15,6 +15,7 @@ spec:
           postgres:
             enabled: false
           app:
+            initContainers: []
             persistence:
               enabled: true
               storageClass: nfs-client
