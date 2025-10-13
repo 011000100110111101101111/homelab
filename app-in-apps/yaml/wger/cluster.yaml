@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgresql-wger
+  namespace: database
+spec:
+  instances: 1
+  storage:
+    size: 10Gi
+    storageClass: longhorn
+  bootstrap:
+    initdb:
+      database: wger
+      owner: wger
+      secret:
+        name: wger-db-credentials
