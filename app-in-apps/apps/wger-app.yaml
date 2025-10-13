@@ -21,21 +21,15 @@ spec:
               kubernetes.io/ingress.class: haproxy
               cert-manager.io/cluster-issuer: homelab-issuer
           app:
+            environment:
+              - name: ALLOW_REGISTRATION
+                value: 'True'
             persistence:
               enabled: true
               storageClass: nfs-client
               size: 10Gi
           postgres:
             enabled: true
-            settings:
-              superuser:
-                secretKeyRef:
-                  name: wger-db-credentials
-                  key: superuser
-              superuserPassword:
-                secretKeyRef:
-                  name: wger-db-credentials
-                  key: superpass
             userDatabase:
               name:
                 secretKeyRef:
