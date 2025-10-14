@@ -32,6 +32,8 @@ spec:
               enabled: true
               storageClass: nfs-client
               size: 30Gi
+          celery:
+            enabled: true
           redis:
             enabled: true
             storage:
