@@ -31,9 +31,17 @@ spec:
             persistence:
               enabled: true
               storageClass: nfs-client
-              size: 10Gi
+              size: 30Gi
+          redis:
+            enabled: true
+            storage:
+              requestedSize: 30Gi
+              className: longhorn
           postgres:
             enabled: true
+            storage:
+              requestedSize: 30Gi
+              className: longhorn
             userDatabase:
               name:
                 secretKeyRef:
