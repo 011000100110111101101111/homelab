@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgresql-workouts
+  namespace: database
+spec:
+  instances: 1
+  storage:
+    size: 12Gi
+    storageClass: nfs-client
+  bootstrap:
+    initdb:
+      database: workouts
+      owner: workouts
+      secret:
+        name: workouts-postgres-credentials
