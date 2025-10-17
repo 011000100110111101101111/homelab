@@ -7,7 +7,7 @@ spec:
   instances: 1
   storage:
     size: 12Gi
-    storageClass: nfs-client
+    storageClass: longhorn
   podTemplate:
     spec:
       securityContext:
