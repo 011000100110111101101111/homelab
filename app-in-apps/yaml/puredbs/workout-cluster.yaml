@@ -8,10 +8,6 @@ spec:
   storage:
     size: 12Gi
     storageClass: longhorn
-  podTemplate:
-    spec:
-      securityContext:
-        fsGroup: 26
   bootstrap:
     initdb:
       database: workouts
