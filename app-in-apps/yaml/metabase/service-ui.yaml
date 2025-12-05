@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metabase-service-ingress
+  labels:
+    app: metabase
+  namespace: metabase
+spec:
+  selector:
+    app: metabase
+  ports:
+    - name: adminpanel
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+  type: ClusterIP

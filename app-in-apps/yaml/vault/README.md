@@ -45,6 +45,7 @@ Get token
 kubectl create token vault-token-reviewer -n vault
 ```
 
+Must re-run this when restarting vault pod to add tokens
 ```bash
 vault write auth/kubernetes/config \
   kubernetes_host="https://kubernetes.default.svc" \
