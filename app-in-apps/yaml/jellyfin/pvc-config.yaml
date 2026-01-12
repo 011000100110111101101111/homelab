@@ -5,8 +5,8 @@ metadata:
   namespace: jellyfin
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: nfs-static
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
