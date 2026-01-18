@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: koel-search_indexers-pv
+  name: koel-search-indexers-pvc
   namespace: koel
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: nfs-static
+  volumeName: koel-search-indexers-pv
   resources:
     requests:
-      storage: 30Gb
+      storage: 30Gi

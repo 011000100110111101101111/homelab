@@ -4,7 +4,7 @@ metadata:
   name: koel-media-pv
 spec:
   capacity:
-    storage: 1Ti # metadata only
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -15,4 +15,4 @@ spec:
     - hard
   nfs:
     server: 192.168.9.98
-    path: /var/nfs/shared/MediaStorage/media/music
+    path: /var/nfs/shared/MediaStorage/media

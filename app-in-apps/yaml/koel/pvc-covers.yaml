@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: koel-image_storage-pv
+  name: koel-image-storage-pvc
   namespace: koel
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: nfs-static
+  volumeName: koel-image-storage-pv
   resources:
     requests:
       storage: 1Ti
