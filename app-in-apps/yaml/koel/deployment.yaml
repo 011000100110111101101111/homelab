@@ -49,17 +49,17 @@ spec:
           volumeMounts:
             - name: music
               mountPath: /config
-            - name: image_storage
+            - name: image-storage
               mountPath: /var/www/html/public/img/storage
-            - name: search_index
+            - name: search-index
               mountPath: /var/www/html/storage/search-indexes
       volumes:
         - name: music
           persistentVolumeClaim:
             claimName: koel-music-pvc
-        - name: image_storage
+        - name: image-storage
           persistentVolumeClaim:
-            claimName: koel-image_storage-pvc
-        - name: search_index
+            claimName: koel-image-storage-pvc
+        - name: search-index
           persistentVolumeClaim:
-            claimName: koel-search_index-pvc
+            claimName: koel-search-index-pvc
