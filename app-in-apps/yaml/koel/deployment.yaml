@@ -62,4 +62,4 @@ spec:
             claimName: koel-image-storage-pvc
         - name: search-index
           persistentVolumeClaim:
-            claimName: koel-search-index-pvc
+            claimName: koel-search-indexers-pvc
