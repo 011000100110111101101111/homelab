@@ -15,4 +15,4 @@ spec:
     - hard
   nfs:
     server: 192.168.9.98
-    path: /var/nfs/shared/MediaStorage
+    path: /var/nfs/shared/MediaStorage/music
