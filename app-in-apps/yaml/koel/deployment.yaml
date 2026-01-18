@@ -19,6 +19,8 @@ spec:
           ports:
             - containerPort: 80
           env:
+            - name: FORCE_HTTPS
+              value: "true"
             - name: DB_CONNECTION
               value: "pgsql"
             - name: DB_HOST
