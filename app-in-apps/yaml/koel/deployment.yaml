@@ -56,7 +56,7 @@ spec:
       volumes:
         - name: music
           persistentVolumeClaim:
-            claimName: koel-music-pvc
+            claimName: koel-media-pvc
         - name: image-storage
           persistentVolumeClaim:
             claimName: koel-image-storage-pvc
