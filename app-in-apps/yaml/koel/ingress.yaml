@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: koel-ingress
+  namespace: koel
+  labels:
+    app: koel
+  annotations:
+    cert-manager.io/cluster-issuer: homelab-issuer
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: koel.nexus-core.dev
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: koel-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - koel.nexus-core.dev
+      secretName: koel-ingress-secret

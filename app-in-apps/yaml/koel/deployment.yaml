@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: koel
+  namespace: koel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: koel
+  template:
+    metadata:
+      labels:
+        app: koel
+    spec:
+      containers:
+        - name: koel
+          image: phanan/koel
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_CONNECTION
+              value: "pgsql"
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: koel-db-credentials
+                  key: DB_HOSTNAME
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: koel-db-credentials
+                  key: DB_PORT
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: koel-db-credentials
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: koel-db-credentials
+                  key: DB_PASSWORD
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: koel-db-credentials
+                  key: DB_DATABASE_NAME
+          volumeMounts:
+            - name: music
+              mountPath: /config
+            - name: image_storage
+              mountPath: /var/www/html/public/img/storage
+            - name: search_index
+              mountPath: /var/www/html/storage/search-indexes
+      volumes:
+        - name: music
+          persistentVolumeClaim:
+            claimName: koel-music-pvc
+        - name: image_storage
+          persistentVolumeClaim:
+            claimName: koel-image_storage-pvc
+        - name: search_index
+          persistentVolumeClaim:
+            claimName: koel-search_index-pvc

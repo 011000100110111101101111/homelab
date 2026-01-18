@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgresql-koel
+  namespace: database
+spec:
+  instances: 1
+  storage:
+    size: 20Gi
+    storageClass: longhorn
+  bootstrap:
+    initdb:
+      database: koel
+      owner: koel
+      secret:
+        name: koel-db-credentials
