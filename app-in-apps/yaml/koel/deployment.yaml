@@ -48,11 +48,14 @@ spec:
                   key: DB_DATABASE_NAME
           volumeMounts:
             - name: music
-              mountPath: /config
+              mountPath: /music
+              subPath: media/music
             - name: image-storage
               mountPath: /var/www/html/public/img/storage
+              subPath: media/album_covers
             - name: search-index
               mountPath: /var/www/html/storage/search-indexes
+              subPath: appdata/koel/search_indexers
       volumes:
         - name: music
           persistentVolumeClaim:
