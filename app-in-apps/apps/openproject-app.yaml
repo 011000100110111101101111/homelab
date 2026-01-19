@@ -13,7 +13,7 @@ spec:
         releaseName: my-openproject
         valuesObject:
           ingress:
-            enabled: false
+            enabled: true
             annotations:
               kubernetes.io/ingress.class: haproxy
               cert-manager.io/cluster-issuer: homelab-issuer
