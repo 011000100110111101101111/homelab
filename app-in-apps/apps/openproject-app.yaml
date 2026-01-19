@@ -13,9 +13,10 @@ spec:
         releaseName: my-openproject
         valuesObject:
           ingress:
-            enabled: true
+            enabled: false
             annotations:
               kubernetes.io/ingress.class: haproxy
+              cert-manager.io/cluster-issuer: homelab-issuer
             ingressClassName: haproxy
             host: "openproject.nexus-core.dev"
             tls:
