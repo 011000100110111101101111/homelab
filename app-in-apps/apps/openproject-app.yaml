@@ -19,6 +19,10 @@ spec:
               port: 5432
             auth:
               existingSecret: "openproject-db-credentials"
+              secretKeys:
+                adminPasswordKey: "password"
+                userPasswordKey: "password"
+              database: "openproject"
           ingress:
             enabled: true
             annotations:
