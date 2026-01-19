@@ -12,7 +12,9 @@ vault kv put kv-v2/koel/db \
   DB_PORT="5432" \
   DB_USERNAME="koel" \
   DB_PASSWORD="password" \
-  DB_DATABASE_NAME="koeldb"
+  DB_DATABASE_NAME="koeldb" \
+  username="dbuser" \
+  password="dbpassword"
 ```
 
 ## Create koel policy

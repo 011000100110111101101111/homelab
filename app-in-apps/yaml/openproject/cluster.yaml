@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: my-postgresql-openproject
+  namespace: database
+spec:
+  instances: 1
+  storage:
+    size: 20Gi
+    storageClass: longhorn
+  bootstrap:
+    initdb:
+      database: openproject
+      owner: openproject
+      secret:
+        name: openproject-db-credentials

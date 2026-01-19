@@ -9,6 +9,13 @@ kubectl exec -it pod/my-vault-0 -n vault -- /bin/sh
 ```bash
 vault kv put kv-v2/openproject/admin \
   password="admin-password"
+
+vault kv put kv-v2/openproject/db \
+  DB_HOSTNAME="name-database-rw.database.svc.cluster.local" \
+  DB_PORT="5432" \
+  DB_DATABASE_NAME="name" \
+  username="username" \
+  password="dbpass"
 ```
 
 ## Create openproject policy
