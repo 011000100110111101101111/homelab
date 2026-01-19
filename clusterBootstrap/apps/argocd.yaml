@@ -34,6 +34,13 @@
           configs:
             params:
               server.insecure: true
+            # If below does not work, remove from cm to p,gitops. This was added to allow admin key generation.
+            cm:
+              accounts.gitops-sync: apiKey, login
+            rbac:
+              policy.csv: |
+                p, gitops-sync, applications, get, default/openproject-app, allow
+                p, gitops-sync, applications, sync, default/openproject-app, allow
       tags:
         - apps
         - pipeline
