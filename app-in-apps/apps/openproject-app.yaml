@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openproject-app
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://charts.openproject.org
+      chart: openproject
+      targetRevision: 13.0.2
+      helm:
+        releaseName: my-openproject
+        valuesObject:
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: haproxy
+            ingressClassName: haproxy
+            host: "openproject.nexus-core.dev"
+            tls:
+              enabled: true
+              secretName: openproject-tls
+          openproject:
+            https: true
+            admin_user:
+              name: "Admin"
+              mail: "admin@nexus-core.dev"
+              password: ""
+              password_reset: "true"
+              secret: "openproject-admin-credentials"
+              secretKeys:
+                password: "admin-password"
+          persistence:
+            enabled: true
+            storageClassName: "nfs-client"
+            accessModes:
+              - "ReadWriteMany"
+            size: 20Gi
+    - repoURL: https://github.com/011000100110111101101111/homelab
+      path: app-in-apps/yaml/openproject
+      targetRevision: main
+      directory:
+        recurse: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: openproject
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
