@@ -40,7 +40,6 @@ spec:
             admin_user:
               name: "Admin"
               mail: "admin@nexus-core.dev"
-              password: ""
               password_reset: "true"
               secret: "openproject-admin-credentials"
               secretKeys:
