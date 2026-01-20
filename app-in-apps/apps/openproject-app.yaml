@@ -12,6 +12,8 @@ spec:
       helm:
         releaseName: my-openproject
         valuesObject:
+          containerSecurityContext:
+            readOnlyRootFilesystem: false
           postgresql:
             bundled: false # don't deploy bundled Postgres
             connection:
