@@ -38,12 +38,12 @@ spec:
           openproject:
             https: true
             admin_user:
-              name: "Admin"
+              name: "admin"
               mail: "admin@nexus-core.dev"
               password_reset: "true"
               secret: "openproject-admin-credentials"
               secretKeys:
-                password: "admin-password"
+                password: "password"
           persistence:
             enabled: true
             storageClassName: "nfs-client"
