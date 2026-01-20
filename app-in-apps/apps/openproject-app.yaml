@@ -15,7 +15,7 @@ spec:
           postgresql:
             bundled: false # don't deploy bundled Postgres
             connection:
-              host: "openproject-database-rw.database.svc.cluster.local" # from Vault
+              host: "my-postgresql-openproject-rw.database.svc.cluster.local" # from Vault
               port: 5432
             auth:
               existingSecret: "openproject-db-credentials"
