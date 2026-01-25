@@ -9,7 +9,7 @@ spec:
   source:
     chart: jellyseerr-chart
     repoURL: ghcr.io/fallenbagel/jellyseerr
-    targetRevision: 1.0.3
+    targetRevision: 2.7.0
     helm:
       releaseName: my-jellyseerr
       valuesObject:
