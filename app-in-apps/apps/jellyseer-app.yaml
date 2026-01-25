@@ -9,7 +9,7 @@ spec:
   source:
     chart: jellyseerr-chart
     repoURL: ghcr.io/fallenbagel/jellyseerr
-    targetRevision: 2.7.0
+    targetRevision: 2.7.3
     helm:
       releaseName: my-jellyseerr
       valuesObject:
@@ -26,7 +26,7 @@ spec:
           registry: ghcr.io
           repository: seerr-team/seerr
           pullPolicy: IfNotPresent
-          tag: ""
+          tag: "2.7.3"
         service:
           type: ClusterIP
           port: 80
