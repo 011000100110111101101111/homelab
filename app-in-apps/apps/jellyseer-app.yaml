@@ -1,0 +1,76 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyseer-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    chart: jellyseerr-chart
+    repoURL: ghcr.io/fallenbagel/jellyseerr
+    targetRevision: 1.0.3
+    helm:
+      releaseName: my-jellyseerr
+      valuesObject:
+        config:
+          persistence:
+            accessModes:
+              - ReadWriteOnce
+            annotations: {}
+            name: jellyseerr-config
+            size: 20Gi
+            volumeName: ""
+        image:
+          registry: ghcr.io
+          repository: seerr-team/seerr
+          pullPolicy: IfNotPresent
+          tag: ""
+        service:
+          type: ClusterIP
+          port: 80
+        podSecurityContext:
+          fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          privileged: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+              - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        ingress:
+          enabled: true
+          ingressClassName: haproxy
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+            haproxy.org/ssl-redirect: "true"
+          hosts:
+            - host: jellyseerr.nexus-core.dev
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: jellyseerr-tls
+              hosts:
+                - jellyseerr.nexus-core.dev
+        resources: {}
+        nodeSelector: {}
+        tolerations: []
+        affinity: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jellyseerr
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ServerSideApply=false
