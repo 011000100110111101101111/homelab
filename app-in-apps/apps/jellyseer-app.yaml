@@ -17,6 +17,7 @@ spec:
           persistence:
             accessModes:
               - ReadWriteOnce
+            storageClassName: nfs-client
             annotations: {}
             name: jellyseerr-config
             size: 20Gi
