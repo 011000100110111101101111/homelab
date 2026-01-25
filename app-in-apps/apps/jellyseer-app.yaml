@@ -49,7 +49,7 @@ spec:
           enabled: true
           ingressClassName: haproxy
           annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
+            cert-manager.io/cluster-issuer: homelab-issuer
             haproxy.org/ssl-redirect: "true"
           hosts:
             - host: jellyseerr.nexus-core.dev
