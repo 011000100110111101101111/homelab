@@ -143,22 +143,22 @@ data:
     - Arr:
       - Jellyfin:
           icon: jellyfin.png
-          href: https://jellyfin.nexus-core.org
+          href: https://jellyfin.nexus-core.dev
           description: Media center
-          siteMonitor: https://jellyfin.nexus-core.org
+          siteMonitor: https://jellyfin.nexus-core.dev
           widgets:
             - type: jellyfin
-              url: https://jellyfin.nexus-core.org
+              url: https://jellyfin.nexus-core.dev
               key: {{HOMEPAGE_VAR_JELLYFIN}}
               fields: ["albums", "movies", "tv"]
       - Jellyseer:
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyseerr.png
-          href: https://jellyseer.nexus-core.org
+          href: https://jellyseer.nexus-core.dev
           description: Media discovery
-          siteMonitor: https://jellyseer.nexus-core.org
+          siteMonitor: https://jellyseer.nexus-core.dev
           widget:
             type: jellyseerr
-            url: https://jellyseer.nexus-core.org
+            url: https://jellyseer.nexus-core.dev
             key: {{HOMEPAGE_VAR_JELLYSEER}}
       - Prowlarr:
           icon: prowlarr.png
