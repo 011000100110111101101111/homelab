@@ -8,25 +8,28 @@ metadata:
 data:
   glance.yml: |
     theme:
-      background-color: 232 23 18
+      background-color: 240 21 15
       contrast-multiplier: 1.2
-      primary-color: 220 83 75
-      positive-color: 105 48 72
-      negative-color: 351 74 73
+      primary-color: 267 84 81
+      positive-color: 115 54 76
+      negative-color: 343 81 75
+
     pages:
+
+      # ─── Page 1: Home ────────────────────────────────────────────────
       - name: Home
-        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
-        # hide-desktop-navigation: true
         columns:
+
           - size: small
             widgets:
-
               - type: calendar
-                first-day-of-week: monday
+                first-day-of-week: sunday
+
               - type: weather
                 units: imperial
                 hour-format: 12h
-                location: New York,US
+                location: Boston,US
+
               - type: custom-api
                 title: Air Quality
                 cache: 10m
@@ -39,7 +42,6 @@ data:
                   {{ $ozone := .JSON.String "data.iaqi.o3.v" }}
                   {{ $pm25 := .JSON.String "data.iaqi.pm25.v" }}
                   {{ $pressure := .JSON.String "data.iaqi.p.v" }}
-
                   <div class="flex justify-between">
                     <div class="size-h5">
                       {{ if le $aqi "050" }}
@@ -51,87 +53,109 @@ data:
                       {{ end }}
                     </div>
                   </div>
-
                   <div class="color-highlight size-h2">AQI: {{ $aqiraw }}</div>
                   <div style="border-bottom: 1px solid; margin-block: 10px;"></div>
-
                   <div class="margin-block-2">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-
                       <div>
                         <div class="size-h3 color-highlight">{{ $humidity }}%</div>
                         <div class="size-h6">HUMIDITY</div>
                       </div>
-
                       <div>
                         <div class="size-h3 color-highlight">{{ $ozone }} μg/m³</div>
                         <div class="size-h6">OZONE</div>
                       </div>
-
                       <div>
                         <div class="size-h3 color-highlight">{{ $pm25 }} μg/m³</div>
                         <div class="size-h6">PM2.5</div>
                       </div>
-
                       <div>
                         <div class="size-h3 color-highlight">{{ $pressure }} hPa</div>
                         <div class="size-h6">PRESSURE</div>
                       </div>
-
                     </div>
-
-                    <div class="size-h6" style="margin-top: 10px;">Last Updated at {{ slice $updated 11 16 }}</div>
+                    <div class="size-h6" style="margin-top: 10px;">Last updated at {{ slice $updated 11 16 }}</div>
                   </div>
-
 
           - size: full
             widgets:
               - type: bookmarks
                 groups:
-                  - links:
+                  - title: Web
+                    links:
                       - title: Reddit
                         url: https://reddit.com
                         icon: https://cdn.simpleicons.org/reddit/FF4500
                         hide-arrow: true
-
                       - title: YouTube
                         url: https://youtube.com
                         icon: https://cdn.simpleicons.org/youtube/FF0000
                         hide-arrow: true
-
+                      - title: GitHub
+                        url: https://github.com
+                        icon: si:github
+                        hide-arrow: true
                       - title: Amazon
                         url: https://amazon.com
                         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/amazon.svg
                         hide-arrow: true
-
+                  - title: Media
+                    links:
                       - title: Jellyfin
-                        url: https://jellyfin.nexus-core.org
+                        url: https://jellyfin.nexus-core.dev
                         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/jellyfin.svg
                         hide-arrow: true
-                  - links:
-                      - title: Jellyfin
-                        url: https://jellyfin.nexus-core.org
-                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/jellyfin.svg
-                        hide-arrow: true
-
                       - title: Jellyseer
-                        url: https://jellyseer.nexus-core.org
+                        url: https://jellyseer.nexus-core.dev
                         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/jellyseerr.svg
                         hide-arrow: true
-
-                      - title: UniFi Network
+                      - title: Koel
+                        url: https://koel.nexus-core.dev
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/koel.svg
+                        hide-arrow: true
+                  - title: Infrastructure
+                    links:
+                      - title: UniFi
                         url: https://network.nexus-core.org
                         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ubiquiti-unifi.svg
                         hide-arrow: true
-
-                      - title: UniFi Drive
+                      - title: NAS
                         url: https://drive.nexus-core.org
-                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/mydrive.svg
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ugreen-nas.png
+                        hide-arrow: true
+                      - title: Proxmox
+                        url: https://proxmox1.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/proxmox.svg
+                        hide-arrow: true
+                      - title: Portainer
+                        url: https://portainer.nexus-core.org
+                        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/portainer.svg
                         hide-arrow: true
 
+              - type: group
+                title: Reddit
+                widgets:
+                  - type: reddit
+                    subreddit: selfhosted
+                    show-thumbnails: true
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: cybersecurity
+                    show-thumbnails: false
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: pcgaming
+                    show-thumbnails: true
+                    collapse-after: 5
 
           - size: small
             widgets:
+              - type: twitch-channels
+                channels:
+                  - cohhcarnage
+                  - quin69
+                  - moonmoon
+
               - type: custom-api
                 title: Astronomy Picture of the Day
                 cache: 1d
@@ -150,6 +174,7 @@ data:
                   {{- else -}}
                     <p class="color-negative" style="text-align:center;">No image available today.</p>
                   {{- end }}
+
               - type: custom-api
                 title: Daily Chess Puzzle
                 cache: 6h
@@ -163,8 +188,110 @@ data:
                     </h3>
                     <img src="{{ .JSON.String "image" }}" alt="Daily Chess Puzzle" style="max-width:100%; height:auto; border-radius: 3px;">
                   </div>
+
+      # ─── Page 2: Feed ────────────────────────────────────────────────
+      - name: Feed
+        columns:
+
+          - size: small
+            widgets:
+              - type: rss
+                title: Podcasts
+                limit: 12
+                collapse-after: 6
+                cache: 6h
+                feeds:
+                  - url: https://podcast.darknetdiaries.com/
+                    title: Darknet Diaries
+                  - url: https://risky.biz/rss.xml
+                    title: Risky Business
+                  - url: https://feeds.npr.org/510318/podcast.xml
+                    title: Up First NPR
+                  - url: https://www.theskepticsguide.org/podcasts/feed
+                    title: Skeptics Guide
+                  - url: https://www.thenakedscientists.com/naked_scientists_podcast.xml
+                    title: Naked Scientists
+                  - url: http://feeds.si.edu/SmithsonianSidedoor
+                    title: Smithsonian Sidedoor
+
+          - size: full
+            widgets:
+              - type: group
+                title: Reddit
+                widgets:
+                  - type: reddit
+                    subreddit: spaceporn
+                    show-thumbnails: true
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: selfhosted
+                    show-thumbnails: false
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: unixporn
+                    show-thumbnails: true
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: Ubiquiti
+                    show-thumbnails: false
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: cybersecurity
+                    show-thumbnails: false
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: gamingnews
+                    show-thumbnails: true
+                    collapse-after: 5
+                  - type: reddit
+                    subreddit: pcgaming
+                    show-thumbnails: true
+                    collapse-after: 5
+
+              - type: rss
+                title: Tech & Self-Hosted
+                limit: 12
+                collapse-after: 6
+                cache: 6h
+                feeds:
+                  - url: https://selfh.st/rss/
+                    title: selfh.st
+                  - url: https://techcrunch.com/feed/
+                    title: TechCrunch
+                  - url: https://reddit.com/r/selfhosted/top.rss?t=week
+                    title: r/selfhosted top of week
+
+              - type: rss
+                title: Research & Science
+                limit: 12
+                collapse-after: 6
+                cache: 12h
+                feeds:
+                  - url: https://arxiv.org/rss/cs.AI/recent
+                    title: arXiv — AI
+                  - url: http://feeds.nature.com/nature/rss/current
+                    title: Nature
+                  - url: https://www.bookbrowse.com/rss/book_news.rss
+                    title: BookBrowse
+                  - url: https://www.reddit.com/r/booksuggestions/.rss
+                    title: r/booksuggestions
+
+          - size: small
+            widgets:
+              - type: releases
+                title: App Releases
+                cache: 1d
+                token:
+                repositories:
+                  - immich-app/immich
+                  - paperless-ngx/paperless-ngx
+                  - glanceapp/glance
+                  - AdguardTeam/AdGuardHome
+                  - hashicorp/vault
+                  - coder/coder
+
               - type: custom-api
-                title: LeetCode Daily Question
+                title: LeetCode Daily
                 cache: 6h
                 url: https://leetcode.com/graphql
                 method: POST
@@ -191,283 +318,40 @@ data:
                 template: |
                   <div class="leetcode-card">
                     <style>
-                      .leetcode-card {
-                        max-width: 600px;
-                        margin: 8px auto;
-                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                        transition: transform 0.2s ease, box-shadow 0.2s ease;
-                      }
-                      .leetcode-card h1 {
-                        font-size: 24px;
-                        margin: 0 0 16px;
-                        line-height: 1.3;
-                      }
-                      .leetcode-card h1 a {
-                        color: #8CAAEE;
-                        text-decoration: none;
-                        transition: color 0.2s ease;
-                      }
-                      .leetcode-card h1 a:hover {
-                        color: #BAC8FF;
-                        text-decoration: underline;
-                      }
-                      .leetcode-card p {
-                        margin: 8px 0;
-                        color: #C6D0F5;
-                        font-size: 16px;
-                      }
-                      .leetcode-card .difficulty {
-                        font-weight: 600;
-                        color: #A5ADCE;
-                      }
-                      .leetcode-card .difficulty.Easy {
-                        color: #A6D189;
-                      }
-                      .leetcode-card .difficulty.Medium {
-                        color: #E5C890;
-                      }
-                      .leetcode-card .difficulty.Hard {
-                        color: #E78284;
-                      }
-                      .leetcode-card .topics {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 8px;
-                        margin: 12px 0;
-                      }
-                      .leetcode-card .topic-tag {
-                        background: #CA9EE6;
-                        color: #303446;
-                        padding: 4px 12px;
-                        border-radius: 16px;
-                        font-size: 14px;
-                        font-weight: 500;
-                        transition: transform 0.2s ease;
-                      }
-                      .leetcode-card .topic-tag:hover {
-                        transform: scale(1.05);
-                      }
-                      .leetcode-card .premium {
-                        color: #E78284;
-                        font-weight: 600;
-                        margin-top: 12px;
-                      }
-                      @media (max-width: 600px) {
-                        .leetcode-card {
-                          padding: 16px;
-                          margin: 8px;
-                        }
-                        .leetcode-card h1 {
-                          font-size: 20px;
-                        }
-                        .leetcode-card p {
-                          font-size: 14px;
-                        }
-                        .leetcode-card .topic-tag {
-                          font-size: 12px;
-                          padding: 3px 10px;
-                        }
-                      }
+                      .leetcode-card h1 { font-size: 20px; margin: 0 0 12px; line-height: 1.3; }
+                      .leetcode-card h1 a { color: #89b4fa; text-decoration: none; }
+                      .leetcode-card h1 a:hover { text-decoration: underline; }
+                      .leetcode-card p { margin: 6px 0; color: #cdd6f4; font-size: 14px; }
+                      .leetcode-card .Easy { color: #a6e3a1; font-weight: 600; }
+                      .leetcode-card .Medium { color: #f9e2af; font-weight: 600; }
+                      .leetcode-card .Hard { color: #f38ba8; font-weight: 600; }
+                      .leetcode-card .topics { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+                      .leetcode-card .tag { background: #313244; color: #cba6f7; padding: 3px 10px; border-radius: 12px; font-size: 12px; }
                     </style>
                     <h1>
                       <a href="https://leetcode.com{{ .JSON.String "data.activeDailyCodingChallengeQuestion.link" }}" target="_blank">
-                        {{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.questionId" }} - {{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.title" }}
+                        #{{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.questionId" }} — {{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.title" }}
                       </a>
                     </h1>
-                    <p class="difficulty {{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.difficulty" }}"><strong>Difficulty:</strong> {{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.difficulty" }}</p>
-                    <p><strong>Topics:</strong></p>
+                    <p class="{{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.difficulty" }}">
+                      {{ .JSON.String "data.activeDailyCodingChallengeQuestion.question.difficulty" }}
+                    </p>
                     <div class="topics">
-                      {{ if .JSON.Exists "data.activeDailyCodingChallengeQuestion.question.topicTags" }}
-                        {{ range .JSON.Array "data.activeDailyCodingChallengeQuestion.question.topicTags" }}
-                          <span class="topic-tag">{{ .String "name" }}</span>
-                        {{ end }}
-                      {{ else }}
-                        <span class="topic-tag">None</span>
+                      {{ range .JSON.Array "data.activeDailyCodingChallengeQuestion.question.topicTags" }}
+                        <span class="tag">{{ .String "name" }}</span>
                       {{ end }}
                     </div>
-                    {{ if .JSON.Bool "data.activeDailyCodingChallengeQuestion.question.paidOnly" }}
-                      <p class="premium">This is a Premium question</p>
-                    {{ end }}
                   </div>
 
-
-              - type: twitch-channels
-                channels:
-                  - cohhcarnage
-                  - quin69
-                  - moonmoon
-      - name: Feed
-        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
-        # hide-desktop-navigation: true
-        columns:
-          - size: small
-            widgets:
-              - type: rss
-                title: Up First NPR
-                limit: 2
-                collapse-after: 2
-                cache: 12h
-                feeds:
-                  - url: https://feeds.npr.org/510318/podcast.xml
-                    title: Up First NPR
-                    limit: 2
-              - type: rss
-                title: Risky Business
-                limit: 2
-                collapse-after: 2
-                cache: 12h
-                feeds:
-                  - url: https://risky.biz/rss.xml
-                    title: Risky Business
-                    limit: 3
-              - type: rss
-                title: The Skeptics Guide
-                limit: 2
-                collapse-after: 2
-                cache: 12h
-                feeds:
-                  - url: https://www.theskepticsguide.org/podcasts/feed
-                    title: The Skeptics Guide
-                    limit: 2
-              - type: rss
-                title: The Naked Scientists
-                limit: 2
-                collapse-after: 2
-                cache: 12h
-                feeds:
-                  - url: https://www.thenakedscientists.com/naked_scientists_podcast.xml
-                    title: The Naked Scientists
-                    limit: 2
-              - type: rss
-                title: Darknet Diaries
-                limit: 2
-                collapse-after: 2
-                cache: 12h
-                feeds:
-                  - url: https://podcast.darknetdiaries.com/
-                    title: Darknet Diaries
-                    limit: 2
-              - type: rss
-                title: Smithsonian Sidedoor
-                limit: 2
-                collapse-after: 2
-                cache: 12h
-                feeds:
-                  - url: http://feeds.si.edu/SmithsonianSidedoor
-                    title: Smithsonian Sidedoor
-                    limit: 2
-
-
-          - size: full
-            widgets:
-              - type: group
-                widgets:
-                  - subreddit: spaceporn
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - subreddit: selfhosted
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - subreddit: Ubiquiti
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - subreddit: unixporn
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - subreddit: cybersecurity
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - subreddit: gamingnews
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-                  - subreddit: pcgaming
-                    type: reddit
-                    show-thumbnails: true
-                    collapse-after: 6
-
-              - type: group
-                title: Tech & Self-Hosted
-                widgets:
-                  - type: rss
-                    title: Tech & Self-Hosted
-                    limit: 10
-                    collapse-after: 5
-                    cache: 12h
-                    feeds:
-                      - url: https://selfh.st/rss/
-                        title: selfh.st
-                        limit: 2
-                      - url: https://reddit.com/r/selfhosted/top.rss?t=week
-                        title: Self Hosted Reddit
-                        limit: 3
-
-              - type: group
-                title: Research
-                widgets:
-                  - type: rss
-                    title: Research
-                    limit: 10
-                    collapse-after: 5
-                    cache: 12h
-                    feeds:
-                      - url: https://arxiv.org/rss/cs.AI/recent
-                        title: Artificial Intelligence
-                        limit: 3
-                      - url: http://feeds.nature.com/nature/rss/current
-                        title: Nature
-                        limit: 3
-
-              - type: group
-                title: Books
-                widgets:
-                  - type: rss
-                    title: Books
-                    limit: 10
-                    collapse-after: 5
-                    cache: 12h
-                    feeds:
-                      - url: https://www.bookbrowse.com/rss/book_news.rss
-                        title: Book News Feed
-                        limit: 3
-                      - url: https://www.reddit.com/r/booksuggestions/.rss
-                        title: Reddit suggested books
-                        limit: 3
-          - size: small
-            widgets:
-              - type: rss
-                title: Techcrunch
-                limit: 10
-                collapse-after: 10
-                cache: 12h
-                feeds:
-                  - url: https://techcrunch.com/feed/
-                    title: techcrunch
-                    limit: 4
-              - type: releases
-                cache: 1d
-                token:
-                repositories:
-                  - immich-app/immich
-                  - paperless-ngx/paperless-ngx
-                  - glanceapp/glance
-                  - AdguardTeam/AdGuardHome
-                  - coder/coder
-                  - hashicorp/vault
+      # ─── Page 3: Entertainment ───────────────────────────────────────
       - name: Entertainment
-        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
-        # hide-desktop-navigation: true
         columns:
+
           - size: full
             widgets:
               - type: videos
                 style: grid-cards
-                collapse-after-rows: 3
+                collapse-after-rows: 4
                 channels:
                   - UCz9qw5nupdzCGwHwQiqs7qA # ImKibitz
                   - UCsBjURrPoezykLs9EqgamOA # Fireship
@@ -477,12 +361,3 @@ data:
                   - UCP5tjEmvPItGyLhmjdwP7Ww # Real Life Lore
                   - UCW6xlqxSY3gGur4PkGPEUeA # Seytonic
                   - UCZXW8E1__d5tZb-wLFOt8TQ # Bog
-      - name: Homepage
-        # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
-        # hide-desktop-navigation: true
-        columns:
-          - size: full
-            widgets:
-              - type: iframe
-                source: https://home.nexus-core.dev
-                height: 800
