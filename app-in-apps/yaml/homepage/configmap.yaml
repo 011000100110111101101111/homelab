@@ -12,12 +12,6 @@ data:
   settings.yaml: |
     title: Nexus
     headerStyle: clean
-    background:
-      image: https://images.unsplash.com/photo-1465101162946-4377e57745c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
-      blur: sm
-      saturate: 20
-      brightness: 20
-      opacity: 60
     theme: dark
     color: slate
     useEqualHeights: true
@@ -63,17 +57,37 @@ data:
         style: row
 
   custom.css: |
-    /* Subtle card borders */
-    .service-card, .information-widget-base {
-      border-color: rgba(148, 163, 184, 0.1) !important;
+    /* === Catppuccin Mocha === */
+
+    /* Page background */
+    body { background-color: #1e1e2e !important; }
+
+    /* Service cards */
+    .service-card {
+      background-color: #313244 !important;
+      border-color: #45475a !important;
     }
-    /* Uppercase spaced group headers */
+
+    /* Stat sub-cells */
+    .service-tag { background-color: #181825 !important; }
+    .service-tag p { color: #a6adc8 !important; }
+    .service-tag p:first-child { color: #cdd6f4 !important; font-weight: 500 !important; }
+
+    /* Top bar widgets */
+    .information-widget-base {
+      background-color: #313244 !important;
+      border-color: #45475a !important;
+      color: #cdd6f4 !important;
+    }
+
+    /* Group section headers */
     .service-group-header span, h2.service-group-header {
+      color: #b4befe !important;
       font-size: 0.65rem !important;
       letter-spacing: 0.12em !important;
       text-transform: uppercase !important;
       font-weight: 600 !important;
-      opacity: 0.5 !important;
+      opacity: 1 !important;
     }
   custom.js: ""
   bookmarks.yaml: |
